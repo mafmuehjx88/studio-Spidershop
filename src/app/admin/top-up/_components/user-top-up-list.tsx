@@ -62,19 +62,22 @@ export function UserTopUpList() {
   const [amounts, setAmounts] = useState<Record<string, string>>({});
 
   const usersQuery = useMemo(() => {
+    // Only create the query if the user is confirmed to be an admin.
     if (!firestore || !isAdmin) return null;
     return collection(firestore, 'users');
   }, [isAdmin, firestore]);
 
-  const { data: users, isLoading: areUsersLoading, error } = useCollection<UserProfile>(usersQuery as any);
+  // This hook will only run the query when `usersQuery` is not null.
+  const { data: users, isLoading: areUsersLoading, error } = useCollection<UserProfile>(usersQuery);
 
-  useEffect(() => {
-    // Wait until loading is COMPLETELY finished.
-    // Then, and ONLY then, check if the user is not an admin.
+   useEffect(() => {
+    // This effect is now the single source of truth for redirection.
+    // It only runs when the loading states or admin status change.
     if (!isUserLoading && !isAdminLoading && !isAdmin) {
       router.push('/');
     }
   }, [isUserLoading, isAdmin, isAdminLoading, router]);
+
 
   const handleAmountChange = (userId: string, value: string) => {
     // only allow numbers
@@ -122,13 +125,13 @@ export function UserTopUpList() {
     setAmounts(prev => ({...prev, [userId]: ''}));
   };
 
-  // Wait for auth and admin status to be resolved
+  // Wait for auth and admin status to be fully resolved.
   if (isUserLoading || isAdminLoading) {
     return <LoadingSkeleton />;
   }
 
-  // If not an admin, show an access denied message while redirecting.
-  // The useEffect hook will handle the actual redirection.
+  // After loading, if the user is not an admin, show a clear message.
+  // The useEffect hook will handle the redirect.
   if (!isAdmin) {
     return (
         <div className="text-center py-10">
@@ -138,6 +141,7 @@ export function UserTopUpList() {
     );
   }
   
+  // If the user is an admin, then we can check the state of the users collection query.
   if (areUsersLoading) {
     return <LoadingSkeleton />;
   }
