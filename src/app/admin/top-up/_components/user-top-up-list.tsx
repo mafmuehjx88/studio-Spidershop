@@ -69,10 +69,11 @@ export function UserTopUpList() {
   const { data: users, isLoading: areUsersLoading, error } = useCollection<UserProfile>(usersQuery as any);
 
   useEffect(() => {
-    if (!isAdminLoading && !isAdmin) {
+    // Wait until loading is done, then check if user is not an admin
+    if (!isUserLoading && !isAdminLoading && !isAdmin) {
       router.push('/');
     }
-  }, [isAdmin, isAdminLoading, router]);
+  }, [isUserLoading, isAdmin, isAdminLoading, router]);
 
   const handleAmountChange = (userId: string, value: string) => {
     // only allow numbers
