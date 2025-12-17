@@ -8,6 +8,7 @@ import {
   FirestoreError,
   QuerySnapshot,
   CollectionReference,
+  collectionGroup,
 } from 'firebase/firestore';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
@@ -112,4 +113,22 @@ export function useCollection<T = any>(
   }, [memoizedTargetRefOrQuery]); // Re-run if the target query/reference changes.
 
   return { data, isLoading, error };
+}
+
+/**
+ * React hook to subscribe to a Firestore collection group query in real-time.
+ *
+ * IMPORTANT! YOU MUST MEMOIZE the query for this hook to work correctly.
+ *
+ * @template T Optional type for document data. Defaults to any.
+ * @param {Query<DocumentData> | null | undefined} memoizedCollectionGroupQuery -
+ * The memoized Firestore collection group Query. Waits if null/undefined.
+ * @returns {UseCollectionResult<T>} Object with data, isLoading, error.
+ */
+export function useCollectionGroup<T = any>(
+  memoizedCollectionGroupQuery: Query<DocumentData> | null | undefined,
+): UseCollectionResult<T> {
+  // This hook can reuse the logic of useCollection as onSnapshot works identically
+  // for collection queries and collection group queries.
+  return useCollection<T>(memoizedCollectionGroupQuery);
 }

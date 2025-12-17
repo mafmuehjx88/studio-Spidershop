@@ -4,7 +4,8 @@ import {
   Users,
   MessageSquare,
   Settings,
-  X
+  X,
+  ClipboardList
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,7 @@ import { SheetClose } from "@/components/ui/sheet";
 
 const adminMenuItems = [
   { href: "/admin/users", label: "သုံးစွဲသူများ", icon: Users },
-  { href: "#", label: "Order comments", icon: MessageSquare },
+  { href: "/admin/orders", label: "အော်ဒါများ", icon: ClipboardList },
   { href: "#", label: "Admin settings", icon: Settings },
 ];
 
