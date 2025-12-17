@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { useCollection, useFirestore } from '@/firebase';
 import { collection, doc, query, orderBy } from 'firebase/firestore';
-import { updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { addDocumentNonBlocking, updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import type { UserProfile } from '@/hooks/use-user-profile';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Input } from '@/components/ui/input';
@@ -80,6 +80,16 @@ export function UserList() {
 
         if (type === 'top-up') {
             newBalance = currentBalance + amount;
+            
+            // Create notification for top-up
+            const notificationData = {
+              userId: user.id,
+              message: `မင်္ဂလာပါ ${user.username} သင်ဝယ်ယူထားသော ငွေဖြည့်ပမာဏ ${amount} အား ဖြည့်သွင်းပေးပြီးပါပြီ...`,
+              timestamp: new Date().toISOString(),
+              isRead: false,
+            };
+            addDocumentNonBlocking(collection(firestore, `users/${user.id}/notifications`), notificationData);
+
         } else {
             if (currentBalance < amount) {
                 toast({ variant: 'destructive', title: 'Deduction Failed', description: 'Insufficient balance.' });
