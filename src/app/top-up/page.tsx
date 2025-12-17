@@ -97,12 +97,7 @@ export default function TopUpPage() {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
 
     const handleCopy = (text: string) => {
-        navigator.clipboard.writeText(text).then(() => {
-            toast({
-                title: "Copied!",
-                description: "The text has been copied to your clipboard.",
-            });
-        }).catch(err => {
+        navigator.clipboard.writeText(text).catch(err => {
             console.error('Failed to copy text: ', err);
             toast({
                 variant: 'destructive',

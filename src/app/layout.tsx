@@ -3,7 +3,6 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Footer } from "@/components/layout/footer";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
-import { ToastProvider } from "@/components/ui/toast";
 
 export const metadata: Metadata = {
   title: "Spider Game Shop",
@@ -31,13 +30,11 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased flex flex-col min-h-screen">
         <FirebaseClientProvider>
-          <ToastProvider>
             <div className="flex-grow">
               {children}
             </div>
             <Footer />
             <Toaster />
-          </ToastProvider>
         </FirebaseClientProvider>
       </body>
     </html>
