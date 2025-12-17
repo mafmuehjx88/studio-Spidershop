@@ -5,6 +5,8 @@ import { type Product } from '@/lib/products';
 import { type TopUpCategory } from '@/lib/top-up-options';
 import { TopUpCard } from './top-up-card';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { Button } from '@/components/ui/button';
+import { ChevronDown } from 'lucide-react';
 
 interface ProductDetailClientProps {
   product: Product;
@@ -27,11 +29,18 @@ export function ProductDetailClient({ product, categories }: ProductDetailClient
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
       </section>
-      <section className="container mx-auto px-4 -mt-12 md:-mt-20 space-y-8 pb-8">
+      <section className="container mx-auto px-4 -mt-12 md:-mt-20 space-y-6 pb-8">
+        <div className='flex justify-center'>
+            <Button variant="outline" className="bg-white text-black hover:bg-gray-200">
+                မြန်မာကျပ် 🇲🇲
+                <ChevronDown className="w-4 h-4 ml-2"/>
+            </Button>
+        </div>
+        
         {categories.map((category, index) => (
           <div key={category.id}>
-            <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-primary-foreground">
-              <span className="flex items-center justify-center w-6 h-6 bg-green-500 text-white rounded-full text-sm">{index + 1}</span>
+            <h2 className="text-lg font-bold mb-4 flex items-center gap-2 text-primary-foreground">
+              <span className="flex items-center justify-center w-6 h-6 bg-green-500 text-white rounded-full text-sm font-bold">{index + 1}</span>
               {category.title}
             </h2>
             <div className="grid grid-cols-3 gap-3">
