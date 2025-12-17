@@ -4,19 +4,44 @@ import { useState } from "react";
 import type { TopUpCategory, TopUpOption } from "@/lib/top-up-options";
 import { TopUpCard } from "./top-up-card";
 import { PurchaseDialog } from "./purchase-dialog";
+import { useUser } from "@/firebase";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Card } from "@/components/ui/card";
 
 interface ProductDetailClientProps {
   categories: TopUpCategory[];
   productId: string;
 }
 
+const GuestPrompt = () => (
+    <Card className="bg-card border border-border p-4 mb-8 text-center space-y-4">
+        <p className="text-destructive font-semibold">အကောင့်ဝင်ပြီးမှသာ ဝယ်ယူနိုင်မှာဖြစ်ပါတယ်</p>
+        <div className="flex gap-4 justify-center">
+            <Button asChild className="bg-gray-600 hover:bg-gray-700 text-white w-full">
+                <Link href="/login">အကောင့်ဝင်ရန်</Link>
+            </Button>
+            <Button asChild className="bg-green-600 hover:bg-green-700 text-white w-full">
+                <Link href="/register">အကောင့်သစ်ဖွင့်ရန်</Link>
+            </Button>
+        </div>
+    </Card>
+);
+
 export function ProductDetailClient({ categories, productId }: ProductDetailClientProps) {
+  const { user } = useUser();
+  const router = useRouter();
   const [selectedOption, setSelectedOption] = useState<TopUpOption | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleCardClick = (option: TopUpOption) => {
-    setSelectedOption(option);
-    setIsDialogOpen(true);
+    if (!user) {
+        router.push("/register");
+    } else {
+        setSelectedOption(option);
+        setIsDialogOpen(true);
+    }
   };
 
   const handleDialogClose = () => {
@@ -26,6 +51,7 @@ export function ProductDetailClient({ categories, productId }: ProductDetailClie
 
   return (
     <>
+      {!user && <GuestPrompt />}
       <div className="space-y-10">
         {categories.map((category, index) => (
           <section key={category.id}>
