@@ -3,28 +3,24 @@
  * @description Firestore Security Rules for the application.
  *
  * ## Core Philosophy
- * This ruleset enforces a strict security model based on user ownership and clear segregation of public versus private data. The primary goal is to ensure that users can only access and manage their own information, while publicly accessible data (like products) is read-only for clients. All write operations are assumed to be performed by an administrative backend unless explicitly defined otherwise.
+ * This ruleset enforces a strict security model based on user ownership and clear segregation of public versus private data. The primary goal is to ensure that users can only access and manage their own information, while publicly accessible data (like products) is read-only for clients unless the user is an admin.
  *
  * ## Data Structure
- * The data is organized into three main top-level collections:
- * - `/products`: A public, read-only collection of all available products.
- * - `/featuredBanners`: A public, read-only collection of promotional banners.
+ * - `/products`: A public collection of all available products. Read-only for normal users, writable for admins.
+ * - `/featuredBanners`: A public collection of promotional banners. Read-only for normal users, writable for admins.
  * - `/users`: A collection where each user's private data is stored under a document matching their UID (`/users/{userId}`).
  *   - `/users/{userId}/notifications`: A subcollection containing notifications private to that specific user.
  *   - `/users/{userId}/orders`: A subcollection containing order history private to that specific user.
+ * - `/admins`: A collection storing the UIDs of admin users. This is used for role-based access control.
  *
  * ## Key Security Decisions
  * - **Default Deny:** Access is denied by default. All rules explicitly grant permissions.
  * - **User Data Privacy:** A user's profile, notifications, and orders are strictly private. Access is granted only to the authenticated user whose UID matches the document path.
- * - **No User Enumeration:** Listing documents in the top-level `/users` collection is disallowed to prevent scraping user information.
- * - **Public Data is Read-Only:** Collections like `/products` and `/featuredBanners` are readable by anyone but cannot be modified by clients. This assumes such content is managed by a trusted server environment or the Firebase Console.
- * - **Path-Based Security:** User-specific data is secured using the `{userId}` wildcard in the path, which is the most performant and secure method for enforcing ownership.
+ * - **Admin-Managed Public Data:** Collections like `/products` and `/featuredBanners` are readable by anyone but can only be modified by users designated as admins.
+ * - **Admin User Management:** Admins can list all users and update their balances. Regular users cannot list other users.
+ * - **Path-Based Security:** User-specific data is secured using the `{userId}` wildcard in the path.
+ * - **Role-Based Security:** Admin privileges are determined by checking for the user's UID in the `/admins` collection.
  *
- * ## Denormalization for Authorization
- * The current data model is simple and does not require complex authorization checks that would necessitate denormalization. For example, a user's notifications are located directly under their user path (`/users/{userId}/notifications`), so ownership can be determined from the path alone without needing `get()` calls to other documents.
- *
- * ## Structural Segregation
- * The ruleset leverages structural segregation effectively. Public, read-only data (`products`, `featuredBanners`) is kept in separate top-level collections from private, user-owned data (`users/{userId}` and its subcollections). This separation simplifies rules and makes queries more secure and efficient.
  */
 rules_version = '2';
 service cloud.firestore {
@@ -60,64 +56,91 @@ service cloud.firestore {
     /**
      * Returns true if the incoming data for a user document is valid.
      * - Balance can only be set to 0 on creation.
-     * - Balance cannot be updated directly by the client.
+     * - Balance cannot be updated directly by the client (unless admin).
      */
     function isValidUserCreate() {
       return request.resource.data.balance == 0;
     }
     
     function isValidUserUpdate() {
+      // Regular users cannot change their own balance.
       return request.resource.data.balance == resource.data.balance;
+    }
+
+    /**
+     * Returns true if the requesting user is an admin.
+     * Checks for the user's UID in the /admins collection.
+     */
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+    
+    /**
+     * Returns true if an admin is updating only the balance.
+     */
+    function isAdminUpdatingBalance() {
+      // Check if all other fields are unchanged.
+      let otherFieldsUnchanged = request.resource.data.keys().diff(resource.data.keys()).size() == 1 &&
+                                'balance' in request.resource.data.keys();
+      return isAdmin() && request.resource.data.id == resource.data.id && otherFieldsUnchanged;
     }
 
     // ----------------------------------------------------------------------
     // Collection Rules
     // ----------------------------------------------------------------------
+    
+    /**
+     * @description Manages admin user records. Publicly readable, admin-only writable.
+     * @path /admins/{userId}
+     * @allow (get, list) Anyone can check if a UID is in the admin list. This is safe because UIDs are not sensitive.
+     * @allow (write) Only existing admins can manage the list of other admins.
+     * @deny (any) Non-admins cannot modify this collection.
+     */
+    match /admins/{userId} {
+      allow get, list: if true;
+      allow write: if isAdmin();
+    }
 
     /**
-     * @description Manages product listings, which are public and read-only.
+     * @description Manages product listings. Publicly readable, but only admins can modify.
      * @path /products/{productId}
      * @allow (get, list) An anonymous or authenticated user can read product data.
-     * @deny (create, update, delete) Any client attempt to modify product data is blocked.
-     * @principle Public data should be read-only for clients to prevent unauthorized modification. Content is managed by a trusted admin backend.
+     * @allow (write) Only admins can modify product data.
+     * @principle Segregates public read access from privileged write access.
      */
     match /products/{productId} {
       allow get: if true;
       allow list: if true;
-      allow create: if false;
-      allow update: if false;
-      allow delete: if false;
+      allow write: if isAdmin();
     }
 
     /**
-     * @description Manages featured banners, which are public and read-only.
+     * @description Manages featured banners. Publicly readable, but only admins can modify.
      * @path /featuredBanners/{bannerId}
      * @allow (get, list) An anonymous or authenticated user can view banner data.
-     * @deny (create, update, delete) Any client attempt to modify banner data is blocked.
-     * @principle Public data should be read-only for clients to prevent unauthorized modification. Content is managed by a trusted admin backend.
+     * @allow (create, update, delete) Only admins can modify banner data.
+     * @principle Segregates public read access from privileged write access.
      */
     match /featuredBanners/{bannerId} {
       allow get: if true;
       allow list: if true;
-      allow create: if false;
-      allow update: if false;
-      allow delete: if false;
+      allow write: if isAdmin();
     }
 
     /**
      * @description Manages user profile documents.
      * @path /users/{userId}
-     * @allow (create) A new user can create their own profile document. `auth.uid` must match `{userId}`.
-     * @allow (get, update, delete) An authenticated user can read, update, or delete their own profile.
-     * @deny (list) No one can list all users to prevent user enumeration.
-     * @deny (get, update, delete) A user cannot access another user's profile.
-     * @principle Restricts access to a user's own data tree and prevents enumeration of user data.
+     * @allow (get) Owner can read their own profile.
+     * @allow (list) Admins can list all users. Regular users cannot.
+     * @allow (create) A new user can create their own profile.
+     * @allow (update) Owner can update their profile (but not balance). Admins can update any user's balance.
+     * @allow (delete) Owner can delete their own profile.
      */
     match /users/{userId} {
       allow get: if isOwner(userId);
-      allow list: if false;
+      allow list: if isAdmin();
       allow create: if isOwner(userId) && request.resource.data.id == userId && isValidUserCreate();
-      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+      allow update: if (isExistingOwner(userId) && isValidUserUpdate()) || isAdminUpdatingBalance();
       allow delete: if isExistingOwner(userId);
 
       /**
