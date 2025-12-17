@@ -3,7 +3,6 @@
 import {
   Users,
   MessageSquare,
-  Upload,
   Settings,
   X
 } from "lucide-react";
@@ -15,7 +14,6 @@ import { SheetClose } from "@/components/ui/sheet";
 const adminMenuItems = [
   { href: "#", label: "သုံးစွဲသူများ", icon: Users },
   { href: "#", label: "Order comments", icon: MessageSquare },
-  { href: "/admin/top-up", label: "Top up", icon: Upload },
   { href: "#", label: "Admin settings", icon: Settings },
 ];
 
