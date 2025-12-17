@@ -23,7 +23,7 @@ import { useAdminStatus } from "@/hooks/use-admin-status";
 const baseMenuItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/top-up", label: "ငွေသွင်းရန်", icon: CircleDollarSign },
-  { href: "#", label: "အသိပေးချက်များ", icon: Mail },
+  { href: "/notifications", label: "အသိပေးချက်များ", icon: Mail },
   { href: "/orders", label: "အော်ဒါများ", icon: ClipboardList },
   { href: "#", label: "ကံစမ်းရန်", icon: Gamepad2 },
   { href: "#", label: "Account", icon: User },
