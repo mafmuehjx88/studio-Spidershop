@@ -8,6 +8,7 @@ import {
   Home,
   LogIn,
   Mail,
+  Shield,
   User,
   UserPlus,
   Youtube,
@@ -17,8 +18,9 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/firebase/provider";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAdminStatus } from "@/hooks/use-admin-status";
 
-const menuItems = [
+const baseMenuItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "#", label: "ငွေသွင်းရန်", icon: CircleDollarSign },
   { href: "#", label: "အသိပေးချက်များ", icon: Mail },
@@ -98,25 +100,46 @@ const GuestSidebar = () => (
   </div>
 );
 
-const AuthenticatedSidebar = () => (
-    <div className="h-full flex flex-col bg-[#1a1a1a] text-white rounded-lg">
-      <nav className="flex-1 p-4">
-        <div className="grid grid-cols-2 gap-3">
-          {menuItems.map((item) => (
-            <Link href={item.href} key={item.label}>
-                <Button
-                  variant="outline"
-                  className="w-full h-auto py-3 bg-white text-black font-semibold text-sm justify-center gap-2 border-none hover:bg-gray-200"
-                >
-                  <item.icon className="h-5 w-5" />
-                  <span>{item.label}</span>
-                </Button>
-            </Link>
-          ))}
+const AuthenticatedSidebar = () => {
+    const { isAdmin, isAdminLoading } = useAdminStatus();
+
+    const menuItems = [...baseMenuItems];
+    if (isAdmin) {
+        menuItems.push({ href: "#", label: "Admin Panel", icon: Shield });
+    }
+
+    if (isAdminLoading) {
+      return (
+        <div className="h-full flex flex-col bg-[#1a1a1a] text-white rounded-lg p-4">
+            <div className="grid grid-cols-2 gap-3">
+                {[...Array(6)].map((_, i) => (
+                    <Skeleton key={i} className="h-12 w-full rounded-md bg-gray-700" />
+                ))}
+            </div>
         </div>
-      </nav>
-    </div>
-);
+      )
+    }
+
+    return (
+        <div className="h-full flex flex-col bg-[#1a1a1a] text-white rounded-lg">
+          <nav className="flex-1 p-4">
+            <div className="grid grid-cols-2 gap-3">
+              {menuItems.map((item) => (
+                <Link href={item.href} key={item.label}>
+                    <Button
+                      variant="outline"
+                      className="w-full h-auto py-3 bg-white text-black font-semibold text-sm justify-center gap-2 border-none hover:bg-gray-200"
+                    >
+                      <item.icon className="h-5 w-5" />
+                      <span>{item.label}</span>
+                    </Button>
+                </Link>
+              ))}
+            </div>
+          </nav>
+        </div>
+    );
+}
 
 const LoadingSidebar = () => (
     <div className="h-full flex flex-col bg-[#1a1a1a] text-white rounded-lg p-4 space-y-4">
