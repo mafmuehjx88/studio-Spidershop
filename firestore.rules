@@ -86,8 +86,7 @@ service cloud.firestore {
      * @deny (any) Non-admins cannot modify this collection.
      */
     match /admins/{userId} {
-      allow get: if true;
-      allow list: if true;
+      allow get, list: if true;
       allow write: if isAdmin();
     }
 
