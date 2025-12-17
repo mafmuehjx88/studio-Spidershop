@@ -43,56 +43,51 @@ export const topUpOptions: Record<string, TopUpCategory[]> = {
         {
           id: 'twilight-pass',
           name: 'Twilight Pass',
-          price: '30020 ကျပ်',
+          price: '33500 Ks',
           image: findImage('mlbb-twilight-pass'),
           inStockTag: 'မစောင့်ရပါ',
         },
         {
           id: 'weekly-pass',
           name: 'Weekly Pass',
-          price: '5680 ကျပ်',
+          price: '5850 Ks',
           image: findImage('mlbb-weekly-pass'),
           inStockTag: 'မစောင့်ရပါ',
-          discountTag: '445%',
         },
       ],
     },
     {
       id: '2x-diamonds',
       title: '2x Diamonds',
-      gridCols: 'grid-cols-3',
+      gridCols: 'grid-cols-4',
       options: [
         {
           id: '2x-50',
-          name: '50+50 အပိုရ',
-          price: '3012 ကျပ်',
+          name: '50 (2x50) 💎',
+          price: '3,350 Ks',
           image: findImage('mlbb-diamonds'),
           inStockTag: 'မစောင့်ရပါ',
-          rechargeTag: 'First Recharge'
         },
         {
           id: '2x-150',
-          name: '150+150 အပိုရ',
-          price: '8928 ကျပ်',
+          name: '150 (2x150) 💎',
+          price: '9,200 Ks',
           image: findImage('mlbb-diamonds'),
           inStockTag: 'မစောင့်ရပါ',
-          rechargeTag: 'First Recharge'
         },
         {
           id: '2x-250',
-          name: '250+250 အပိုရ',
-          price: '14519 ကျပ်',
+          name: '250 (2x250) 💎',
+          price: '15,500 Ks',
           image: findImage('mlbb-diamonds'),
           inStockTag: 'မစောင့်ရပါ',
-          rechargeTag: 'First Recharge'
         },
         {
             id: '2x-500',
-            name: '500+500 အပိုရ',
-            price: '29759 ကျပ်',
+            name: '500 (2x500) 💎',
+            price: '29,700 Ks',
             image: findImage('mlbb-diamonds-large'),
             inStockTag: 'မစောင့်ရပါ',
-            rechargeTag: 'First Recharge'
         }
       ],
     },
@@ -101,9 +96,20 @@ export const topUpOptions: Record<string, TopUpCategory[]> = {
         title: 'Other Diamonds',
         gridCols: 'grid-cols-3',
         options: [
-            { id: 'd-11', name: '11 Diamond', price: '825 ကျပ်', image: findImage('mlbb-diamond-small'), inStockTag: 'မစောင့်ရပါ' },
-            { id: 'd-22', name: '22 Diamond', price: '1549 ကျပ်', image: findImage('mlbb-diamond-small'), inStockTag: 'မစောင့်ရပါ' },
-            { id: 'd-33', name: '33 Diamond', price: '2309 ကျပ်', image: findImage('mlbb-diamond-small'), inStockTag: 'မစောင့်ရပါ' },
+            { id: 'd-11', name: '11 Diamond', price: '850 Ks', image: findImage('mlbb-diamond-small'), inStockTag: 'မစောင့်ရပါ' },
+            { id: 'd-22', name: '22 Diamond', price: '1800 Ks', image: findImage('mlbb-diamond-small'), inStockTag: 'မစောင့်ရပါ' },
+            { id: 'd-56', name: '56 Diamond', price: '4250 Ks', image: findImage('mlbb-diamond-small'), inStockTag: 'မစောင့်ရပါ' },
+            { id: 'd-86', name: '86 Diamond', price: '4800 Ks', image: findImage('mlbb-diamond-small'), inStockTag: 'မစောင့်ရပါ' },
+            { id: 'd-172', name: '172 Diamond', price: '9600 Ks', image: findImage('mlbb-diamonds'), inStockTag: 'မစောင့်ရပါ' },
+            { id: 'd-257', name: '257 Diamond', price: '14800 Ks', image: findImage('mlbb-diamonds'), inStockTag: 'မစောင့်ရပါ' },
+            { id: 'd-343', name: '343 Diamond', price: '19700 Ks', image: findImage('mlbb-diamonds'), inStockTag: 'မစောင့်ရပါ' },
+            { id: 'd-429', name: '429 Diamond', price: '24800 Ks', image: findImage('mlbb-diamonds-large'), inStockTag: 'မစောင့်ရပါ' },
+            { id: 'd-514', name: '514 Diamond', price: '30000 Ks', image: findImage('mlbb-diamonds-large'), inStockTag: 'မစောင့်ရပါ' },
+            { id: 'd-600', name: '600 Diamond', price: '34500 Ks', image: findImage('mlbb-diamonds-large'), inStockTag: 'မစောင့်ရပါ' },
+            { id: 'd-706', name: '706 Diamond', price: '39600 Ks', image: findImage('mlbb-diamonds-large'), inStockTag: 'မစောင့်ရပါ' },
+            { id: 'd-963', name: '963 Diamond', price: '54200 Ks', image: findImage('mlbb-diamonds-large'), inStockTag: 'မစောင့်ရပါ' },
+            { id: 'd-1049', name: '1049 Diamond', price: '59300 Ks', image: findImage('mlbb-diamonds-large'), inStockTag: 'မစောင့်ရပါ' },
+            { id: 'd-1135', name: '1135 Diamond', price: '64200 Ks', image: findImage('mlbb-diamonds-large'), inStockTag: 'မစောင့်ရပါ' },
         ]
     }
   ],
