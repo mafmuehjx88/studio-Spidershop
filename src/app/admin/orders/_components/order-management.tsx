@@ -57,7 +57,7 @@ export function OrderManagement() {
         return query(ordersCollection, where('status', '==', 'Pending'), orderBy('timestamp', 'desc'));
     }, [firestore, isAdmin, isAdminLoading]);
 
-    const { data: orders, isLoading, error } = useCollectionGroup<Order>(pendingOrdersQuery as any);
+    const { data: orders, isLoading, error } = useCollectionGroup<Order>(pendingOrdersQuery);
 
     const handleApprove = (order: Order) => {
         if (!order.userId || !order.id) {
