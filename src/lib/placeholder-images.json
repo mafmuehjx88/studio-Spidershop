@@ -2,9 +2,9 @@
   "placeholderImages": [
     {
       "id": "hero-banner",
-      "description": "Mobile legends character Ling in a dynamic pose with blue lightning effects.",
-      "imageUrl": "https://images.unsplash.com/photo-1533497374533-d860dceecf74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxibHVlJTIwbGlnaHRuaW5nJTIwY2hhcmFjdGVyfGVufDB8fHx8MTc2NTk0NTc0MXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "blue lightning character"
+      "description": "Spider Game Shop promotional banner featuring Mobile Legends characters",
+      "imageUrl": "https://i.ibb.co/RpQ1Xp9S/New-Project-104-49-BB0-C3.png",
+      "imageHint": "game characters"
     },
     {
       "id": "mlbb-generic",
@@ -17,30 +17,6 @@
       "description": "A soldier in a helmet from PUBG mobile.",
       "imageUrl": "https://i.ibb.co/Z6CZXMnF/01-JZ3-R6-VRJD6-KCH24-X7-X2-CCTBD-1.jpg",
       "imageHint": "soldier helmet"
-    },
-    {
-      "id": "mlbb-singapore",
-      "description": "A female archer character with the Singapore flag.",
-      "imageUrl": "https://images.unsplash.com/photo-1636075204447-ed932101c622?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxmZW1hbGUlMjBhcmNoZXJ8ZW58MHx8fHwxNzY1OTQ1NzQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "female archer"
-    },
-    {
-      "id": "mlbb-philippines",
-      "description": "A female archer character with the Philippines flag.",
-      "imageUrl": "https://images.unsplash.com/photo-1686747467799-21721b8b66e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmZW1hbGUlMjBhcmNoZXJ8ZW58MHx8fHwxNzY1OTQ1NzQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "female archer"
-    },
-    {
-      "id": "mlbb-indonesia",
-      "description": "A female archer character with the Indonesia flag.",
-      "imageUrl": "https://images.unsplash.com/photo-1620169429023-08b7be5ab956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxmZW1hbGUlMjBhcmNoZXJ8ZW58MHx8fHwxNzY1OTQ1NzQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "female archer"
-    },
-    {
-      "id": "mlbb-malaysia",
-      "description": "A female archer character with the Malaysia flag.",
-      "imageUrl": "https://images.unsplash.com/photo-1654714685970-06386068b3f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmZW1hbGUlMjBhcmNoZXJ8ZW58MHx8fHwxNzY1OTQ1NzQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "female archer"
     },
     {
       "id": "logo",
