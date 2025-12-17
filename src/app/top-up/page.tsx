@@ -5,7 +5,7 @@ import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Copy } from 'lucide-react';
+import { ArrowLeft, Copy, UploadCloud } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -136,6 +136,20 @@ export default function TopUpPage() {
                 {notes.map(note => (
                     <NoteCard key={note.id} note={note} onCopy={handleCopy} />
                 ))}
+              </div>
+
+              <div className="space-y-4 pt-4">
+                <h3 className="font-semibold text-primary">Payment Screenshot ( ငွေလွှဲ Id ပါထည့်ပါ )</h3>
+                <label htmlFor="screenshot" className="flex flex-col items-center justify-center w-full h-32 border-2 border-green-500 border-dashed rounded-lg cursor-pointer bg-green-500/10 hover:bg-green-500/20">
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                        <UploadCloud className="w-8 h-8 mb-2 text-green-400" />
+                        <p className="mb-2 text-sm text-green-400">ငွေလွှဲပုံထည့်ရန်နှိပ်ပါ</p>
+                    </div>
+                    <input id="screenshot" type="file" className="hidden" />
+                </label>
+                <Button className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-bold text-lg">
+                    ဝယ်ယူမည်
+                </Button>
               </div>
           </div>
         </div>
