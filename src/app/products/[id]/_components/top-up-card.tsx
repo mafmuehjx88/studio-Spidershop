@@ -20,7 +20,7 @@ export function TopUpCard({ option }: TopUpCardProps) {
           {option.promoTag}
         </Badge>
       )}
-      <div className="flex-grow pt-8">
+      <div className="flex-grow pt-4">
         <Image
           src={option.image.imageUrl}
           alt={option.image.description}
@@ -30,8 +30,8 @@ export function TopUpCard({ option }: TopUpCardProps) {
           data-ai-hint={option.image.imageHint}
         />
       </div>
-      <div className="flex flex-col justify-center">
-        <p className="text-sm font-semibold whitespace-nowrap">{option.name}</p>
+      <div className="flex flex-col justify-center h-14">
+        <p className="text-sm font-semibold">{option.name}</p>
         <p className="text-xs text-muted-foreground">{option.price} ကျပ်</p>
       </div>
     </div>
