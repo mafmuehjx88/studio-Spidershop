@@ -1,3 +1,4 @@
+
 import { products } from "@/lib/products";
 import { ProductCard } from "@/components/home/product-card";
 import { Marquee } from "@/components/ui/marquee";
@@ -7,7 +8,7 @@ export function ProductGrid() {
     <div className="bg-background">
       <section className="container mx-auto px-4 py-8 md:px-6 md:py-12">
         <div className="mb-8 overflow-hidden whitespace-nowrap">
-           <Marquee>
+           <Marquee className="text-green-400">
               အသုံးပြုကြတဲ့ Users အားလုံး စိတ်ကျေနပ်မှုအပြည့်အဝရရှိစေရန်
            </Marquee>
         </div>
