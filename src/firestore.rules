@@ -167,7 +167,7 @@ service cloud.firestore {
         allow get: if isOwner(userId);
         allow list: if isOwner(userId);
         allow create: if isOwner(userId) && request.resource.data.userId == userId;
-        allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+        allow update: if (isExistingOwner(userId) && request.resource.data.userId == resource.data.userId) || isAdmin();
         allow delete: if isExistingOwner(userId);
       }
       
@@ -179,7 +179,7 @@ service cloud.firestore {
        * @principle Enforces document ownership for reads and admin-only for writes.
        */
       match /topUpTransactions/{transactionId} {
-        allow get, list: if isOwner(userId);
+        allow get, list: if request.auth.uid == userId;
         allow write: if isAdmin();
       }
     }
