@@ -12,7 +12,7 @@ import Image from "next/image";
 import { SheetClose } from "@/components/ui/sheet";
 
 const adminMenuItems = [
-  { href: "#", label: "သုံးစွဲသူများ", icon: Users },
+  { href: "/admin/users", label: "သုံးစွဲသူများ", icon: Users },
   { href: "#", label: "Order comments", icon: MessageSquare },
   { href: "#", label: "Admin settings", icon: Settings },
 ];
