@@ -30,7 +30,7 @@ export function ProductDetailClient({ product, categories }: ProductDetailClient
       <section className="container mx-auto px-4 -mt-12 md:-mt-20 space-y-8 pb-8">
         {categories.map((category, index) => (
           <div key={category.id}>
-            <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+            <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-primary-foreground">
               <span className="flex items-center justify-center w-6 h-6 bg-green-500 text-white rounded-full text-sm">{index + 1}</span>
               {category.title}
             </h2>
