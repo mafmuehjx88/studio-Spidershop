@@ -27,14 +27,14 @@ const findImage = (id: string): ImagePlaceholder => {
 export const products: Product[] = [
   {
     id: 'prod_1',
-    name: 'MLBB',
+    name: 'Mobile Legends',
     description: 'Mobile Legends Bang Bang',
     price: '',
     image: findImage('mlbb-generic'),
   },
   {
     id: 'prod_2',
-    name: 'PUBG',
+    name: 'PUBG Mobile',
     description: 'PUBG Mobile',
     price: '',
     image: findImage('pubg-mobile'),
