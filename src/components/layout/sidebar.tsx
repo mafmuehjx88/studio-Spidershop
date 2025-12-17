@@ -4,14 +4,18 @@ import {
   ClipboardList,
   Gamepad2,
   Home,
+  LogIn,
   Mail,
   User,
-  X,
+  UserPlus,
+  Youtube,
+  FileText,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { SheetClose } from "@/components/ui/sheet";
+import { useUser } from "@/firebase/provider";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const menuItems = [
   { href: "/", label: "Home", icon: Home },
@@ -22,24 +26,79 @@ const menuItems = [
   { href: "#", label: "Account", icon: User },
 ];
 
-export function Sidebar() {
-  return (
-    <div className="h-full flex flex-col bg-[#1a1a1a] text-white rounded-lg">
-      <div className="flex flex-col items-center p-4 space-y-2">
-        <div className="relative">
-          <div className="bg-white p-1 rounded-lg">
-            <Image
-              src="/logo.png"
-              alt="Zenith Harrai Logo"
-              width={48}
-              height={48}
-              className="h-12 w-12"
-            />
-          </div>
+const GuestSidebar = () => (
+  <div className="h-full flex flex-col bg-[#1a1a1a] text-white rounded-lg">
+    <div className="flex flex-col items-center p-4 space-y-2">
+      <div className="relative">
+        <div className="bg-white p-1 rounded-lg">
+          <Image
+            src="/logo.png"
+            alt="Zenith Harrai Logo"
+            width={48}
+            height={48}
+            className="h-12 w-12"
+          />
         </div>
-        <h3 className="text-lg font-bold">Zenith Harrai</h3>
+      </div>
+      <h3 className="text-lg font-bold">Zenith Harrai</h3>
+    </div>
+
+    <nav className="flex-1 p-4 space-y-4">
+      <div className="grid grid-cols-2 gap-3">
+        <Link href="#">
+          <Button
+            variant="outline"
+            className="w-full h-auto py-3 bg-white text-black font-semibold text-sm justify-center gap-2 border-none hover:bg-gray-200"
+          >
+            <UserPlus className="h-5 w-5" />
+            <span>Register Account</span>
+          </Button>
+        </Link>
+        <Link href="#">
+          <Button
+            variant="outline"
+            className="w-full h-auto py-3 bg-white text-black font-semibold text-sm justify-center gap-2 border-none hover:bg-gray-200"
+          >
+            <LogIn className="h-5 w-5" />
+            <span>Login Account</span>
+          </Button>
+        </Link>
       </div>
 
+      <div className="text-center text-sm text-gray-400 mt-4">
+        <p>သင် App အသုံးပြုနည်းကို အရင်ဆုံး ကြည့်ပေးပါဗျ..</p>
+      </div>
+
+      <div className="space-y-3">
+        <Link href="#" className="block">
+          <div className="bg-gray-800/50 p-3 rounded-lg flex items-center gap-4">
+             <div className="bg-white/10 p-2 rounded-md">
+                <FileText className="h-6 w-6 text-yellow-400" />
+             </div>
+             <div>
+                <p className="font-bold text-white">Users</p>
+                <p className="text-xs text-gray-300">ဖတ်ထားသင့်သော App စည်းမျဉ်းများ</p>
+             </div>
+          </div>
+        </Link>
+        <Link href="#" className="block">
+          <div className="bg-gray-800/50 p-3 rounded-lg flex items-center gap-4">
+            <div className="bg-white/10 p-2 rounded-md">
+              <Youtube className="h-6 w-6 text-red-500" />
+            </div>
+            <div>
+              <p className="font-bold text-white">App အသုံးပြုနည်း</p>
+              <p className="text-xs text-gray-300">အသုံးပြုနည်း Video များ</p>
+            </div>
+          </div>
+        </Link>
+      </div>
+    </nav>
+  </div>
+);
+
+const AuthenticatedSidebar = () => (
+    <div className="h-full flex flex-col bg-[#1a1a1a] text-white rounded-lg">
       <nav className="flex-1 p-4">
         <div className="grid grid-cols-2 gap-3">
           {menuItems.map((item) => (
@@ -56,5 +115,32 @@ export function Sidebar() {
         </div>
       </nav>
     </div>
-  );
+);
+
+const LoadingSidebar = () => (
+    <div className="h-full flex flex-col bg-[#1a1a1a] text-white rounded-lg p-4 space-y-4">
+        <div className="flex flex-col items-center space-y-2">
+            <Skeleton className="h-14 w-14 rounded-lg bg-gray-700" />
+            <Skeleton className="h-6 w-32 rounded-md bg-gray-700" />
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+            <Skeleton className="h-12 w-full rounded-md bg-gray-700" />
+            <Skeleton className="h-12 w-full rounded-md bg-gray-700" />
+        </div>
+         <div className="space-y-3 pt-4">
+            <Skeleton className="h-16 w-full rounded-lg bg-gray-700" />
+            <Skeleton className="h-16 w-full rounded-lg bg-gray-700" />
+        </div>
+    </div>
+);
+
+
+export function Sidebar() {
+  const { user, isUserLoading } = useUser();
+
+  if (isUserLoading) {
+    return <LoadingSidebar />;
+  }
+
+  return user ? <AuthenticatedSidebar /> : <GuestSidebar />;
 }

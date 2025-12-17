@@ -13,9 +13,9 @@ export function ProductGrid() {
            </Marquee>
         </div>
         <h2 className="mb-8 text-center font-headline text-3xl font-bold uppercase tracking-wider text-primary">
-          Our Products
+          ဝယ်ယူနိုင်သော Products
         </h2>
-        <div className="grid grid-cols-3 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-x-6 md:gap-y-10">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-x-6 md:gap-y-10">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
