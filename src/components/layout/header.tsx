@@ -6,35 +6,30 @@ import { Button } from "@/components/ui/button";
 export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-sm">
-      <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-2">
           <Button
             variant="outline"
             size="icon"
-            className="h-12 w-12 rounded-lg bg-card text-foreground"
+            className="h-10 w-10 rounded-lg bg-card text-foreground"
           >
-            <Menu className="h-6 w-6" />
+            <Menu className="h-5 w-5" />
           </Button>
           <Button
             variant="outline"
             size="icon"
-            className="h-12 w-12 rounded-lg bg-card text-foreground"
+            className="h-10 w-10 rounded-lg bg-card text-foreground"
           >
-            <Bell className="h-6 w-6" />
+            <Bell className="h-5 w-5" />
           </Button>
         </div>
-        <Link className="flex items-center gap-2" href="/">
-          <span className="font-headline text-2xl font-bold uppercase tracking-wider text-primary-foreground">
-            Zenith Harrai
-          </span>
-        </Link>
         <Link href="/" className="flex items-center rounded-lg bg-card p-1">
            <Image
             src="/logo.png"
             alt="Zenith Harrai Logo"
-            width={40}
-            height={40}
-            className="h-10 w-auto"
+            width={36}
+            height={36}
+            className="h-9 w-auto"
           />
         </Link>
       </div>
