@@ -36,10 +36,9 @@ export function Header() {
             </SheetContent>
           </Sheet>
           {user && isAdmin && (
-            <Button asChild size="sm" className="h-10 bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
+            <Button asChild size="icon" className="h-10 w-10 bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
               <Link href="#">
-                <Shield className="h-4 w-4 mr-2" />
-                Admin
+                <Shield className="h-5 w-5" />
               </Link>
             </Button>
           )}
