@@ -14,6 +14,7 @@ import { Sidebar } from "./sidebar";
 import { useUserProfile } from "@/hooks/use-user-profile";
 import { useAdminStatus } from "@/hooks/use-admin-status";
 import { useUser } from "@/firebase";
+import { AdminSidebar } from "./admin-sidebar";
 
 function ClientOnly({ children }: { children: React.ReactNode }) {
   const [hasMounted, setHasMounted] = useState(false);
@@ -57,17 +58,24 @@ export function Header() {
                 <Sidebar />
               </SheetContent>
             </Sheet>
+            
             {user && isAdmin && (
-              <Button
-                asChild
-                size="icon"
-                className="h-10 w-10 bg-yellow-500 hover:bg-yellow-600 text-black font-bold"
-              >
-                <Link href="#">
-                  <Shield className="h-5 w-5" />
-                </Link>
-              </Button>
+              <Sheet>
+                <SheetTrigger asChild>
+                   <Button
+                    size="icon"
+                    className="h-10 w-10 bg-yellow-500 hover:bg-yellow-600 text-black font-bold"
+                  >
+                    <Shield className="h-5 w-5" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="p-0 w-80 bg-transparent border-0">
+                   <SheetTitle className="sr-only">Admin Menu</SheetTitle>
+                   <AdminSidebar />
+                </SheetContent>
+              </Sheet>
             )}
+
           </div>
           <div className="absolute left-1/2 -translate-x-1/2">
             <h1 className="text-lg font-bold text-primary-foreground">
