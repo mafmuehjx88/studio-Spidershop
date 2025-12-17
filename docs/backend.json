@@ -133,6 +133,11 @@
           "type": "string",
           "description": "Email address of the user.",
           "format": "email"
+        },
+        "balance": {
+          "type": "number",
+          "description": "The user's current wallet balance.",
+          "default": 0
         }
       },
       "required": [
@@ -205,6 +210,19 @@
         "status",
         "timestamp"
       ]
+    },
+    "Admin": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Admin",
+      "type": "object",
+      "description": "Represents an admin user's UID.",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The UID of the user with admin privileges."
+        }
+      },
+      "required": ["uid"]
     }
   },
   "auth": {
@@ -222,7 +240,7 @@
           "schema": {
             "$ref": "#/backend/entities/Product"
           },
-          "description": "Stores product information.  Globally readable."
+          "description": "Stores product information.  Globally readable, admin writable."
         }
       },
       {
@@ -232,7 +250,7 @@
           "schema": {
             "$ref": "#/backend/entities/FeaturedBanner"
           },
-          "description": "Stores featured banner information. Globally readable."
+          "description": "Stores featured banner information. Globally readable, admin writable."
         }
       },
       {
@@ -290,8 +308,26 @@
             }
           ]
         }
+      },
+      {
+        "path": "admins/{userId}",
+        "definition": {
+          "entityName": "Admin",
+          "schema": {
+            "$ref": "#/backend/entities/Admin"
+          },
+          "description": "Stores UIDs of admin users. Only admins can read/write this collection.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The UID of the user."
+            }
+          ]
+        }
       }
     ],
-    "reasoning": "The Firestore structure is designed to prioritize authorization independence, clarity, and scalability. It leverages denormalization to avoid hierarchical authorization dependencies and structural segregation to ensure a homogeneous security posture within each collection. Path-based ownership is used for user-specific data, while a membership map is employed for collaborative data. Global roles are managed via existence checks in dedicated collections. This design enables robust security rules and efficient data retrieval.\n\nSpecifically, the `users/{userId}/notifications` and `users/{userId}/orders` paths utilize path-based ownership, making security rules straightforward. The `products` and `featuredBanners` collections are globally readable, simplifying data access for the application. No denormalization is required as authorization checks do not require `get()` calls.\n\nThis structure supports secure `list` operations (QAPs) by segregating data with different access requirements into separate collections. The `products` and `featuredBanners` collections are globally readable, allowing anyone to list the documents in these collections. The `notifications` and `orders` collections are restricted to the user, so only the user can list their own documents."
+    "reasoning": "The Firestore structure is designed to prioritize authorization independence, clarity, and scalability. It leverages denormalization to avoid hierarchical authorization dependencies and structural segregation to ensure a homogeneous security posture within each collection. Path-based ownership is used for user-specific data, while a membership map is employed for collaborative data. Global roles are managed via existence checks in dedicated collections. This design enables robust security rules and efficient data retrieval.\n\nSpecifically, the `users/{userId}/notifications` and `users/{userId}/orders` paths utilize path-based ownership, making security rules straightforward. The `products` and `featuredBanners` collections are globally readable, simplifying data access for the application. The `admins` collection is used to store admin UIDs for role-based access control, allowing admins to manage public content. No denormalization is required as authorization checks do not require `get()` calls.\n\nThis structure supports secure `list` operations (QAPs) by segregating data with different access requirements into separate collections. The `products` and `featuredBanners` collections are globally readable, allowing anyone to list the documents in these collections. The `notifications` and `orders` collections are restricted to the user, so only the user can list their own documents."
   }
 }
+
+    
