@@ -103,21 +103,23 @@ const GuestSidebar = () => (
 const AuthenticatedSidebar = () => {
     const { isAdmin, isAdminLoading } = useAdminStatus();
 
-    const menuItems = [...baseMenuItems];
-    if (isAdmin) {
-        menuItems.push({ href: "#", label: "Admin Panel", icon: Shield });
-    }
-
+    // Show a loading skeleton while we determine if the user is an admin.
     if (isAdminLoading) {
       return (
         <div className="h-full flex flex-col bg-[#1a1a1a] text-white rounded-lg p-4">
             <div className="grid grid-cols-2 gap-3">
-                {[...Array(6)].map((_, i) => (
+                {[...Array(8)].map((_, i) => (
                     <Skeleton key={i} className="h-12 w-full rounded-md bg-gray-700" />
                 ))}
             </div>
         </div>
       )
+    }
+    
+    // Determine the menu items *after* we have finished loading the admin status.
+    const menuItems = [...baseMenuItems];
+    if (isAdmin) {
+        menuItems.push({ href: "#", label: "Admin Panel", icon: Shield });
     }
 
     return (
