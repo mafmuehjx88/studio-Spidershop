@@ -1,9 +1,10 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useCollection, useUser } from '@/firebase';
-import { collection, query, orderBy } from 'firebase/firestore';
+import { collection, query, orderBy, doc } from 'firebase/firestore';
 import { useFirestore } from '@/firebase/provider';
+import { updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import {
   Table,
   TableBody,
@@ -26,6 +27,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 type Order = {
   id: string;
+  userId: string;
   productName: string;
   optionName: string;
   price: string;
@@ -99,6 +101,31 @@ export function OrderList() {
   const { data: orders, isLoading, error } = useCollection<Order>(
     ordersQuery as any
   );
+
+  useEffect(() => {
+    const checkPendingOrders = () => {
+        if (!orders || !user) return;
+
+        const now = new Date().getTime();
+        const FIFTEEN_MINUTES_IN_MS = 15 * 60 * 1000;
+
+        orders.forEach(order => {
+            if (order.status === 'Pending') {
+                const orderTime = new Date(order.timestamp).getTime();
+                if (now - orderTime > FIFTEEN_MINUTES_IN_MS) {
+                    const orderDocRef = doc(firestore, `users/${user.uid}/orders`, order.id);
+                    updateDocumentNonBlocking(orderDocRef, { status: 'Completed' });
+                }
+            }
+        });
+    };
+
+    // Run once on load and then every 30 seconds
+    checkPendingOrders();
+    const intervalId = setInterval(checkPendingOrders, 30000); // 30 seconds
+
+    return () => clearInterval(intervalId);
+  }, [orders, user, firestore]);
   
   const paginatedOrders = useMemo(() => {
     if (!orders) return [];
