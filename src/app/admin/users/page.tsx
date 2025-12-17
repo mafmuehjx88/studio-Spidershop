@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useAdminStatus } from '@/hooks/use-admin-status';
 import { useUser } from '@/firebase';
 import { UserList } from './_components/user-list';
@@ -9,11 +8,24 @@ import { Header } from '@/components/layout/header';
 
 const LoadingSkeleton = () => (
     <div className="p-4 md:p-6 space-y-4">
-        <Skeleton className="h-8 w-1/4" />
-        <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
-            <div className="p-4">
-                <Skeleton className="h-96 w-full" />
-            </div>
+        <Skeleton className="h-8 w-1/2" />
+        <Skeleton className="h-6 w-3/4" />
+        <Skeleton className="h-10 w-full rounded-md" />
+        <div className="space-y-4 pt-4">
+            {[...Array(3)].map((_, i) => (
+                <div key={i} className="p-4 border rounded-lg space-y-4">
+                    <div className="flex justify-between items-center">
+                        <Skeleton className="h-5 w-24" />
+                        <Skeleton className="h-5 w-20" />
+                    </div>
+                     <Skeleton className="h-4 w-40" />
+                    <div className="grid grid-cols-3 gap-2">
+                        <Skeleton className="h-10 w-full" />
+                        <Skeleton className="h-10 w-full" />
+                        <Skeleton className="h-10 w-full" />
+                    </div>
+                </div>
+            ))}
         </div>
     </div>
 );
@@ -22,9 +34,7 @@ const LoadingSkeleton = () => (
 export default function AdminUsersPage() {
   const { isUserLoading } = useUser();
   const { isAdmin, isAdminLoading } = useAdminStatus();
-  const router = useRouter();
 
-  // This is now the single source of truth for rendering logic.
   const isLoading = isUserLoading || isAdminLoading;
 
   return (
@@ -38,7 +48,8 @@ export default function AdminUsersPage() {
           {/* STATE 2: NOT LOADING AND IS ADMIN */}
           {!isLoading && isAdmin && (
             <>
-              <h1 className="text-2xl font-bold mb-6 text-primary">သုံးစွဲသူများ စာရင်း</h1>
+              <h1 className="text-2xl font-bold text-primary">Manual Wallet Adjustment</h1>
+              <p className="text-muted-foreground mb-6">Find users to add or deduct funds from their wallets.</p>
               <UserList />
             </>
           )}
