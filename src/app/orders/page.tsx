@@ -8,7 +8,7 @@ export default function OrdersPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow pt-16 bg-background text-foreground sparkle-bg">
+      <main className="flex-grow pt-16 bg-background text-foreground">
         <div className="container mx-auto px-4 py-8 md:px-6">
           <div className="mb-4">
              <Button asChild variant="ghost" className="bg-gray-700/50 hover:bg-gray-600/50">

@@ -6,9 +6,8 @@ import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, CheckCircle2, Copy, UploadCloud } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, UploadCloud } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { PaymentCard } from './_components/payment-card';
 import { NoteCard } from './_components/note-card';
 
@@ -41,7 +40,7 @@ const notes = [
 ]
 
 
-export default function TopUpPage() {
+const TopUpPage = () => {
     const { toast } = useToast();
     const router = useRouter();
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -99,7 +98,7 @@ export default function TopUpPage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow pt-16 bg-background text-foreground sparkle-bg">
+      <main className="flex-grow pt-16 bg-background text-foreground">
         <div className="container mx-auto px-4 py-8 md:px-6">
           <div className="mb-6">
             <Button asChild variant="ghost" className="bg-gray-700/50 hover:bg-gray-600/50">
@@ -154,3 +153,5 @@ export default function TopUpPage() {
     </div>
   );
 }
+
+export default TopUpPage;
