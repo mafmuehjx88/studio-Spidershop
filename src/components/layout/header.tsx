@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Menu, Shield, Wallet } from "lucide-react";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -79,7 +78,7 @@ export function Header() {
           </div>
           <div className="absolute left-1/2 -translate-x-1/2">
             <h1 className="text-lg font-bold text-primary-foreground">
-              Zenith Harrai
+              Spider Game Shop
             </h1>
           </div>
           <div className="flex items-center gap-2">

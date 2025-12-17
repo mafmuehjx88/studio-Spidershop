@@ -5,7 +5,7 @@ import { Footer } from "@/components/layout/footer";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
 
 export const metadata: Metadata = {
-  title: "Zenith Harrai",
+  title: "Spider Game Shop",
   description: "Top up your in-game currency and diamonds.",
 };
 

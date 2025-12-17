@@ -36,14 +36,14 @@ const GuestSidebar = () => (
         <div className="bg-white p-1 rounded-lg">
           <Image
             src="/logo.png"
-            alt="Zenith Harrai Logo"
+            alt="Spider Game Shop Logo"
             width={48}
             height={48}
             className="h-12 w-12"
           />
         </div>
       </div>
-      <h3 className="text-lg font-bold">Zenith Harrai</h3>
+      <h3 className="text-lg font-bold">Spider Game Shop</h3>
     </div>
 
     <nav className="flex-1 p-4 space-y-4">

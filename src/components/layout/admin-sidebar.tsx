@@ -21,19 +21,19 @@ const adminMenuItems = [
 
 export function AdminSidebar() {
   return (
-    <div className="h-full flex flex-col bg-[#0095FF] text-white rounded-r-lg shadow-lg">
+    <div className="h-full flex flex-col bg-background text-white rounded-r-lg shadow-lg">
       <div className="flex items-center justify-between p-4 border-b border-white/20">
         <div className="flex items-center gap-3">
             <div className="bg-white p-1 rounded-md">
                  <Image
                     src="/logo.png"
-                    alt="SO GAME SHOP Logo"
+                    alt="Spider Game Shop Logo"
                     width={40}
                     height={40}
                     className="h-10 w-10"
                 />
             </div>
-          <h3 className="text-lg font-bold">SO GAME SHOP</h3>
+          <h3 className="text-lg font-bold">Spider Game Shop</h3>
         </div>
          <SheetClose asChild>
           <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-white/20">
