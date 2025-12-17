@@ -91,12 +91,29 @@ const NoteCard = ({ note, onCopy }: { note: any; onCopy: (text: string) => void;
 
 export default function TopUpPage() {
     const { toast } = useToast();
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const handleCopy = (text: string) => {
         navigator.clipboard.writeText(text);
         toast({
             title: "Copied!",
             description: "The text has been copied to your clipboard.",
+        });
+    }
+    
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files[0]) {
+            setSelectedFile(event.target.files[0]);
+        }
+    }
+
+    const handleSubmit = () => {
+        // TODO: Implement the logic to upload the screenshot and create a top-up request.
+        // For now, we'll just show a toast message.
+        toast({
+            title: "Coming Soon!",
+            description: "Functionality is not yet implemented.",
+            variant: "default",
         });
     }
 
@@ -112,8 +129,10 @@ export default function TopUpPage() {
                 Back
               </Link>
             </Button>
-             <Button variant="outline" className="bg-blue-600/80 hover:bg-blue-700/80 border-blue-400 text-white">
-                မှတ်တမ်း
+             <Button asChild variant="outline" className="bg-blue-600/80 hover:bg-blue-700/80 border-blue-400 text-white">
+                <Link href="/top-up-history">
+                    မှတ်တမ်း
+                </Link>
             </Button>
           </div>
           
@@ -142,12 +161,18 @@ export default function TopUpPage() {
                 <h3 className="font-semibold text-primary">Payment Screenshot ( ငွေလွှဲ Id ပါထည့်ပါ )</h3>
                 <label htmlFor="screenshot" className="flex flex-col items-center justify-center w-full h-32 border-2 border-green-500 border-dashed rounded-lg cursor-pointer bg-green-500/10 hover:bg-green-500/20">
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <UploadCloud className="w-8 h-8 mb-2 text-green-400" />
-                        <p className="mb-2 text-sm text-green-400">ငွေလွှဲပုံထည့်ရန်နှိပ်ပါ</p>
+                        {selectedFile ? (
+                             <p className="text-sm text-green-400">{selectedFile.name}</p>
+                        ) : (
+                            <>
+                                <UploadCloud className="w-8 h-8 mb-2 text-green-400" />
+                                <p className="mb-2 text-sm text-green-400">ငွေလွှဲပုံထည့်ရန်နှိပ်ပါ</p>
+                            </>
+                        )}
                     </div>
-                    <input id="screenshot" type="file" className="hidden" />
+                    <input id="screenshot" type="file" className="hidden" onChange={handleFileChange} accept="image/*"/>
                 </label>
-                <Button className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-bold text-lg">
+                <Button className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-bold text-lg" onClick={handleSubmit}>
                     ဝယ်ယူမည်
                 </Button>
               </div>
