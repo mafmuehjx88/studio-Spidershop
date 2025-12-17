@@ -1,3 +1,4 @@
+
 import { PlaceHolderImages, type ImagePlaceholder } from './placeholder-images';
 
 export type TopUpOption = {
@@ -8,7 +9,6 @@ export type TopUpOption = {
   quantity?: number;
   promoTag?: string;
   discountTag?: string;
-  rechargeTag?: string;
 };
 
 export type TopUpCategory = {
@@ -95,14 +95,14 @@ export const topUpOptions: Record<string, TopUpCategory[]> = {
             { id: 'd-86', name: '86 Diamond', price: '4800ks', image: findImage('mlbb-diamonds-medium') },
             { id: 'd-172', name: '172 Diamond', price: '9600ks', image: findImage('mlbb-diamonds-medium') },
             { id: 'd-257', name: '257 Diamond', price: '14800ks', image: findImage('mlbb-diamonds-medium') },
-            { id: 'd-343', name: '343 Diamond', price: '19700ks', image: findImage('mlbb-diamonds') },
-            { id: 'd-429', name: '429 Diamond', price: '24800ks', image: findImage('mlbb-diamonds-large') },
-            { id: 'd-514', name: '514 Diamond', price: '30000ks', image: findImage('mlbb-diamonds-large') },
-            { id: 'd-600', name: '600 Diamond', price: '34500ks', image: findImage('mlbb-diamonds-large') },
-            { id: 'd-706', name: '706 Diamond', price: '39600ks', image: findImage('mlbb-diamonds-large') },
-            { id: 'd-963', name: '963 Diamond', price: '54200ks', image: findImage('mlbb-diamonds-large') },
-            { id: 'd-1049', name: '1049 Diamond', price: '59300ks', image: findImage('mlbb-diamonds-large') },
-            { id: 'd-1135', name: '1135 Diamond', price: '64200ks', image: findImage('mlbb-diamonds-large') },
+            { id: 'd-343', name: '343 Diamond', price: '19700ks', image: findImage('mlbb-diamonds-343') },
+            { id: 'd-429', name: '429 Diamond', price: '24800ks', image: findImage('mlbb-diamonds-343') },
+            { id: 'd-514', name: '514 Diamond', price: '30000ks', image: findImage('mlbb-diamonds-514') },
+            { id: 'd-600', name: '600 Diamond', price: '34500ks', image: findImage('mlbb-diamonds-514') },
+            { id: 'd-706', name: '706 Diamond', price: '39600ks', image: findImage('mlbb-diamonds-706') },
+            { id: 'd-963', name: '963 Diamond', price: '54200ks', image: findImage('mlbb-diamonds-706') },
+            { id: 'd-1049', name: '1049 Diamond', price: '59300ks', image: findImage('mlbb-diamonds-1049') },
+            { id: 'd-1135', name: '1135 Diamond', price: '64200ks', image: findImage('mlbb-diamonds-1049') },
         ]
     }
   ],
@@ -152,3 +152,5 @@ export const topUpOptions: Record<string, TopUpCategory[]> = {
     },
   ]
 };
+
+    
