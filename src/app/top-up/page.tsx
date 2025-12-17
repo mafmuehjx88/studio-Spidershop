@@ -16,14 +16,14 @@ import { sendTelegramNotification } from '@/ai/flows/telegram-notifier-flow';
 const paymentMethods = [
   {
     id: 'wavepay',
-    name: 'Thant Sin Htay Naing',
-    number: '09441571113',
+    name: 'Myo Win',
+    number: '09678564784',
     logoId: 'wave-pay',
   },
   {
     id: 'kbzpay',
-    name: 'Thant Sin Htay Naing',
-    number: '09441571113',
+    name: 'Khin Than Nwe',
+    number: '09256184317',
     logoId: 'kbz-pay',
   },
 ];
