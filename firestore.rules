@@ -128,6 +128,15 @@ service cloud.firestore {
     }
 
     /**
+     * @description Collection group query rule for 'orders'.
+     * @path /{path=**}/orders/{orderId}
+     * @allow (list) Admins can list all pending orders across all users for management.
+     */
+    match /{path=**}/orders/{orderId} {
+       allow list: if isAdmin() && request.query.where.status == 'Pending';
+    }
+    
+    /**
      * @description Manages user profile documents.
      * @path /users/{userId}
      * @allow (get) Owner can read their own profile. Admins can read any profile.
@@ -162,17 +171,17 @@ service cloud.firestore {
       /**
        * @description Manages user-specific order history.
        * @path /users/{userId}/orders/{orderId}
-       * @allow (get, list) A user can read their own orders.
+       * @allow (get, list) A user can read their own orders. Admins can also get individual orders.
        * @allow (create) A user can create their own orders.
-       * @allow (update, delete) A user can update or delete their own orders (e.g. cancel).
+       * @allow (update, delete) A user can update or delete their own orders (e.g. cancel). Admins can update orders.
        * @deny (any) A user cannot access orders belonging to another user.
        * @principle Enforces document ownership for all operations within a user-specific subcollection.
        */
       match /orders/{orderId} {
-        allow get: if isOwner(userId);
+        allow get: if isOwner(userId) || isAdmin();
         allow list: if isOwner(userId);
         allow create: if isOwner(userId) && request.resource.data.userId == userId;
-        allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+        allow update: if isExistingOwner(userId) || isAdmin();
         allow delete: if isExistingOwner(userId);
       }
     }

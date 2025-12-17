@@ -12,6 +12,7 @@ import { CheckCircle, Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { collection } from 'firebase/firestore';
 import { useAdminStatus } from '@/hooks/use-admin-status';
+import { useUserProfile } from '@/hooks/use-user-profile';
 
 type Order = {
   id: string;
@@ -47,14 +48,14 @@ const LoadingSkeleton = () => (
 export function OrderManagement() {
     const firestore = useFirestore();
     const { toast } = useToast();
-    const { isAdmin } = useAdminStatus();
+    const { isAdmin, isAdminLoading } = useAdminStatus();
     
     // Query for pending orders across all users only if the current user is an admin.
     const pendingOrdersQuery = useMemo(() => {
-        if (!isAdmin) return null; // Prevent non-admins from making this query
+        if (isAdminLoading || !isAdmin) return null; // Prevent non-admins from making this query
         const ordersCollection = collectionGroup(firestore, 'orders');
         return query(ordersCollection, where('status', '==', 'Pending'), orderBy('timestamp', 'desc'));
-    }, [firestore, isAdmin]);
+    }, [firestore, isAdmin, isAdminLoading]);
 
     const { data: orders, isLoading, error } = useCollectionGroup<Order>(pendingOrdersQuery as any);
 
@@ -86,7 +87,7 @@ export function OrderManagement() {
         });
     };
 
-    if (isLoading) {
+    if (isLoading || isAdminLoading) {
         return <LoadingSkeleton />;
     }
 
