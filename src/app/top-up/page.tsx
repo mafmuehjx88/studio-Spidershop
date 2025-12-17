@@ -7,9 +7,10 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, CheckCircle2, Copy, UploadCloud } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { PaymentCard } from './_components/payment-card';
+import { NoteCard } from './_components/note-card';
 
 const paymentMethods = [
   {
@@ -39,56 +40,6 @@ const notes = [
     }
 ]
 
-const PaymentCard = ({ method, onCopy }: { method: any; onCopy: (text: string) => void; }) => {
-    const logo = PlaceHolderImages.find(p => p.id === method.logoId);
-    
-    return (
-        <Card className="bg-card border-border overflow-hidden">
-            <CardContent className="p-3 flex items-center gap-4">
-                {logo && (
-                    <div className="relative w-16 h-16 bg-white rounded-lg flex items-center justify-center p-1">
-                        <Image
-                            src={logo.imageUrl}
-                            alt={`${method.id} logo`}
-                            width={60}
-                            height={60}
-                            className="object-contain"
-                            data-ai-hint={logo.imageHint}
-                        />
-                    </div>
-                )}
-                <div className="flex-1">
-                    <p className="font-semibold text-lg text-primary">{method.number}</p>
-                    <p className="text-muted-foreground">{method.name}</p>
-                </div>
-                <Button variant="outline" size="sm" onClick={() => onCopy(method.number)} className="bg-gray-700 hover:bg-gray-600">
-                    <Copy className="h-4 w-4 mr-2" />
-                    Copy
-                </Button>
-            </CardContent>
-        </Card>
-    );
-}
-
-const NoteCard = ({ note, onCopy }: { note: any; onCopy: (text: string) => void; }) => {
-  return (
-    <Card className="bg-card border-red-500/50 border-2 overflow-hidden">
-        <CardContent className="p-3 flex items-center gap-4">
-             <div className="w-16 h-16 bg-card border-r border-border flex items-center justify-center">
-                <p className="text-red-400 font-bold text-sm text-center">{note.title}</p>
-            </div>
-            <div className="flex-1">
-                <p className="text-sm text-muted-foreground">{note.content}</p>
-            </div>
-             <Button variant="outline" size="sm" onClick={() => onCopy(note.content)} className="bg-gray-700 hover:bg-gray-600">
-                <Copy className="h-4 w-4 mr-2" />
-                Copy
-            </Button>
-        </CardContent>
-    </Card>
-  );
-};
-
 
 export default function TopUpPage() {
     const { toast } = useToast();
@@ -99,11 +50,6 @@ export default function TopUpPage() {
     const handleCopy = (text: string) => {
         navigator.clipboard.writeText(text).catch(err => {
             console.error('Failed to copy text: ', err);
-            toast({
-                variant: 'destructive',
-                title: "Copy Failed",
-                description: "Could not copy text to clipboard.",
-            });
         });
     }
     
