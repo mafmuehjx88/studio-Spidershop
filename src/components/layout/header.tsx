@@ -2,7 +2,7 @@ import { Bell, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Sidebar } from "./sidebar";
 
 export function Header() {
@@ -21,6 +21,7 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="p-0 bg-transparent border-0 w-full max-w-sm">
+                <SheetTitle className="sr-only">Sidebar Menu</SheetTitle>
                 <Sidebar />
             </SheetContent>
           </Sheet>
