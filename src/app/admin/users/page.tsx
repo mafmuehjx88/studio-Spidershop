@@ -42,20 +42,15 @@ export default function AdminUsersPage() {
       <Header />
       <main className="flex-grow pt-16">
         <div className="container mx-auto px-4 py-8 md:px-6">
-          {/* STATE 1: LOADING */}
-          {isLoading && <LoadingSkeleton />}
-
-          {/* STATE 2: NOT LOADING AND IS ADMIN */}
-          {!isLoading && isAdmin && (
+          {isLoading ? (
+             <LoadingSkeleton />
+          ) : isAdmin ? (
             <>
               <h1 className="text-2xl font-bold text-primary">Manual Wallet Adjustment</h1>
               <p className="text-muted-foreground mb-6">Find users to add or deduct funds from their wallets.</p>
               <UserList />
             </>
-          )}
-
-          {/* STATE 3: NOT LOADING AND NOT ADMIN */}
-          {!isLoading && !isAdmin && (
+          ) : (
             <div className="flex flex-col items-center justify-center text-center py-10">
                 <p className="text-2xl font-bold text-destructive">Access Denied</p>
                 <p className="text-muted-foreground mt-2">You do not have permission to view this page.</p>

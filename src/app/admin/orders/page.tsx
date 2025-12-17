@@ -40,7 +40,16 @@ export default function AdminOrdersPage() {
           <h1 className="text-2xl font-bold text-primary mb-2">Order Management</h1>
           <p className="text-muted-foreground mb-6">Review and approve pending user orders.</p>
           
-          {isLoading ? <LoadingSkeleton /> : <OrderManagement />}
+          {isLoading ? (
+            <LoadingSkeleton />
+          ) : isAdmin ? (
+            <OrderManagement />
+          ) : (
+            <div className="flex flex-col items-center justify-center text-center py-10">
+              <p className="text-2xl font-bold text-destructive">Access Denied</p>
+              <p className="text-muted-foreground mt-2">You do not have permission to view this page.</p>
+            </div>
+          )}
 
         </div>
       </main>
