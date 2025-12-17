@@ -54,14 +54,17 @@ service cloud.firestore {
     }
     
     /**
-     * Returns true if the incoming data for a user document is valid.
-     * - Balance can only be set to 0 on creation.
-     * - Balance cannot be updated directly by the client (unless admin).
+     * Returns true if the incoming data for a user document is valid on creation.
+     * - Balance must be 0.
      */
     function isValidUserCreate() {
       return request.resource.data.balance == 0;
     }
     
+    /**
+     * Returns true if a user's update to their own document is valid.
+     * - They cannot change their own balance.
+     */
     function isValidUserUpdate() {
       // Regular users cannot change their own balance.
       return request.resource.data.balance == resource.data.balance;
@@ -73,15 +76,6 @@ service cloud.firestore {
      */
     function isAdmin() {
       return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
-    }
-    
-    /**
-     * Returns true if an admin is updating only the balance.
-     */
-    function isAdminUpdatingBalance() {
-        // This rule is no longer complex. If the user is an admin, they can update.
-        // The more granular check is now directly in the `allow update` rule.
-        return isAdmin();
     }
 
 
@@ -126,16 +120,16 @@ service cloud.firestore {
       allow list: if true;
       allow write: if isAdmin();
     }
-
+    
     /**
      * @description Collection group query rule for 'orders'.
      * @path /{path=**}/orders/{orderId}
      * @allow (list) Admins can list all pending orders across all users for management.
      */
     match /{path=**}/orders/{orderId} {
-       allow list: if isAdmin() && request.query.where.status == 'Pending';
+      allow list: if isAdmin() && request.query.where.status == 'Pending';
     }
-    
+
     /**
      * @description Manages user profile documents.
      * @path /users/{userId}
@@ -173,7 +167,7 @@ service cloud.firestore {
        * @path /users/{userId}/orders/{orderId}
        * @allow (get, list) A user can read their own orders. Admins can also get individual orders.
        * @allow (create) A user can create their own orders.
-       * @allow (update, delete) A user can update or delete their own orders (e.g. cancel). Admins can update orders.
+       * @allow (update) A user can update their own orders. Admins can also update orders (e.g. status).
        * @deny (any) A user cannot access orders belonging to another user.
        * @principle Enforces document ownership for all operations within a user-specific subcollection.
        */

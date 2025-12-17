@@ -52,7 +52,7 @@ export function OrderManagement() {
     
     // Query for pending orders across all users only if the current user is an admin.
     const pendingOrdersQuery = useMemo(() => {
-        if (isAdminLoading || !isAdmin) return null; // Prevent non-admins from making this query
+        if (!firestore || isAdminLoading || !isAdmin) return null; // Prevent non-admins from making this query
         const ordersCollection = collectionGroup(firestore, 'orders');
         return query(ordersCollection, where('status', '==', 'Pending'), orderBy('timestamp', 'desc'));
     }, [firestore, isAdmin, isAdminLoading]);
