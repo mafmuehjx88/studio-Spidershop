@@ -20,12 +20,12 @@ export const PaymentCard = ({ method, onCopy }: { method: PaymentMethod; onCopy:
         <Card className="bg-card border-border overflow-hidden">
             <CardContent className="p-3 flex items-center gap-4">
                 {logo && (
-                    <div className="relative w-16 h-16 bg-white rounded-lg flex items-center justify-center p-1">
+                    <div className="relative w-20 h-20 rounded-lg flex items-center justify-center p-1">
                         <Image
                             src={logo.imageUrl}
                             alt={`${method.id} logo`}
-                            width={60}
-                            height={60}
+                            width={80}
+                            height={80}
                             className="object-contain"
                             data-ai-hint={logo.imageHint}
                         />
