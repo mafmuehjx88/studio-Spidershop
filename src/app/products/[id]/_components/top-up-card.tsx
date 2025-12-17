@@ -1,7 +1,7 @@
+'use client';
+
 import Image from 'next/image';
 import { type TopUpOption } from '@/lib/top-up-options';
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
 
 interface TopUpCardProps {
   option: TopUpOption;
@@ -10,34 +10,7 @@ interface TopUpCardProps {
 export function TopUpCard({ option }: TopUpCardProps) {
   return (
     <div className="relative flex cursor-pointer flex-col justify-start gap-2 overflow-hidden rounded-lg border bg-card p-3 text-center text-card-foreground shadow-md transition-transform hover:scale-105">
-      
-      {option.quantity && (
-        <div className="absolute top-0 left-0 flex h-6 w-6 items-center justify-center rounded-br-lg bg-gray-900 text-xs font-bold text-white">
-          {option.quantity}
-        </div>
-      )}
-
-      {option.inStockTag && (
-         <Badge className={cn("absolute top-0 right-0 rounded-bl-md rounded-tr-none text-[10px] font-semibold", 
-            option.rechargeTag ? "rounded-bl-none" : "rounded-bl-md"
-         )}>
-          {option.inStockTag}
-        </Badge>
-      )}
-
-      {option.rechargeTag && (
-         <Badge variant="destructive" className="absolute top-[18px] right-0 rounded-bl-md rounded-tr-none text-[10px] font-semibold">
-          {option.rechargeTag}
-        </Badge>
-      )}
-      
-      {option.discountTag && (
-        <div className="absolute top-0 left-0 flex h-8 w-8 items-center justify-center rounded-br-lg bg-red-600 text-xs font-bold text-white transform -rotate-45 -translate-x-3 -translate-y-3">
-         <span className='mt-1'>{option.discountTag}</span>
-        </div>
-      )}
-      
-      <div className="flex-grow pt-8">
+      <div className="flex-grow">
         <Image
           src={option.image.imageUrl}
           alt={option.image.description}
