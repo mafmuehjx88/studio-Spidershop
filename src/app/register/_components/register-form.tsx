@@ -25,12 +25,7 @@ import { useAuth } from '@/firebase/provider';
 import { initiateEmailSignUp } from '@/firebase/non-blocking-login';
 import { useToast } from '@/hooks/use-toast';
 import {
-  collection,
   doc,
-  getDocs,
-  query,
-  setDoc,
-  where,
 } from 'firebase/firestore';
 import { useFirestore, useUser } from '@/firebase';
 import { useEffect, useState } from 'react';
@@ -90,28 +85,13 @@ export function RegisterForm() {
     }
   }, [user, firestore, form, router]);
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      // Check if username already exists
-      const usersRef = collection(firestore, 'users');
-      const q = query(usersRef, where('username', '==', values.username));
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        toast({
-          variant: 'destructive',
-          title: 'Registration Failed',
-          description: 'Username already exists. Please choose another one.',
-        });
-        setIsSubmitting(false);
-        return;
-      }
-
       initiateEmailSignUp(auth, values.email, values.password);
       toast({
-        title: 'Registration Successful',
-        description: 'Your account has been created. Please log in.',
+        title: 'Registration Initiated',
+        description: 'Please wait while we create your account.',
       });
       // The useEffect will handle user creation in firestore and redirection
     } catch (error: any) {
@@ -122,7 +102,6 @@ export function RegisterForm() {
       });
       setIsSubmitting(false);
     }
-    // Don't set isSubmitting to false here, as the useEffect will redirect
   };
 
   return (
