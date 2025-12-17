@@ -54,14 +54,17 @@ service cloud.firestore {
     }
     
     /**
-     * Returns true if the incoming data for a user document is valid.
-     * - Balance can only be set to 0 on creation.
-     * - Balance cannot be updated directly by the client (unless admin).
+     * Returns true if the incoming data for a user document is valid on creation.
+     * - Balance must be 0.
      */
     function isValidUserCreate() {
       return request.resource.data.balance == 0;
     }
     
+    /**
+     * Returns true if a user's update to their own document is valid.
+     * - They cannot change their own balance.
+     */
     function isValidUserUpdate() {
       // Regular users cannot change their own balance.
       return request.resource.data.balance == resource.data.balance;
@@ -73,15 +76,6 @@ service cloud.firestore {
      */
     function isAdmin() {
       return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
-    }
-    
-    /**
-     * Returns true if an admin is updating only the balance.
-     */
-    function isAdminUpdatingBalance() {
-      // Checks if the incoming request tries to change any field other than 'balance'.
-      let otherFields = request.resource.data.keys().remove('balance');
-      return isAdmin() && otherFields.size() == 0;
     }
 
 
@@ -130,17 +124,17 @@ service cloud.firestore {
     /**
      * @description Manages user profile documents.
      * @path /users/{userId}
-     * @allow (get) Owner can read their own profile.
+     * @allow (get) Owner can read their own profile. Admins can read any profile.
      * @allow (list) Admins can list all users. Regular users cannot.
      * @allow (create) A new user can create their own profile.
-     * @allow (update) Owner can update their profile (but not balance). Admins can update any user's balance.
+     * @allow (update) Owner can update their profile (but not balance). Admins can update any user's profile.
      * @allow (delete) Owner can delete their own profile.
      */
     match /users/{userId} {
-      allow get: if isOwner(userId);
+      allow get: if isOwner(userId) || isAdmin();
       allow list: if isAdmin();
       allow create: if isOwner(userId) && request.resource.data.id == userId && isValidUserCreate();
-      allow update: if (isExistingOwner(userId) && isValidUserUpdate()) || isAdminUpdatingBalance();
+      allow update: if (isOwner(userId) && isValidUserUpdate()) || isAdmin();
       allow delete: if isExistingOwner(userId);
 
       /**
