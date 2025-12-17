@@ -97,9 +97,10 @@ export function UserTopUpList() {
     const userToUpdate = users?.find(u => u.id === userId);
     if (!userToUpdate) return;
     
+    const currentBalance = userToUpdate.balance ?? 0;
     const newBalance = operation === 'add'
-      ? userToUpdate.balance + amount
-      : userToUpdate.balance - amount;
+      ? currentBalance + amount
+      : currentBalance - amount;
 
     if (newBalance < 0) {
       toast({ variant: 'destructive', title: 'Operation Failed', description: "User balance cannot be negative." });
@@ -160,7 +161,7 @@ export function UserTopUpList() {
             {users.map((user) => (
               <TableRow key={user.id}>
                 <TableCell className="font-medium">{user.username}</TableCell>
-                <TableCell>{user.balance.toLocaleString()} Ks</TableCell>
+                <TableCell>{(user.balance ?? 0).toLocaleString()} Ks</TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
                     <Input
