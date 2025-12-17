@@ -10,6 +10,8 @@ import { ArrowLeft, CheckCircle2, UploadCloud } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PaymentCard } from './_components/payment-card';
 import { NoteCard } from './_components/note-card';
+import { useUserProfile } from '@/hooks/use-user-profile';
+import { sendTelegramNotification } from '@/ai/flows/telegram-notifier-flow';
 
 const paymentMethods = [
   {
@@ -45,6 +47,8 @@ const TopUpPage = () => {
     const router = useRouter();
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const { userProfile } = useUserProfile();
 
     const handleCopy = (text: string) => {
         navigator.clipboard.writeText(text).catch(err => {
@@ -65,7 +69,7 @@ const TopUpPage = () => {
         }
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!selectedFile) {
             toast({
                 title: "Error",
@@ -75,23 +79,63 @@ const TopUpPage = () => {
             return;
         }
 
-        // Navigate home first
-        router.push('/');
-
-        // Then show the toast
-        setTimeout(() => {
-            toast({
-                title: (
-                    <div className="flex items-center gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-green-400" />
-                      <span>အောင်မြင်ပါသည်</span>
-                    </div>
-                ),
-                description: "Your top-up request has been submitted.",
-                variant: "success",
-                duration: 3000,
+        if (!userProfile) {
+             toast({
+                title: "Error",
+                description: "You must be logged in to submit a top-up request.",
+                variant: "destructive",
             });
-        }, 100); // A small delay to ensure navigation has started
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            const reader = new FileReader();
+            reader.readAsDataURL(selectedFile);
+            reader.onload = async () => {
+                const base64Image = reader.result as string;
+                
+                await sendTelegramNotification({
+                    username: userProfile.username,
+                    receiptDataUri: base64Image,
+                });
+
+                router.push('/');
+                
+                setTimeout(() => {
+                    toast({
+                        title: (
+                            <div className="flex items-center gap-2">
+                              <CheckCircle2 className="h-5 w-5 text-green-400" />
+                              <span>အောင်မြင်ပါသည်</span>
+                            </div>
+                        ),
+                        description: "Your top-up request has been submitted.",
+                        variant: "success",
+                        duration: 3000,
+                    });
+                }, 100);
+            };
+
+            reader.onerror = (error) => {
+                console.error("Error reading file:", error);
+                toast({
+                    title: "File Read Error",
+                    description: "Could not process the uploaded file.",
+                    variant: "destructive",
+                });
+                setIsSubmitting(false);
+            };
+        } catch (error) {
+            console.error("Error sending notification:", error);
+            toast({
+                title: "Submission Failed",
+                description: "There was an error submitting your request. Please try again.",
+                variant: "destructive",
+            });
+            setIsSubmitting(false);
+        }
     }
 
   return (
@@ -142,8 +186,8 @@ const TopUpPage = () => {
                     )}
                     <input id="screenshot" type="file" className="hidden" onChange={handleFileChange} accept="image/*"/>
                 </label>
-                <Button className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-bold text-lg" onClick={handleSubmit}>
-                    ဝယ်ယူမည်
+                <Button className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-bold text-lg" onClick={handleSubmit} disabled={isSubmitting}>
+                    {isSubmitting ? 'Submitting...' : 'ဝယ်ယူမည်'}
                 </Button>
               </div>
           </div>
