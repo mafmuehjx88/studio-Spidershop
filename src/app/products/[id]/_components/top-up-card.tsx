@@ -30,7 +30,7 @@ export function TopUpCard({ option }: TopUpCardProps) {
           data-ai-hint={option.image.imageHint}
         />
       </div>
-      <div className="flex flex-col h-14 justify-center">
+      <div className="flex flex-col justify-center">
         <p className="text-sm font-semibold whitespace-nowrap">{option.name}</p>
         <p className="text-xs text-muted-foreground">{option.price} ကျပ်</p>
       </div>
