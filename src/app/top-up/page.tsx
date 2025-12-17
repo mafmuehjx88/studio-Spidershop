@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -91,14 +92,23 @@ const NoteCard = ({ note, onCopy }: { note: any; onCopy: (text: string) => void;
 
 export default function TopUpPage() {
     const { toast } = useToast();
+    const router = useRouter();
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
 
     const handleCopy = (text: string) => {
-        navigator.clipboard.writeText(text);
-        toast({
-            title: "Copied!",
-            description: "The text has been copied to your clipboard.",
+        navigator.clipboard.writeText(text).then(() => {
+            toast({
+                title: "Copied!",
+                description: "The text has been copied to your clipboard.",
+            });
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+            toast({
+                variant: 'destructive',
+                title: "Copy Failed",
+                description: "Could not copy text to clipboard.",
+            });
         });
     }
     
@@ -135,11 +145,14 @@ export default function TopUpPage() {
             description: "Your top-up request has been submitted.",
             variant: "success",
             duration: 3000, // 3 seconds
+            onClose: () => router.push('/'),
         });
         
-        // Reset state
-        setSelectedFile(null);
-        setImagePreview(null);
+        // Reset state after a short delay to allow toast to show
+        setTimeout(() => {
+            setSelectedFile(null);
+            setImagePreview(null);
+        }, 500);
     }
 
   return (

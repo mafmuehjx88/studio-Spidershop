@@ -16,7 +16,8 @@ type ToasterToast = ToastProps & {
   title?: React.ReactNode
   description?: React.ReactNode
   action?: ToastActionElement,
-  duration?: number
+  duration?: number,
+  onClose?: () => void;
 }
 
 const actionTypes = {
@@ -93,6 +94,12 @@ export const reducer = (state: State, action: Action): State => {
 
     case "DISMISS_TOAST": {
       const { toastId } = action
+
+      // Find the toast to dismiss and call its onClose function if it exists
+      const toastToDismiss = state.toasts.find(t => t.id === toastId);
+      if (toastToDismiss && toastToDismiss.onClose) {
+        toastToDismiss.onClose();
+      }
 
       if (toastId) {
         addToRemoveQueue(toastId)
