@@ -15,24 +15,6 @@ export function TopUpCard({ option }: TopUpCardProps) {
         </div>
       )}
 
-      {option.discountTag && (
-        <div className="absolute top-2 left-2 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-sm z-10">
-          {option.discountTag}
-        </div>
-      )}
-      
-      {option.rechargeTag && (
-          <div className="absolute top-0 left-0 z-10">
-              <div className="relative h-6 w-20">
-                <div className="absolute inset-0 bg-red-600 clip-recharge-tag"></div>
-                 <p className="absolute inset-0 text-[10px] text-white flex items-center justify-center font-semibold pr-2">
-                    {option.rechargeTag}
-                 </p>
-              </div>
-          </div>
-      )}
-
-
       <div className="relative w-full aspect-square mb-2 flex items-center justify-center">
         <Image
           src={option.image.imageUrl}
@@ -45,7 +27,7 @@ export function TopUpCard({ option }: TopUpCardProps) {
       </div>
 
       <div className="flex flex-col items-center">
-        <p className="text-xs font-medium flex items-center justify-center text-center">
+        <p className="text-xs font-medium flex items-center justify-center text-center h-10">
           {option.name}
         </p>
         <p className="text-xs font-semibold text-gray-300">{option.price}</p>
