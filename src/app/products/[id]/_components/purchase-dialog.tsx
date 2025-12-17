@@ -82,12 +82,25 @@ export function PurchaseDialog({
         price: option.price,
         gameId: gameId,
         ...(isMlbb && { serverId: serverId }),
-        status: "Completed",
+        status: "Pending",
         timestamp: new Date().toISOString(),
     };
     
-    // Add order to history
-    addDocumentNonBlocking(collection(firestore, `users/${user.uid}/orders`), orderData);
+    // Add order to history and get the new order's document reference
+    const newOrderRef = await addDocumentNonBlocking(collection(firestore, `users/${user.uid}/orders`), orderData);
+
+    // Create a notification for the order
+    if (newOrderRef) {
+        const orderId = newOrderRef.id;
+        const notificationMessage = `Order ${orderId.slice(0, 6)} အားစတင်လုပ်ဆောင်နေပါပြီ`;
+        const notificationData = {
+          userId: user.uid,
+          message: notificationMessage,
+          timestamp: new Date().toISOString(),
+          isRead: false,
+        };
+        addDocumentNonBlocking(collection(firestore, `users/${user.uid}/notifications`), notificationData);
+    }
 
     // Deduct balance
     const userDocRef = doc(firestore, 'users', user.uid);

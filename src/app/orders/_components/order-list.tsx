@@ -30,9 +30,7 @@ type Order = {
   optionName: string;
   price: string;
   status: 'Completed' | 'Pending' | 'Failed';
-  timestamp: {
-    seconds: number;
-  };
+  timestamp: string; // Changed from object to string
   gameId: string;
   serverId?: string;
 };
