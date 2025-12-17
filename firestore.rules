@@ -11,10 +11,11 @@
  * - `/featuredBanners`: A public, read-only collection of promotional banners.
  * - `/users`: A collection where each user's private data is stored under a document matching their UID (`/users/{userId}`).
  *   - `/users/{userId}/notifications`: A subcollection containing notifications private to that specific user.
+ *   - `/users/{userId}/orders`: A subcollection containing order history private to that specific user.
  *
  * ## Key Security Decisions
  * - **Default Deny:** Access is denied by default. All rules explicitly grant permissions.
- * - **User Data Privacy:** A user's profile and notifications are strictly private. Access is granted only to the authenticated user whose UID matches the document path.
+ * - **User Data Privacy:** A user's profile, notifications, and orders are strictly private. Access is granted only to the authenticated user whose UID matches the document path.
  * - **No User Enumeration:** Listing documents in the top-level `/users` collection is disallowed to prevent scraping user information.
  * - **Public Data is Read-Only:** Collections like `/products` and `/featuredBanners` are readable by anyone but cannot be modified by clients. This assumes such content is managed by a trusted server environment or the Firebase Console.
  * - **Path-Based Security:** User-specific data is secured using the `{userId}` wildcard in the path, which is the most performant and secure method for enforcing ownership.
@@ -115,6 +116,23 @@ service cloud.firestore {
        * @principle Enforces document ownership for all operations within a user-specific subcollection.
        */
       match /notifications/{notificationId} {
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
+        allow create: if isOwner(userId) && request.resource.data.userId == userId;
+        allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+        allow delete: if isExistingOwner(userId);
+      }
+      
+      /**
+       * @description Manages user-specific order history.
+       * @path /users/{userId}/orders/{orderId}
+       * @allow (get, list) A user can read their own orders.
+       * @allow (create) A user can create their own orders.
+       * @allow (update, delete) A user can update or delete their own orders (e.g. cancel).
+       * @deny (any) A user cannot access orders belonging to another user.
+       * @principle Enforces document ownership for all operations within a user-specific subcollection.
+       */
+      match /orders/{orderId} {
         allow get: if isOwner(userId);
         allow list: if isOwner(userId);
         allow create: if isOwner(userId) && request.resource.data.userId == userId;

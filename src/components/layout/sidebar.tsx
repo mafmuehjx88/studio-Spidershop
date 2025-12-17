@@ -22,7 +22,7 @@ const menuItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "#", label: "ငွေသွင်းရန်", icon: CircleDollarSign },
   { href: "#", label: "အသိပေးချက်များ", icon: Mail },
-  { href: "#", label: "အော်ဒါများ", icon: ClipboardList },
+  { href: "/orders", label: "အော်ဒါများ", icon: ClipboardList },
   { href: "#", label: "ကံစမ်းရန်", icon: Gamepad2 },
   { href: "#", label: "Account", icon: User },
 ];

@@ -140,6 +140,71 @@
         "username",
         "email"
       ]
+    },
+    "Order": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Order",
+      "type": "object",
+      "description": "Represents a user's purchase order.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the order."
+        },
+        "userId": {
+          "type": "string",
+          "description": "The ID of the user who placed the order. (Relationship: User 1:N Order)"
+        },
+        "productId": {
+            "type": "string",
+            "description": "The ID of the product being purchased."
+        },
+        "productName": {
+          "type": "string",
+          "description": "Name of the product purchased (e.g., 'Mobile Legends Bang Bang')."
+        },
+        "optionName": {
+            "type": "string",
+            "description": "The specific top-up option selected (e.g., 'Weekly Pass')."
+        },
+        "price": {
+          "type": "string",
+          "description": "The price of the order at the time of purchase."
+        },
+        "gameId": {
+            "type": "string",
+            "description": "The in-game user ID provided by the user."
+        },
+        "serverId": {
+            "type": "string",
+            "description": "The in-game server ID, if applicable (e.g., for MLBB)."
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the order.",
+          "enum": [
+            "Pending",
+            "Completed",
+            "Failed"
+          ]
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Timestamp of when the order was created.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "productId",
+        "productName",
+        "optionName",
+        "price",
+        "gameId",
+        "status",
+        "timestamp"
+      ]
     }
   },
   "auth": {
@@ -190,6 +255,26 @@
           ]
         }
       },
+       {
+        "path": "users/{userId}/orders/{orderId}",
+        "definition": {
+          "entityName": "Order",
+          "schema": {
+            "$ref": "#/backend/entities/Order"
+          },
+          "description": "Stores user-specific order history. Path-based ownership enforced via the {userId} parameter.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The ID of the user who owns the order."
+            },
+            {
+              "name": "orderId",
+              "description": "The ID of the order."
+            }
+          ]
+        }
+      },
       {
         "path": "users/{userId}",
         "definition": {
@@ -207,6 +292,6 @@
         }
       }
     ],
-    "reasoning": "The Firestore structure is designed to prioritize authorization independence, clarity, and scalability. It leverages denormalization to avoid hierarchical authorization dependencies and structural segregation to ensure a homogeneous security posture within each collection. Path-based ownership is used for user-specific data, while a membership map is employed for collaborative data. Global roles are managed via existence checks in dedicated collections. This design enables robust security rules and efficient data retrieval.\n\nSpecifically, the `users/{userId}/notifications` path utilizes path-based ownership, making security rules straightforward.  The `products` and `featuredBanners` collections are globally readable, simplifying data access for the application.  No denormalization is required as authorization checks do not require `get()` calls.\n\nThis structure supports secure `list` operations (QAPs) by segregating data with different access requirements into separate collections. The `products` and `featuredBanners` collections are globally readable, allowing anyone to list the documents in these collections.  The `notifications` collection is restricted to the user, so only the user can list notifications."
+    "reasoning": "The Firestore structure is designed to prioritize authorization independence, clarity, and scalability. It leverages denormalization to avoid hierarchical authorization dependencies and structural segregation to ensure a homogeneous security posture within each collection. Path-based ownership is used for user-specific data, while a membership map is employed for collaborative data. Global roles are managed via existence checks in dedicated collections. This design enables robust security rules and efficient data retrieval.\n\nSpecifically, the `users/{userId}/notifications` and `users/{userId}/orders` paths utilize path-based ownership, making security rules straightforward. The `products` and `featuredBanners` collections are globally readable, simplifying data access for the application. No denormalization is required as authorization checks do not require `get()` calls.\n\nThis structure supports secure `list` operations (QAPs) by segregating data with different access requirements into separate collections. The `products` and `featuredBanners` collections are globally readable, allowing anyone to list the documents in these collections. The `notifications` and `orders` collections are restricted to the user, so only the user can list their own documents."
   }
 }
