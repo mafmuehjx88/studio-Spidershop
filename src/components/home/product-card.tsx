@@ -8,14 +8,14 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <div className="flex flex-col gap-3">
-      <div className="relative overflow-hidden rounded-xl border-border/20 shadow-lg">
+    <div className="flex flex-col gap-2">
+      <div className="relative overflow-hidden rounded-lg shadow-md">
         <Image
           src={product.image.imageUrl}
           alt={product.image.description}
           width={400}
           height={400}
-          className="aspect-square w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105"
+          className="aspect-square w-full object-cover"
           data-ai-hint={product.image.imageHint}
         />
         {product.tag && (
@@ -28,11 +28,11 @@ export function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
       </div>
-      <div className="flex flex-col items-center text-center">
-        <p className="w-full truncate text-base text-muted-foreground">
+      <div className="flex flex-col items-center text-center gap-2">
+        <p className="w-full text-sm font-medium text-muted-foreground h-10 flex items-center justify-center">
           {product.name}
         </p>
-        <Button className="mt-2 w-full max-w-xs bg-accent text-lg font-bold text-accent-foreground hover:bg-accent/90">
+        <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
           Buy Now
         </Button>
       </div>
