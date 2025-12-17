@@ -59,7 +59,7 @@ export const topUpOptions: Record<string, TopUpCategory[]> = {
     {
       id: '2x-diamonds',
       title: '2x Diamonds',
-      gridCols: 'grid-cols-4',
+      gridCols: 'grid-cols-3',
       options: [
         {
           id: '2x-50',
