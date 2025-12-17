@@ -20,7 +20,7 @@ export function Header() {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="p-0 bg-transparent border-0 w-full max-w-sm">
+            <SheetContent side="top" className="p-4 bg-transparent border-0">
                 <SheetTitle className="sr-only">Sidebar Menu</SheetTitle>
                 <Sidebar />
             </SheetContent>

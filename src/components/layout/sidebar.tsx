@@ -24,7 +24,7 @@ const menuItems = [
 
 export function Sidebar() {
   return (
-    <div className="h-full flex flex-col bg-[#1a1a1a] text-white sparkle-bg">
+    <div className="h-full flex flex-col bg-[#1a1a1a] text-white rounded-lg">
       <div className="flex items-center justify-between p-4 border-b border-gray-700">
         <SheetClose asChild>
           <Button variant="ghost" size="icon" className="text-white">
@@ -37,28 +37,28 @@ export function Sidebar() {
         </Button>
       </div>
 
-      <div className="flex flex-col items-center p-6 space-y-4">
+      <div className="flex flex-col items-center p-4 space-y-2">
         <div className="relative">
-          <div className="bg-white p-2 rounded-lg">
+          <div className="bg-white p-1 rounded-lg">
             <Image
               src="/logo.png"
               alt="Zenith Harrai Logo"
-              width={64}
-              height={64}
-              className="h-16 w-16"
+              width={48}
+              height={48}
+              className="h-12 w-12"
             />
           </div>
         </div>
-        <h3 className="text-xl font-bold">Zenith Harrai</h3>
+        <h3 className="text-lg font-bold">Zenith Harrai</h3>
       </div>
 
       <nav className="flex-1 p-4">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-3">
           {menuItems.map((item) => (
             <Link href={item.href} key={item.label}>
                 <Button
                   variant="outline"
-                  className="w-full h-14 bg-white text-black font-semibold text-base justify-center gap-2 border-none hover:bg-gray-200"
+                  className="w-full h-auto py-3 bg-white text-black font-semibold text-sm justify-center gap-2 border-none hover:bg-gray-200"
                 >
                   <item.icon className="h-5 w-5" />
                   <span>{item.label}</span>
