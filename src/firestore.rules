@@ -79,11 +79,11 @@ service cloud.firestore {
      * Returns true if an admin is updating only the balance.
      */
     function isAdminUpdatingBalance() {
-      // Check if all other fields are unchanged.
-      let otherFieldsUnchanged = request.resource.data.keys().diff(resource.data.keys()).size() == 1 &&
-                                'balance' in request.resource.data.keys();
-      return isAdmin() && request.resource.data.id == resource.data.id && otherFieldsUnchanged;
+      // Checks if the incoming request tries to change any field other than 'balance'.
+      let otherFields = request.resource.data.keys().remove('balance');
+      return isAdmin() && otherFields.size() == 0;
     }
+
 
     // ----------------------------------------------------------------------
     // Collection Rules
