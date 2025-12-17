@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { useCollectionGroup, useFirestore } from '@/firebase';
+import { useCollectionGroup, useFirestore, useUser } from '@/firebase';
 import { collectionGroup, doc, query, orderBy, where, Timestamp } from 'firebase/firestore';
 import { updateDocumentNonBlocking, addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, Clock } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { collection } from 'firebase/firestore';
+import { useAdminStatus } from '@/hooks/use-admin-status';
 
 type Order = {
   id: string;
@@ -46,12 +47,14 @@ const LoadingSkeleton = () => (
 export function OrderManagement() {
     const firestore = useFirestore();
     const { toast } = useToast();
+    const { isAdmin } = useAdminStatus();
     
-    // Query for pending orders across all users
+    // Query for pending orders across all users only if the current user is an admin.
     const pendingOrdersQuery = useMemo(() => {
+        if (!isAdmin) return null; // Prevent non-admins from making this query
         const ordersCollection = collectionGroup(firestore, 'orders');
         return query(ordersCollection, where('status', '==', 'Pending'), orderBy('timestamp', 'desc'));
-    }, [firestore]);
+    }, [firestore, isAdmin]);
 
     const { data: orders, isLoading, error } = useCollectionGroup<Order>(pendingOrdersQuery as any);
 

@@ -124,10 +124,10 @@ service cloud.firestore {
     /**
      * @description Collection group query rule for 'orders'.
      * @path /{path=**}/orders/{orderId}
-     * @allow (list) Admins can list all orders across all users for management.
+     * @allow (list) Admins can list all pending orders across all users for management.
      */
     match /{path=**}/orders/{orderId} {
-      allow list: if isAdmin();
+      allow list: if isAdmin() && request.query.where.status == 'Pending';
     }
 
     /**
