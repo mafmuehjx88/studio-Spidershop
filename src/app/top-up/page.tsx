@@ -92,6 +92,7 @@ const NoteCard = ({ note, onCopy }: { note: any; onCopy: (text: string) => void;
 export default function TopUpPage() {
     const { toast } = useToast();
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
 
     const handleCopy = (text: string) => {
         navigator.clipboard.writeText(text);
@@ -103,13 +104,29 @@ export default function TopUpPage() {
     
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
-            setSelectedFile(event.target.files[0]);
+            const file = event.target.files[0];
+            setSelectedFile(file);
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result as string);
+            };
+            reader.readAsDataURL(file);
         }
     }
 
     const handleSubmit = () => {
         // TODO: Implement the logic to upload the screenshot and create a top-up request.
         // For now, we'll just show a toast message.
+        if (!selectedFile) {
+            toast({
+                title: "Error",
+                description: "Please upload a screenshot.",
+                variant: "destructive",
+            });
+            return;
+        }
+
         toast({
             title: "Coming Soon!",
             description: "Functionality is not yet implemented.",
@@ -154,17 +171,15 @@ export default function TopUpPage() {
 
               <div className="space-y-4 pt-4">
                 <h3 className="font-semibold text-primary">Payment Screenshot ( ငွေလွှဲ Id ပါထည့်ပါ )</h3>
-                <label htmlFor="screenshot" className="flex flex-col items-center justify-center w-full h-32 border-2 border-green-500 border-dashed rounded-lg cursor-pointer bg-green-500/10 hover:bg-green-500/20">
-                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        {selectedFile ? (
-                             <p className="text-sm text-green-400">{selectedFile.name}</p>
-                        ) : (
-                            <>
-                                <UploadCloud className="w-8 h-8 mb-2 text-green-400" />
-                                <p className="mb-2 text-sm text-green-400">ငွေလွှဲပုံထည့်ရန်နှိပ်ပါ</p>
-                            </>
-                        )}
-                    </div>
+                <label htmlFor="screenshot" className="flex flex-col items-center justify-center w-full h-48 border-2 border-green-500 border-dashed rounded-lg cursor-pointer bg-green-500/10 hover:bg-green-500/20 relative overflow-hidden">
+                    {imagePreview ? (
+                        <Image src={imagePreview} alt="Screenshot preview" layout="fill" objectFit="contain" />
+                    ) : (
+                        <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                            <UploadCloud className="w-8 h-8 mb-2 text-green-400" />
+                            <p className="mb-2 text-sm text-green-400">ငွေလွှဲပုံထည့်ရန်နှိပ်ပါ</p>
+                        </div>
+                    )}
                     <input id="screenshot" type="file" className="hidden" onChange={handleFileChange} accept="image/*"/>
                 </label>
                 <Button className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-bold text-lg" onClick={handleSubmit}>
