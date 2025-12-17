@@ -1,14 +1,17 @@
 import Image from "next/image";
 import type { TopUpOption } from "@/lib/top-up-options";
-import { cn } from "@/lib/utils";
 
 interface TopUpCardProps {
   option: TopUpOption;
+  onCardClick: (option: TopUpOption) => void;
 }
 
-export function TopUpCard({ option }: TopUpCardProps) {
+export function TopUpCard({ option, onCardClick }: TopUpCardProps) {
   return (
-    <div className="relative flex flex-col cursor-pointer group bg-[#2d2d2d] rounded-2xl p-3 text-center text-white transition-all hover:ring-2 hover:ring-green-500">
+    <div
+      onClick={() => onCardClick(option)}
+      className="relative flex flex-col cursor-pointer group bg-[#2d2d2d] rounded-2xl p-3 text-center text-white transition-all hover:ring-2 hover:ring-green-500"
+    >
       {option.inStockTag && (
         <div className="absolute top-2 right-2 badge-instock text-white text-[10px] font-bold px-2 py-0.5 rounded-md z-10">
           {option.inStockTag}

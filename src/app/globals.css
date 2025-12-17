@@ -116,4 +116,7 @@
     background-size: 50px 50px;
     animation: sparkle 15s linear infinite;
   }
+  .save-button {
+    @apply bg-green-500 text-white p-2 rounded-md hover:bg-green-600;
+  }
 }
