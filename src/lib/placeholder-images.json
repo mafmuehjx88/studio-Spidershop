@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-banner",
+      "description": "Promotional banner for Zenith Harrai Shop featuring a futuristic cityscape",
+      "imageUrl": "https://images.unsplash.com/photo-1707308534034-923adb4fce2b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhYnN0cmFjdCUyMGdhbWluZ3xlbnwwfHx8fDE3NjU4MzYyNDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract gaming"
+    },
+    {
+      "id": "diamond-pack-1",
+      "description": "A pile of shining diamonds",
+      "imageUrl": "https://images.unsplash.com/photo-1741704138665-57f72cf743f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnbG93aW5nJTIwY3J5c3RhbHxlbnwwfHx8fDE3NjU4NjIwNTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "glowing crystal"
+    },
+    {
+      "id": "diamond-pack-2",
+      "description": "A larger pile of shining blue diamonds",
+      "imageUrl": "https://images.unsplash.com/photo-1605821771565-35e0d046a2fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxibHVlJTIwamV3ZWx8ZW58MHx8fHwxNzY1OTQ1NTc5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "blue jewel"
+    },
+    {
+      "id": "uc-pack-1",
+      "description": "A stack of golden UC coins",
+      "imageUrl": "https://images.unsplash.com/photo-1624365168898-1f7189831f41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxnb2xkJTIwY29pbnN8ZW58MHx8fHwxNzY1ODg1ODk5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gold coins"
+    },
+    {
+      "id": "uc-pack-2",
+      "description": "A treasure chest full of UC coins",
+      "imageUrl": "https://images.unsplash.com/photo-1586974710160-55f48f417990?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzaGlueSUyMGN1cnJlbmN5fGVufDB8fHx8MTc2NTk0NTU3OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "shiny currency"
+    }
+  ]
 }
