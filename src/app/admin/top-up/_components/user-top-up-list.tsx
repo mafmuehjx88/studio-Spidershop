@@ -69,7 +69,8 @@ export function UserTopUpList() {
   const { data: users, isLoading: areUsersLoading, error } = useCollection<UserProfile>(usersQuery as any);
 
   useEffect(() => {
-    // Wait until loading is done, then check if user is not an admin
+    // Wait until loading is COMPLETELY finished.
+    // Then, and ONLY then, check if the user is not an admin.
     if (!isUserLoading && !isAdminLoading && !isAdmin) {
       router.push('/');
     }
@@ -126,6 +127,7 @@ export function UserTopUpList() {
   }
 
   // If not an admin, show an access denied message while redirecting.
+  // The useEffect hook will handle the actual redirection.
   if (!isAdmin) {
     return (
         <div className="text-center py-10">
