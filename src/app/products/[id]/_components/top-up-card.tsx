@@ -45,7 +45,7 @@ export function TopUpCard({ option }: TopUpCardProps) {
       </div>
 
       <div className="flex flex-col items-center">
-        <p className="text-sm font-medium h-10 flex items-center justify-center">
+        <p className="text-xs font-medium flex items-center justify-center text-center">
           {option.name}
         </p>
         <p className="text-xs font-semibold text-gray-300">{option.price}</p>

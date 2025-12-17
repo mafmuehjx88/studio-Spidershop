@@ -99,7 +99,7 @@ export const topUpOptions: Record<string, TopUpCategory[]> = {
     {
         id: 'other-diamonds',
         title: 'Other Diamonds',
-        gridCols: 'grid-cols-4',
+        gridCols: 'grid-cols-3',
         options: [
             { id: 'd-11', name: '11 Diamond', price: '825 ကျပ်', image: findImage('mlbb-diamond-small'), inStockTag: 'မစောင့်ရပါ' },
             { id: 'd-22', name: '22 Diamond', price: '1549 ကျပ်', image: findImage('mlbb-diamond-small'), inStockTag: 'မစောင့်ရပါ' },
