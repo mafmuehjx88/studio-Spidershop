@@ -15,19 +15,19 @@ export function TopUpCard({ option }: TopUpCardProps) {
         </div>
       )}
 
-      <div className="relative w-full aspect-square mb-2 flex items-center justify-center">
+      <div className="relative w-full aspect-square mb-2">
         <Image
           src={option.image.imageUrl}
           alt={option.name}
           width={80}
           height={80}
-          className="object-contain"
+          className="object-contain w-full h-full"
           data-ai-hint={option.image.imageHint}
         />
       </div>
 
-      <div className="flex flex-col items-center">
-        <p className="text-xs font-medium flex items-center justify-center text-center h-10">
+      <div className="flex flex-col items-center justify-end flex-grow">
+        <p className="text-xs font-medium">
           {option.name}
         </p>
         <p className="text-xs font-semibold text-gray-300">{option.price}</p>
@@ -35,12 +35,3 @@ export function TopUpCard({ option }: TopUpCardProps) {
     </div>
   );
 }
-
-// Helper CSS clip-path, which is hard to do with tailwind.
-const RechargeTagClipPath = () => (
-  <style jsx global>{`
-    .clip-recharge-tag {
-      clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
-    }
-  `}</style>
-);
