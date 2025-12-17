@@ -170,7 +170,7 @@ service cloud.firestore {
         allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
         allow delete: if isExistingOwner(userId);
       }
-
+      
       /**
        * @description Manages user-specific top-up transaction history.
        * @path /users/{userId}/topUpTransactions/{transactionId}
