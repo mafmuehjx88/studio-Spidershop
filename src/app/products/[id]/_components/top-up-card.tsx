@@ -12,11 +12,7 @@ export function TopUpCard({ option, onCardClick }: TopUpCardProps) {
       onClick={() => onCardClick(option)}
       className="relative flex flex-col cursor-pointer group bg-[#2d2d2d] rounded-2xl p-3 text-center text-white transition-all hover:ring-2 hover:ring-green-500"
     >
-      {option.inStockTag && (
-        <div className="absolute top-2 right-2 badge-instock text-white text-[10px] font-bold px-2 py-0.5 rounded-md z-10">
-          {option.inStockTag}
-        </div>
-      )}
+      
 
       <div className="relative w-full aspect-square mb-2">
         <Image
