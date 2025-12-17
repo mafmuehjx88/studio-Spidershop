@@ -25,18 +25,6 @@ const menuItems = [
 export function Sidebar() {
   return (
     <div className="h-full flex flex-col bg-[#1a1a1a] text-white rounded-lg">
-      <div className="flex items-center justify-between p-4 border-b border-gray-700">
-        <SheetClose asChild>
-          <Button variant="ghost" size="icon" className="text-white">
-            <X className="h-6 w-6" />
-          </Button>
-        </SheetClose>
-        <h2 className="text-lg font-semibold">Zenith Harrai Shop</h2>
-        <Button variant="ghost" size="icon" className="text-white">
-          <ChevronDown className="h-6 w-6" />
-        </Button>
-      </div>
-
       <div className="flex flex-col items-center p-4 space-y-2">
         <div className="relative">
           <div className="bg-white p-1 rounded-lg">
