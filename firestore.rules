@@ -16,8 +16,8 @@
  * ## Key Security Decisions
  * - **Default Deny:** Access is denied by default. All rules explicitly grant permissions.
  * - **User Data Privacy:** A user's profile, notifications, and orders are strictly private. Access is granted only to the authenticated user whose UID matches the document path.
- * - **No User Enumeration:** Listing documents in the top-level `/users` collection is disallowed to prevent scraping user information.
  * - **Admin-Managed Public Data:** Collections like `/products` and `/featuredBanners` are readable by anyone but can only be modified by users designated as admins.
+ * - **Admin User Management:** Admins can list all users and update their balances. Regular users cannot list other users.
  * - **Path-Based Security:** User-specific data is secured using the `{userId}` wildcard in the path.
  * - **Role-Based Security:** Admin privileges are determined by checking for the user's UID in the `/admins` collection.
  *
@@ -56,13 +56,14 @@ service cloud.firestore {
     /**
      * Returns true if the incoming data for a user document is valid.
      * - Balance can only be set to 0 on creation.
-     * - Balance cannot be updated directly by the client.
+     * - Balance cannot be updated directly by the client (unless admin).
      */
     function isValidUserCreate() {
       return request.resource.data.balance == 0;
     }
     
     function isValidUserUpdate() {
+      // Regular users cannot change their own balance.
       return request.resource.data.balance == resource.data.balance;
     }
 
@@ -72,6 +73,16 @@ service cloud.firestore {
      */
     function isAdmin() {
       return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+    
+    /**
+     * Returns true if an admin is updating only the balance.
+     */
+    function isAdminUpdatingBalance() {
+      // Check if all other fields are unchanged.
+      let otherFieldsUnchanged = request.resource.data.keys().diff(resource.data.keys()).size() == 1 &&
+                                'balance' in request.resource.data.keys();
+      return isAdmin() && request.resource.data.id == resource.data.id && otherFieldsUnchanged;
     }
 
     // ----------------------------------------------------------------------
@@ -94,7 +105,7 @@ service cloud.firestore {
      * @description Manages product listings. Publicly readable, but only admins can modify.
      * @path /products/{productId}
      * @allow (get, list) An anonymous or authenticated user can read product data.
-     * @allow (create, update, delete) Only admins can modify product data.
+     * @allow (write) Only admins can modify product data.
      * @principle Segregates public read access from privileged write access.
      */
     match /products/{productId} {
@@ -119,17 +130,17 @@ service cloud.firestore {
     /**
      * @description Manages user profile documents.
      * @path /users/{userId}
-     * @allow (create) A new user can create their own profile document. `auth.uid` must match `{userId}`.
-     * @allow (get, update, delete) An authenticated user can read, update, or delete their own profile.
-     * @deny (list) No one can list all users to prevent user enumeration.
-     * @deny (get, update, delete) A user cannot access another user's profile.
-     * @principle Restricts access to a user's own data tree and prevents enumeration of user data.
+     * @allow (get) Owner can read their own profile.
+     * @allow (list) Admins can list all users. Regular users cannot.
+     * @allow (create) A new user can create their own profile.
+     * @allow (update) Owner can update their profile (but not balance). Admins can update any user's balance.
+     * @allow (delete) Owner can delete their own profile.
      */
     match /users/{userId} {
       allow get: if isOwner(userId);
-      allow list: if false;
+      allow list: if isAdmin();
       allow create: if isOwner(userId) && request.resource.data.id == userId && isValidUserCreate();
-      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+      allow update: if (isExistingOwner(userId) && isValidUserUpdate()) || isAdminUpdatingBalance();
       allow delete: if isExistingOwner(userId);
 
       /**

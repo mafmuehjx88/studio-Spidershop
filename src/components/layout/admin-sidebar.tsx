@@ -15,7 +15,7 @@ import { SheetClose } from "@/components/ui/sheet";
 const adminMenuItems = [
   { href: "#", label: "သုံးစွဲသူများ", icon: Users },
   { href: "#", label: "Order comments", icon: MessageSquare },
-  { href: "#", label: "Top up", icon: Upload },
+  { href: "/admin/top-up", label: "Top up", icon: Upload },
   { href: "#", label: "Admin settings", icon: Settings },
 ];
 
