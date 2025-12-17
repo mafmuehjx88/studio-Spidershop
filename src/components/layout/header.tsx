@@ -76,11 +76,7 @@ export function Header() {
             )}
 
           </div>
-          <div className="absolute left-1/2 -translate-x-1/2">
-            <h1 className="text-lg font-bold text-primary-foreground">
-              Spider Game Shop
-            </h1>
-          </div>
+          
           <div className="flex items-center gap-2">
             <Wallet className="h-6 w-6 text-white" />
             <span className="text-sm font-semibold text-white">{balance}</span>
