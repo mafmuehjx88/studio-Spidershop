@@ -14,7 +14,6 @@ export function HeroBanner() {
         data-ai-hint={heroImage?.imageHint || "blue lightning character"}
         priority
       />
-      <div className="absolute inset-0 bg-black/30" />
       <div className="relative z-10 flex h-full flex-col items-center justify-center p-4 text-center text-primary-foreground">
         {/* All text and logo elements have been removed as requested */}
       </div>
