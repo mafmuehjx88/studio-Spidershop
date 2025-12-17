@@ -81,7 +81,7 @@ export function TopUpHistoryList() {
   }, [user, firestore]);
 
   const { data: transactions, isLoading, error } = useCollection<TopUpTransaction>(
-    transactionsQuery as any
+    transactionsQuery
   );
 
   if (isUserLoading || (isLoading && !transactions)) {
