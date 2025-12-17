@@ -55,7 +55,7 @@ export function UserTopUpList() {
   const router = useRouter();
   const firestore = useFirestore();
   const { toast } = useToast();
-  const { user, isUserLoading } = useUser();
+  const { isUserLoading } = useUser();
   const { isAdmin, isAdminLoading } = useAdminStatus();
 
   // state to hold the amount for each user
@@ -109,6 +109,7 @@ export function UserTopUpList() {
       return;
     }
 
+    if (!firestore) return;
     const userDocRef = doc(firestore, 'users', userId);
     updateDocumentNonBlocking(userDocRef, { balance: newBalance });
 
