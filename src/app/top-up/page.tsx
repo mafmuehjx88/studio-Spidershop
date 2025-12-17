@@ -12,6 +12,10 @@ import { PaymentCard } from './_components/payment-card';
 import { NoteCard } from './_components/note-card';
 import { useUserProfile } from '@/hooks/use-user-profile';
 import { sendTelegramNotification } from '@/ai/flows/telegram-notifier-flow';
+import { useFirestore } from '@/firebase';
+import { collection } from 'firebase/firestore';
+import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+
 
 const paymentMethods = [
   {
@@ -49,6 +53,7 @@ const TopUpPage = () => {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { userProfile } = useUserProfile();
+    const firestore = useFirestore();
 
     const handleCopy = (text: string) => {
         navigator.clipboard.writeText(text).catch(err => {
@@ -115,6 +120,16 @@ const TopUpPage = () => {
                     username: userProfile.username,
                     receiptDataUri: base64Image,
                 });
+                
+                // Create notification in Firestore
+                const notificationData = {
+                  userId: userProfile.id,
+                  message: 'ငွေဖြည့်သွင်းအော်ဒါတင်ခြင်း အောင်မြင်ပါတယ် ။ ငွေဖြည့်သွင်းခြင်းလုပ်ငန်းစဥ်ကို မနက် 9နာရီမှ ည 10နာရီအတွင်း ငွေဖြည့်သွင်းပါက 3Mins မှ 15Mins အတွင်းသင့်အကောင့်ထဲရောက်လာမှာဖြစ်ပါတယ်ဗျ..',
+                  timestamp: new Date().toISOString(),
+                  isRead: false,
+                };
+                addDocumentNonBlocking(collection(firestore, `users/${userProfile.id}/notifications`), notificationData);
+
 
                 router.push('/');
                 
