@@ -79,14 +79,15 @@ service cloud.firestore {
     // ----------------------------------------------------------------------
     
     /**
-     * @description Manages admin user records. Signed-in users can read, but only admins can write.
+     * @description Manages admin user records. Publicly readable, admin-only writable.
      * @path /admins/{userId}
-     * @allow (get, list) Any signed-in user can check if a UID is in the admin list.
+     * @allow (get, list) Anyone can check if a UID is in the admin list. This is safe because UIDs are not sensitive.
      * @allow (write) Only existing admins can manage the list of other admins.
      * @deny (any) Non-admins cannot modify this collection.
      */
     match /admins/{userId} {
-      allow get, list: if isSignedIn();
+      allow get: if true;
+      allow list: if true;
       allow write: if isAdmin();
     }
 
