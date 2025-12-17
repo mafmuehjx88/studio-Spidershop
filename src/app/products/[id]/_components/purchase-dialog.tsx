@@ -59,8 +59,8 @@ export function PurchaseDialog({
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="gameId" className="flex items-center gap-2">
-              <svg
+            <Label className="flex items-center gap-2">
+               <svg
                 width="1em"
                 height="1em"
                 viewBox="0 0 256 256"
@@ -69,35 +69,43 @@ export function PurchaseDialog({
               >
                 <path d="M128,24a104,104,0,1,0,104,104A104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm68-88a68,68,0,0,1-68,68,52,52,0,0,1-52-52,60,60,0,0,1,60-60,68,68,0,0,1,68,68Zm-60-32a28,28,0,1,0-28,28,28,28,0,0,0,28-28Z"></path>
               </svg>
-              Game Id
-            </Label>
-            <div className="flex items-center gap-2">
-              <Input
-                id="gameId"
-                value={gameId}
-                onChange={(e) => setGameId(e.target.value)}
-                className="bg-[#2d2d2d] border-none"
-              />
-              <Button size="icon" className="save-button">
-                <Bookmark className="h-5 w-5" />
+              Account Info
+               <Button size="icon" variant="ghost" className="ml-auto save-button h-7 w-7">
+                <Bookmark className="h-4 w-4" />
               </Button>
-            </div>
+            </Label>
+            
+            {isMlbb ? (
+              <div className="flex items-center gap-1 bg-[#2d2d2d] p-1 rounded-md">
+                <Input
+                  id="gameId"
+                  placeholder="Game Id"
+                  value={gameId}
+                  onChange={(e) => setGameId(e.target.value)}
+                  className="bg-transparent border-0 text-center"
+                />
+                <span className="text-gray-400">(</span>
+                <Input
+                  id="serverId"
+                  placeholder="Server Id"
+                  value={serverId}
+                  onChange={(e) => setServerId(e.target.value)}
+                  className="bg-transparent border-0 text-center"
+                />
+                 <span className="text-gray-400">)</span>
+              </div>
+            ) : (
+               <div className="flex items-center gap-2">
+                <Input
+                  id="gameId"
+                  value={gameId}
+                  onChange={(e) => setGameId(e.target.value)}
+                  className="bg-[#2d2d2d] border-none"
+                  placeholder="Game Id"
+                />
+              </div>
+            )}
           </div>
-
-          {isMlbb && (
-            <div className="space-y-2">
-               <Label htmlFor="serverId" className="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                Server Id
-              </Label>
-              <Input
-                id="serverId"
-                value={serverId}
-                onChange={(e) => setServerId(e.target.value)}
-                className="bg-[#2d2d2d] border-none"
-              />
-            </div>
-          )}
           
           <div className="space-y-2">
             <Label>ပမာဏ</Label>
