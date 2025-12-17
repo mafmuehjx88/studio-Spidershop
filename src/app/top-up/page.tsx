@@ -59,6 +59,21 @@ const TopUpPage = () => {
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
             const file = event.target.files[0];
+            const fileSizeInMB = file.size / 1024 / 1024; // Convert bytes to MB
+
+            if (fileSizeInMB > 1) {
+                toast({
+                    title: "Upload မအောင်မြင်ပါ",
+                    description: "1MB ကျော်တဲ့အပုံဆိုရင် အပုံထည့်မရပါ screen shot အပုံပဲရပါတယ်",
+                    variant: "destructive",
+                });
+                // Reset the input and preview
+                event.target.value = "";
+                setSelectedFile(null);
+                setImagePreview(null);
+                return;
+            }
+            
             setSelectedFile(file);
 
             const reader = new FileReader();
