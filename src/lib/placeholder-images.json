@@ -119,6 +119,18 @@
       "description": "A pile of blue diamonds for Mobile Legends.",
       "imageUrl": "https://images.unsplash.com/photo-1588621437434-902967f67a73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxibHVlJTIwZGlhbW9uZHN8ZW58MHx8fHwxNzY2MDM2MjM2fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "blue diamonds"
+    },
+    {
+      "id": "mlbb-diamonds-large",
+      "description": "A large pile of blue diamonds for Mobile Legends.",
+      "imageUrl": "https://images.unsplash.com/photo-1588621437434-902967f67a73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxibHVlJTIwZGlhbW9uZHN8ZW58MHx8fHwxNzY2MDM2MjM2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "blue diamonds"
+    },
+    {
+      "id": "mlbb-diamond-small",
+      "description": "A small blue diamond.",
+      "imageUrl": "https://images.unsplash.com/photo-1610216703551-9c1859341399?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxibHVlJTIwZGlhbW9uZHxlbnwwfHx8fDE3NjYwMzYyMzZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "blue diamond"
     }
   ]
 }
