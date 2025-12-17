@@ -1,9 +1,9 @@
 'use client';
 
 import {
-  ChevronDown,
   CircleDollarSign,
   ClipboardList,
+  FileText,
   Gamepad2,
   Home,
   LogIn,
@@ -11,7 +11,6 @@ import {
   User,
   UserPlus,
   Youtube,
-  FileText,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,7 +46,7 @@ const GuestSidebar = () => (
 
     <nav className="flex-1 p-4 space-y-4">
       <div className="grid grid-cols-2 gap-3">
-        <Link href="#">
+        <Link href="/register">
           <Button
             variant="outline"
             className="w-full h-auto py-3 bg-white text-black font-semibold text-sm justify-center gap-2 border-none hover:bg-gray-200"
@@ -56,7 +55,7 @@ const GuestSidebar = () => (
             <span>Register Account</span>
           </Button>
         </Link>
-        <Link href="#">
+        <Link href="/login">
           <Button
             variant="outline"
             className="w-full h-auto py-3 bg-white text-black font-semibold text-sm justify-center gap-2 border-none hover:bg-gray-200"
