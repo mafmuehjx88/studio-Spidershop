@@ -37,25 +37,11 @@ export default function AdminOrdersPage() {
       <Header />
       <main className="flex-grow pt-16">
         <div className="container mx-auto px-4 py-8 md:px-6">
-          {/* STATE 1: LOADING */}
-          {isLoading && <LoadingSkeleton />}
+          <h1 className="text-2xl font-bold text-primary mb-2">Order Management</h1>
+          <p className="text-muted-foreground mb-6">Review and approve pending user orders.</p>
+          
+          {isLoading ? <LoadingSkeleton /> : <OrderManagement />}
 
-          {/* STATE 2: NOT LOADING AND IS ADMIN */}
-          {!isLoading && isAdmin && (
-            <>
-              <h1 className="text-2xl font-bold text-primary">Order Management</h1>
-              <p className="text-muted-foreground mb-6">Review and approve pending user orders.</p>
-              <OrderManagement />
-            </>
-          )}
-
-          {/* STATE 3: NOT LOADING AND NOT ADMIN */}
-          {!isLoading && !isAdmin && (
-            <div className="flex flex-col items-center justify-center text-center py-10">
-                <p className="text-2xl font-bold text-destructive">Access Denied</p>
-                <p className="text-muted-foreground mt-2">You do not have permission to view this page.</p>
-            </div>
-          )}
         </div>
       </main>
     </div>

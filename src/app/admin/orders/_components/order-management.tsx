@@ -95,6 +95,15 @@ export function OrderManagement() {
         return <p className="py-10 text-center text-destructive">Error loading orders: {error.message}</p>;
     }
     
+    if (!isAdmin) {
+        return (
+            <div className="flex flex-col items-center justify-center text-center py-10">
+                <p className="text-2xl font-bold text-destructive">Access Denied</p>
+                <p className="text-muted-foreground mt-2">You do not have permission to view this page.</p>
+            </div>
+        );
+    }
+    
     if (!orders || orders.length === 0) {
         return (
              <div className="flex flex-col items-center justify-center text-center py-10 bg-card rounded-lg">
