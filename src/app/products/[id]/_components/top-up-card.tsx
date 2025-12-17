@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { type TopUpOption } from '@/lib/top-up-options';
+import { Badge } from '@/components/ui/badge';
 
 interface TopUpCardProps {
   option: TopUpOption;
@@ -9,15 +10,15 @@ export function TopUpCard({ option }: TopUpCardProps) {
   return (
     <div className="relative flex cursor-pointer flex-col items-center justify-between gap-2 overflow-hidden rounded-lg border bg-card p-3 text-center text-card-foreground shadow-md transition-transform hover:scale-105">
       {option.badgeText && (
-        <div className="absolute top-0 left-0 flex h-8 w-8 items-center justify-center rounded-br-lg bg-gray-800 text-xs font-bold">
+        <div className="absolute top-0 left-0 flex h-8 w-8 items-center justify-center rounded-br-lg bg-gray-200 text-xs font-bold text-gray-800">
          {option.badgeIcon && <Image src={option.badgeIcon} alt="Badge Icon" width={12} height={12} className="mr-1" />}
           {option.badgeText}
         </div>
       )}
        {option.promoTag && (
-        <div className="absolute top-0 right-0 rounded-bl-md bg-green-500 px-2 py-0.5 text-[10px] font-semibold text-white">
+        <Badge variant="destructive" className="absolute top-0 right-0 rounded-bl-md rounded-tr-none text-[10px] font-semibold">
           {option.promoTag}
-        </div>
+        </Badge>
       )}
       <div className="flex-grow pt-8">
         <Image

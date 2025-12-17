@@ -8,7 +8,7 @@ export function ProductGrid() {
     <div className="bg-background">
       <section className="container mx-auto px-4 py-8 md:px-6 md:py-12">
         <div className="mb-8 overflow-hidden whitespace-nowrap">
-           <Marquee className="text-green-400">
+           <Marquee className="text-green-500">
               အသုံးပြုကြတဲ့ Users အားလုံး စိတ်ကျေနပ်မှုအပြည့်အဝရရှိစေရန်
            </Marquee>
         </div>

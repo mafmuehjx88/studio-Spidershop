@@ -5,7 +5,7 @@ export function HeroBanner() {
   const heroImage = PlaceHolderImages.find((p) => p.id === "hero-banner");
 
   return (
-    <section className="relative w-full aspect-video">
+    <section className="relative w-full aspect-video bg-muted">
       <Image
         src={heroImage?.imageUrl || "https://picsum.photos/seed/hero/1280/720"}
         alt={heroImage?.description || "Promotional banner"}
@@ -14,7 +14,7 @@ export function HeroBanner() {
         data-ai-hint={heroImage?.imageHint || "blue lightning character"}
         priority
       />
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-black/30" />
       <div className="relative z-10 flex h-full flex-col items-center justify-center p-4 text-center text-primary-foreground">
         <div className="absolute top-4 left-4 rounded-md bg-black/50 p-2 text-xs backdrop-blur-sm">
           zenith harrai shop
