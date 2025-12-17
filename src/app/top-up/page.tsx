@@ -75,24 +75,23 @@ const TopUpPage = () => {
             return;
         }
 
-        toast({
-            title: (
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-green-400" />
-                  <span>အောင်မြင်ပါသည်</span>
-                </div>
-            ),
-            description: "Your top-up request has been submitted.",
-            variant: "success",
-            duration: 3000,
-        });
-        
-        // Reset state after a short delay and redirect
+        // Navigate home first
+        router.push('/');
+
+        // Then show the toast
         setTimeout(() => {
-            setSelectedFile(null);
-            setImagePreview(null);
-            router.push('/');
-        }, 3000);
+            toast({
+                title: (
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-green-400" />
+                      <span>အောင်မြင်ပါသည်</span>
+                    </div>
+                ),
+                description: "Your top-up request has been submitted.",
+                variant: "success",
+                duration: 3000,
+            });
+        }, 100); // A small delay to ensure navigation has started
     }
 
   return (
