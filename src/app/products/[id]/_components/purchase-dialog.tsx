@@ -21,6 +21,7 @@ import { collection, doc } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { products } from "@/lib/products";
 import { useUserProfile } from "@/hooks/use-user-profile";
+import { sendTelegramNotification } from "@/ai/flows/telegram-notifier-flow";
 
 interface PurchaseDialogProps {
   isOpen: boolean;
@@ -50,7 +51,7 @@ export function PurchaseDialog({
     return parseInt(priceString.replace(/ks|,/gi, ''));
   };
 
-  const handlePurchase = () => {
+  const handlePurchase = async () => {
     if (!user || !userProfile) {
       toast({
         variant: "destructive",
@@ -71,11 +72,12 @@ export function PurchaseDialog({
     }
 
     const product = products.find(p => p.id === productId);
+    const productName = product?.name || 'Unknown Product';
 
     const orderData = {
         userId: user.uid,
         productId: productId,
-        productName: product?.name || 'Unknown Product',
+        productName: productName,
         optionName: option.name,
         price: option.price,
         gameId: gameId,
@@ -91,6 +93,22 @@ export function PurchaseDialog({
     const userDocRef = doc(firestore, 'users', user.uid);
     const newBalance = userProfile.balance - price;
     updateDocumentNonBlocking(userDocRef, { balance: newBalance });
+
+    // Send Telegram notification
+    try {
+        await sendTelegramNotification({
+            username: userProfile.username,
+            productName: productName,
+            optionName: option.name,
+            price: option.price,
+            gameId: gameId,
+            ...(isMlbb && { serverId: serverId }),
+        });
+    } catch (error) {
+        console.error("Failed to send Telegram notification on purchase:", error);
+        // We don't block the user if the notification fails, but we log it.
+    }
+
 
     toast({
       title: "Purchase Successful",
