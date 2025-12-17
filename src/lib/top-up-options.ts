@@ -59,32 +59,32 @@ export const topUpOptions: Record<string, TopUpCategory[]> = {
     {
       id: '2x-diamonds',
       title: '2x Diamonds',
-      gridCols: 'grid-cols-4',
+      gridCols: 'grid-cols-2',
       options: [
         {
           id: '2x-50',
-          name: '50 (2x50) 💎',
+          name: '50 (2x50)',
           price: '3,350 Ks',
           image: findImage('mlbb-diamonds'),
           inStockTag: 'မစောင့်ရပါ',
         },
         {
           id: '2x-150',
-          name: '150 (2x150) 💎',
+          name: '150 (2x150)',
           price: '9,200 Ks',
           image: findImage('mlbb-diamonds'),
           inStockTag: 'မစောင့်ရပါ',
         },
         {
           id: '2x-250',
-          name: '250 (2x250) 💎',
+          name: '250 (2x250)',
           price: '15,500 Ks',
           image: findImage('mlbb-diamonds'),
           inStockTag: 'မစောင့်ရပါ',
         },
         {
             id: '2x-500',
-            name: '500 (2x500) 💎',
+            name: '500 (2x500)',
             price: '29,700 Ks',
             image: findImage('mlbb-diamonds-large'),
             inStockTag: 'မစောင့်ရပါ',
