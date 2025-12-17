@@ -111,14 +111,14 @@
     {
       "id": "wave-pay",
       "description": "Wave Pay logo",
-      "imageUrl": "https://images.unsplash.com/photo-1646409206303-1ad7ff5900cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx5ZWxsb3clMjBibHVlJTIwbG9nb3xlbnwwfHx8fDE3NjU5Nzc5MDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "yellow blue logo"
+      "imageUrl": "https://i.ibb.co/9mK34LTF/01-K7-C4-FRZ9-TYQB92-GQT9-NZS70-Q.png",
+      "imageHint": "payment logo"
     },
     {
       "id": "kbz-pay",
       "description": "KBZ Pay logo",
-      "imageUrl": "https://images.unsplash.com/photo-1760138270903-d95903188730?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxibHVlJTIwbG9nb3xlbnwwfHx8fDE3NjU5Nzc5MDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "blue logo"
+      "imageUrl": "https://i.ibb.co/mr2pFXFg/01-K7-C4-K923858-S5-YBRRMHV02-A6.png",
+      "imageHint": "payment logo"
     }
   ]
 }
