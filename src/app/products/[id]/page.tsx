@@ -9,7 +9,7 @@ export default function ProductDetailPage({
   params: { id: string };
 }) {
   const product = products.find((p) => p.id === params.id);
-  const options = topUpOptions[params.id] || [];
+  const categories = topUpOptions[params.id] || [];
 
   if (!product) {
     return (
@@ -26,7 +26,7 @@ export default function ProductDetailPage({
     <div className="flex flex-col">
       <Header />
       <main className="pt-16">
-        <ProductDetailClient product={product} options={options} />
+        <ProductDetailClient product={product} categories={categories} />
       </main>
     </div>
   );

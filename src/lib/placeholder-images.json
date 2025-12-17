@@ -39,7 +39,7 @@
     {
       "id": "mlbb-malaysia",
       "description": "A female archer character with the Malaysia flag.",
-      "imageUrl": "https://images.unsplash.com/photo-1654714685970-06386068b3f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmZW1hbGUlMjBhcmNoZXJ8ZW58MHx8fHwxNzY1OTQ1NzQxfDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1654714685970-06386068b3f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmZW1hbGUlMjBhcmNoZXJ8ZW58MHx8fHwxNzY1OTQ1NzQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "female archer"
     },
     {
@@ -55,9 +55,15 @@
       "imageHint": "company logo"
     },
     {
+      "id": "prod_1-banner",
+      "description": "Mobile Legends Bang Bang promotional banner featuring characters from Attack on Titan.",
+      "imageUrl": "https://images.unsplash.com/photo-1604858466635-26a9b4a4461e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhbmltZSUyMHN3b3JkJTIwY2hhcmFjdGVyfGVufDB8fHx8MTc2NjAzNjIzNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "anime sword character"
+    },
+    {
       "id": "prod_2-banner",
       "description": "PUBG Mobile character in golden armor with 'PUBG UC PRICES' text.",
-      "imageUrl": "https://images.unsplash.com/photo-1614999097984-d98356d64987?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwdWJnJTIwY2hhcmFjdGVyfGVufDB8fHx8MTc2NTk0NjEwN3ww&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1614999097984-d98356d64987?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwdWJnJTIwY2hhcmFjdGVyfGVufDB8fHx8MTc2NTk0NjEwN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "pubg character"
     },
     {
@@ -95,6 +101,24 @@
       "description": "8100 UC pack for PUBG",
       "imageUrl": "https://images.unsplash.com/photo-1585483391381-b96dda4fae8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnYW1lJTIwY3VycmVuY3l8ZW58MHx8fHwxNzY1ODkxMzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "game currency"
+    },
+    {
+      "id": "mlbb-weekly-pass",
+      "description": "Mobile Legends Weekly Pass item card.",
+      "imageUrl": "https://images.unsplash.com/photo-1616499341021-0444580aa394?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxnYW1lJTIwaXRlbSUyMGNhcmR8ZW58MHx8fHwxNzY2MDM2MjM2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "game item card"
+    },
+    {
+      "id": "mlbb-twilight-pass",
+      "description": "A female anime character with a sword for the Twilight Pass.",
+      "imageUrl": "https://images.unsplash.com/photo-1578496467026-c4547d4586f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxhbmltZSUyMHN3b3JkJTIwY2hhcmFjdGVyfGVufDB8fHx8MTc2NjAzNjIzNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "anime sword character"
+    },
+    {
+      "id": "mlbb-diamonds",
+      "description": "A pile of blue diamonds for Mobile Legends.",
+      "imageUrl": "https://images.unsplash.com/photo-1588621437434-902967f67a73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxibHVlJTIwZGlhbW9uZHN8ZW58MHx8fHwxNzY2MDM2MjM2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "blue diamonds"
     }
   ]
 }

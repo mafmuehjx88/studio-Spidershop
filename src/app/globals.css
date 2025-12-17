@@ -94,4 +94,7 @@
       transform: translateX(-100%);
     }
   }
+  .badge-instock {
+    @apply bg-green-600 text-white;
+  }
 }
