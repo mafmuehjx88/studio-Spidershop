@@ -1,19 +1,35 @@
-"use client";
+'use client';
 
-import { useMemo } from "react";
-import { useCollection, useUser } from "@/firebase";
-import { collection, query, orderBy, where } from "firebase/firestore";
-import { useFirestore } from "@/firebase/provider";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
+import { useMemo, useState } from 'react';
+import { useCollection, useUser } from '@/firebase';
+import { collection, query, orderBy } from 'firebase/firestore';
+import { useFirestore } from '@/firebase/provider';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
+import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
 
 type Order = {
   id: string;
   productName: string;
   optionName: string;
   price: string;
-  status: "Completed" | "Pending" | "Failed";
+  status: 'Completed' | 'Pending' | 'Failed';
   timestamp: {
     seconds: number;
   };
@@ -21,104 +37,182 @@ type Order = {
   serverId?: string;
 };
 
-const StatusBadge = ({ status }: { status: Order["status"] }) => {
-  const variant = {
-    Completed: "default",
-    Pending: "secondary",
-    Failed: "destructive",
-  }[status];
+const StatusBadge = ({ status }: { status: Order['status'] }) => {
+  const statusConfig = {
+    Completed: {
+      text: 'Success',
+      className: 'bg-green-600 hover:bg-green-700 text-white',
+    },
+    Pending: {
+      text: 'စောင့်ဆိုင်းပါ',
+      className: 'bg-yellow-500 hover:bg-yellow-600 text-black',
+    },
+    Failed: {
+      text: 'မအောင်မြင်',
+      className: 'bg-red-600 hover:bg-red-700 text-white',
+    },
+  };
 
-  const className = {
-    Completed: "bg-green-600 text-white",
-    Pending: "bg-yellow-500 text-black",
-    Failed: "bg-red-600 text-white",
-  }[status];
+  const { text, className } = statusConfig[status] || statusConfig.Pending;
 
-  return (
-    <Badge variant={variant as any} className={className}>
-      {status}
-    </Badge>
-  );
+  return <Badge className={`rounded-full px-3 py-1 text-xs ${className}`}>{text}</Badge>;
 };
-
-const OrderCard = ({ order }: { order: Order }) => (
-    <Card className="bg-card border-border">
-        <CardHeader className="flex flex-row items-center justify-between p-4">
-            <div className="flex flex-col">
-                <CardTitle className="text-base font-bold">{order.productName}</CardTitle>
-                <CardDescription className="text-xs">{order.optionName}</CardDescription>
-            </div>
-            <StatusBadge status={order.status} />
-        </CardHeader>
-        <CardContent className="p-4 pt-0 space-y-2 text-sm">
-            <div className="flex justify-between">
-                <span className="text-muted-foreground">Price:</span>
-                <span>{order.price}</span>
-            </div>
-            <div className="flex justify-between">
-                <span className="text-muted-foreground">Date:</span>
-                <span>{new Date(order.timestamp.seconds * 1000).toLocaleDateString()}</span>
-            </div>
-             <div className="flex justify-between">
-                <span className="text-muted-foreground">Game ID:</span>
-                <span>{order.gameId}{order.serverId ? ` (${order.serverId})` : ''}</span>
-            </div>
-        </CardContent>
-    </Card>
-);
 
 const LoadingSkeleton = () => (
   <div className="space-y-4">
-    {[...Array(3)].map((_, i) => (
-      <Card key={i} className="bg-card border-border">
-        <CardHeader className="flex flex-row items-center justify-between p-4">
-          <div className="space-y-2">
-            <Skeleton className="h-5 w-32" />
-            <Skeleton className="h-4 w-24" />
-          </div>
-          <Skeleton className="h-6 w-20 rounded-full" />
-        </CardHeader>
-        <CardContent className="p-4 pt-0 space-y-3">
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-3/4" />
-        </CardContent>
-      </Card>
-    ))}
+    <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableHead><Skeleton className="h-5 w-16" /></TableHead>
+                    <TableHead><Skeleton className="h-5 w-24" /></TableHead>
+                    <TableHead><Skeleton className="h-5 w-20" /></TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                {[...Array(5)].map((_, i) => (
+                    <TableRow key={i}>
+                        <TableCell><Skeleton className="h-4 w-full" /></TableCell>
+                        <TableCell><Skeleton className="h-4 w-full" /></TableCell>
+                        <TableCell><Skeleton className="h-6 w-24 rounded-full" /></TableCell>
+                    </TableRow>
+                ))}
+            </TableBody>
+        </Table>
+    </div>
   </div>
 );
+
+const ORDERS_PER_PAGE = 10;
 
 export function OrderList() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
+  const [currentPage, setCurrentPage] = useState(1);
 
   const ordersQuery = useMemo(() => {
     if (!user) return null;
     return query(
       collection(firestore, `users/${user.uid}/orders`),
-      orderBy("timestamp", "desc")
+      orderBy('timestamp', 'desc')
     );
   }, [user, firestore]);
 
-  const { data: orders, isLoading, error } = useCollection<Order>(ordersQuery as any);
+  const { data: orders, isLoading, error } = useCollection<Order>(
+    ordersQuery as any
+  );
+  
+  const paginatedOrders = useMemo(() => {
+    if (!orders) return [];
+    const startIndex = (currentPage - 1) * ORDERS_PER_PAGE;
+    const endIndex = startIndex + ORDERS_PER_PAGE;
+    return orders.slice(startIndex, endIndex);
+  }, [orders, currentPage]);
+
+  const pageCount = useMemo(() => {
+    return orders ? Math.ceil(orders.length / ORDERS_PER_PAGE) : 0;
+  }, [orders]);
+
 
   if (isUserLoading || (isLoading && !orders)) {
     return <LoadingSkeleton />;
   }
 
   if (error) {
-    return <p className="text-destructive text-center">Error loading orders.</p>;
+    return <p className="py-10 text-center text-destructive">Error loading orders. Please try again later.</p>;
   }
 
   if (!orders || orders.length === 0) {
-    return <p className="text-center text-muted-foreground">No orders found.</p>;
+    return <p className="py-10 text-center text-muted-foreground">No orders found.</p>;
+  }
+  
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= pageCount) {
+        setCurrentPage(page);
+    }
   }
 
+  const renderPagination = () => {
+    if (pageCount <= 1) return null;
+    
+    // For this pagination, we will show first, prev, next, last and some pages in between
+    const pages = [];
+    const maxPagesToShow = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = Math.min(pageCount, startPage + maxPagesToShow - 1);
+
+    if (endPage - startPage + 1 < maxPagesToShow) {
+        startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+    }
+
+    return (
+      <Pagination className="mt-6">
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious href="#" onClick={(e) => { e.preventDefault(); handlePageChange(currentPage - 1); }} />
+          </PaginationItem>
+          {startPage > 1 && (
+            <PaginationItem>
+                <PaginationLink href="#" onClick={(e) => { e.preventDefault(); handlePageChange(1); }}>1</PaginationLink>
+            </PaginationItem>
+          )}
+          {startPage > 2 && <PaginationItem><PaginationEllipsis /></PaginationItem>}
+
+          {pages.map(page => (
+             <PaginationItem key={page}>
+                <PaginationLink href="#" onClick={(e) => { e.preventDefault(); handlePageChange(page); }} isActive={currentPage === page}>
+                    {page}
+                </PaginationLink>
+            </PaginationItem>
+          ))}
+
+          {endPage < pageCount - 1 && <PaginationItem><PaginationEllipsis /></PaginationItem>}
+          {endPage < pageCount && (
+             <PaginationItem>
+                <PaginationLink href="#" onClick={(e) => { e
+                .preventDefault(); handlePageChange(pageCount); }}>{pageCount}</PaginationLink>
+            </PaginationItem>
+          )}
+
+          <PaginationItem>
+            <PaginationNext href="#" onClick={(e) => { e.preventDefault(); handlePageChange(currentPage + 1); }} />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    );
+  };
+
+
   return (
-    <div className="space-y-4">
-      {orders.map((order) => (
-        <OrderCard key={order.id} order={order} />
-      ))}
+    <div className="bg-card p-4 rounded-lg border border-border shadow-sm">
+       <h2 className="text-center text-lg font-bold mb-4 text-primary">ဝယ်ယူမှုမှတ်တမ်းများ</h2>
+      <div className="overflow-x-auto">
+        <Table>
+          <TableHeader className="bg-red-900/20">
+            <TableRow>
+              <TableHead className="text-red-400 font-semibold">ID</TableHead>
+              <TableHead className="text-red-400 font-semibold">ပမာဏ</TableHead>
+              <TableHead className="text-red-400 font-semibold">Status</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {paginatedOrders.map((order) => (
+              <TableRow key={order.id}>
+                <TableCell className="font-medium text-blue-400">{order.id.slice(0, 6)}</TableCell>
+                <TableCell>{order.optionName}</TableCell>
+                <TableCell>
+                  <StatusBadge status={order.status} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+      {renderPagination()}
     </div>
   );
 }
