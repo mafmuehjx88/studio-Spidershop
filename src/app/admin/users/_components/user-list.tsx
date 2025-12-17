@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent } from '@/components/ui/card';
 import { Search } from 'lucide-react';
+import { useAdminStatus } from '@/hooks/use-admin-status';
 
 const LoadingSkeleton = () => (
     <div className="space-y-4">
@@ -43,13 +44,15 @@ const LoadingSkeleton = () => (
 export function UserList() {
     const firestore = useFirestore();
     const { toast } = useToast();
+    const { isAdmin, isAdminLoading } = useAdminStatus();
 
     const [adjustmentAmounts, setAdjustmentAmounts] = useState<Record<string, string>>({});
     const [searchTerm, setSearchTerm] = useState('');
 
     const usersQuery = useMemo(() => {
+        if (!firestore || !isAdmin) return null;
         return query(collection(firestore, 'users'), orderBy('username'));
-    }, [firestore]);
+    }, [firestore, isAdmin]);
 
     const { data: users, isLoading: areUsersLoading, error } = useCollection<UserProfile>(usersQuery as any);
     
@@ -110,12 +113,16 @@ export function UserList() {
         setAdjustmentAmounts(prev => ({...prev, [user.id]: ''}));
     };
 
-    if (areUsersLoading) {
+    if (areUsersLoading || isAdminLoading) {
         return <LoadingSkeleton />;
     }
 
     if (error) {
         return <p className="py-10 text-center text-destructive">Error loading users: {error.message}</p>;
+    }
+
+    if (!isAdmin) {
+        return <p className="py-10 text-center text-muted-foreground">You do not have permission to view this page.</p>;
     }
     
     return (
