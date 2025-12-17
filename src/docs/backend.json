@@ -1,0 +1,302 @@
+{
+  "entities": {
+    "Product": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Product",
+      "type": "object",
+      "description": "Represents a product available for purchase, such as in-game currency.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the product."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the product (e.g., '500 Diamonds')."
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the product."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the image representing the product.",
+          "format": "uri"
+        },
+        "price": {
+          "type": "number",
+          "description": "Price of the product."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "imageUrl",
+        "price"
+      ]
+    },
+    "FeaturedBanner": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "FeaturedBanner",
+      "type": "object",
+      "description": "Represents a promotional banner displayed on the home screen.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the banner."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the banner."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the banner."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the banner image.",
+          "format": "uri"
+        },
+        "startDate": {
+          "type": "string",
+          "description": "Start date of the banner's promotion period.",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "description": "End date of the banner's promotion period.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "description",
+        "imageUrl",
+        "startDate",
+        "endDate"
+      ]
+    },
+    "Notification": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Notification",
+      "type": "object",
+      "description": "Represents a user notification.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the notification."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Notification)"
+        },
+        "message": {
+          "type": "string",
+          "description": "Content of the notification."
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Timestamp of when the notification was created.",
+          "format": "date-time"
+        },
+        "isRead": {
+          "type": "boolean",
+          "description": "Indicates whether the notification has been read by the user."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "message",
+        "timestamp",
+        "isRead"
+      ]
+    },
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user."
+        },
+        "username": {
+          "type": "string",
+          "description": "Username of the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the user.",
+          "format": "email"
+        },
+        "balance": {
+          "type": "number",
+          "description": "The user's current wallet balance.",
+          "default": 0
+        }
+      },
+      "required": [
+        "id",
+        "username",
+        "email"
+      ]
+    },
+    "Order": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Order",
+      "type": "object",
+      "description": "Represents a user's purchase order.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the order."
+        },
+        "userId": {
+          "type": "string",
+          "description": "The ID of the user who placed the order. (Relationship: User 1:N Order)"
+        },
+        "productId": {
+            "type": "string",
+            "description": "The ID of the product being purchased."
+        },
+        "productName": {
+          "type": "string",
+          "description": "Name of the product purchased (e.g., 'Mobile Legends Bang Bang')."
+        },
+        "optionName": {
+            "type": "string",
+            "description": "The specific top-up option selected (e.g., 'Weekly Pass')."
+        },
+        "price": {
+          "type": "string",
+          "description": "The price of the order at the time of purchase."
+        },
+        "gameId": {
+            "type": "string",
+            "description": "The in-game user ID provided by the user."
+        },
+        "serverId": {
+            "type": "string",
+            "description": "The in-game server ID, if applicable (e.g., for MLBB)."
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the order.",
+          "enum": [
+            "Pending",
+            "Completed",
+            "Failed"
+          ]
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Timestamp of when the order was created.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "productId",
+        "productName",
+        "optionName",
+        "price",
+        "gameId",
+        "status",
+        "timestamp"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "products/{productId}",
+        "definition": {
+          "entityName": "Product",
+          "schema": {
+            "$ref": "#/backend/entities/Product"
+          },
+          "description": "Stores product information.  Globally readable."
+        }
+      },
+      {
+        "path": "featuredBanners/{bannerId}",
+        "definition": {
+          "entityName": "FeaturedBanner",
+          "schema": {
+            "$ref": "#/backend/entities/FeaturedBanner"
+          },
+          "description": "Stores featured banner information. Globally readable."
+        }
+      },
+      {
+        "path": "users/{userId}/notifications/{notificationId}",
+        "definition": {
+          "entityName": "Notification",
+          "schema": {
+            "$ref": "#/backend/entities/Notification"
+          },
+          "description": "Stores user-specific notifications. Path-based ownership enforced via the {userId} parameter.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The ID of the user who owns the notification."
+            },
+            {
+              "name": "notificationId",
+              "description": "The ID of the notification."
+            }
+          ]
+        }
+      },
+       {
+        "path": "users/{userId}/orders/{orderId}",
+        "definition": {
+          "entityName": "Order",
+          "schema": {
+            "$ref": "#/backend/entities/Order"
+          },
+          "description": "Stores user-specific order history. Path-based ownership enforced via the {userId} parameter.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The ID of the user who owns the order."
+            },
+            {
+              "name": "orderId",
+              "description": "The ID of the order."
+            }
+          ]
+        }
+      },
+      {
+        "path": "users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profile information.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique ID of the user."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to prioritize authorization independence, clarity, and scalability. It leverages denormalization to avoid hierarchical authorization dependencies and structural segregation to ensure a homogeneous security posture within each collection. Path-based ownership is used for user-specific data, while a membership map is employed for collaborative data. Global roles are managed via existence checks in dedicated collections. This design enables robust security rules and efficient data retrieval.\n\nSpecifically, the `users/{userId}/notifications` and `users/{userId}/orders` paths utilize path-based ownership, making security rules straightforward. The `products` and `featuredBanners` collections are globally readable, simplifying data access for the application. No denormalization is required as authorization checks do not require `get()` calls.\n\nThis structure supports secure `list` operations (QAPs) by segregating data with different access requirements into separate collections. The `products` and `featuredBanners` collections are globally readable, allowing anyone to list the documents in these collections. The `notifications` and `orders` collections are restricted to the user, so only the user can list their own documents."
+  }
+}

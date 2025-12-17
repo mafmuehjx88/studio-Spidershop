@@ -14,6 +14,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import type { TopUpOption } from "@/lib/top-up-options";
 import { Bookmark } from "lucide-react";
+import { useUser } from "@/firebase";
+import { useFirestore } from "@/firebase/provider";
+import { addDocumentNonBlocking, updateDocumentNonBlocking } from "@/firebase/non-blocking-updates";
+import { collection, doc } from "firebase/firestore";
+import { useToast } from "@/hooks/use-toast";
+import { products } from "@/lib/products";
+import { useUserProfile } from "@/hooks/use-user-profile";
 
 interface PurchaseDialogProps {
   isOpen: boolean;
@@ -28,26 +35,76 @@ export function PurchaseDialog({
   option,
   productId,
 }: PurchaseDialogProps) {
+  const { user } = useUser();
+  const { userProfile } = useUserProfile();
+  const firestore = useFirestore();
+  const { toast } = useToast();
+
   const [gameId, setGameId] = useState("");
   const [serverId, setServerId] = useState("");
   const [isConfirmed, setIsConfirmed] = useState(false);
 
   const isMlbb = productId === 'prod_1';
 
+  const parsePrice = (priceString: string) => {
+    return parseInt(priceString.replace(/ks|,/gi, ''));
+  };
+
   const handlePurchase = () => {
-    // Handle purchase logic here
-    console.log("Purchasing:", {
-      option: option.name,
-      price: option.price,
-      gameId,
-      ...(isMlbb && { serverId }),
+    if (!user || !userProfile) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "You must be logged in to make a purchase.",
+      });
+      return;
+    }
+    
+    const price = parsePrice(option.price);
+    if (userProfile.balance < price) {
+        toast({
+            variant: "destructive",
+            title: "Purchase Failed",
+            description: "Your balance is not enough.",
+        });
+        return;
+    }
+
+    const product = products.find(p => p.id === productId);
+
+    const orderData = {
+        userId: user.uid,
+        productId: productId,
+        productName: product?.name || 'Unknown Product',
+        optionName: option.name,
+        price: option.price,
+        gameId: gameId,
+        ...(isMlbb && { serverId: serverId }),
+        status: "Completed",
+        timestamp: new Date().toISOString(),
+    };
+    
+    // Add order to history
+    addDocumentNonBlocking(collection(firestore, `users/${user.uid}/orders`), orderData);
+
+    // Deduct balance
+    const userDocRef = doc(firestore, 'users', user.uid);
+    const newBalance = userProfile.balance - price;
+    updateDocumentNonBlocking(userDocRef, { balance: newBalance });
+
+    toast({
+      title: "Purchase Successful",
+      description: `${option.name} has been purchased.`,
     });
+
     onClose();
   };
 
   const isPurchaseDisabled = isMlbb 
     ? !gameId || !serverId || !isConfirmed 
     : !gameId || !isConfirmed;
+  
+  const balance = userProfile?.balance ?? 0;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -115,7 +172,7 @@ export function PurchaseDialog({
             </div>
           </div>
           <div className="bg-blue-500/20 text-blue-300 p-3 rounded-md text-center">
-            လက်ကျန်ငွေ = 0 ကျပ်
+            လက်ကျန်ငွေ = {balance} ကျပ်
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox

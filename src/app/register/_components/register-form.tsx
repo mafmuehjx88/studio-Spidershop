@@ -25,7 +25,11 @@ import { useAuth } from '@/firebase/provider';
 import { initiateEmailSignUp } from '@/firebase/non-blocking-login';
 import { useToast } from '@/hooks/use-toast';
 import {
+  collection,
   doc,
+  getDocs,
+  query,
+  where,
 } from 'firebase/firestore';
 import { useFirestore, useUser } from '@/firebase';
 import { useEffect, useState } from 'react';
@@ -78,6 +82,7 @@ export function RegisterForm() {
           id: user.uid,
           username,
           email,
+          balance: 0,
         },
         { merge: true }
       );
@@ -85,9 +90,24 @@ export function RegisterForm() {
     }
   }, [user, firestore, form, router]);
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
+      // Check if username already exists
+      const usersRef = collection(firestore, 'users');
+      const q = query(usersRef, where('username', '==', values.username));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        toast({
+          variant: 'destructive',
+          title: 'Registration Failed',
+          description: 'Username already exists. Please choose another one.',
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
       initiateEmailSignUp(auth, values.email, values.password);
       toast({
         title: 'Registration Initiated',

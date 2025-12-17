@@ -1,11 +1,17 @@
+"use client";
+
 import { Menu, Wallet } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Sidebar } from "./sidebar";
+import { useUserProfile } from "@/hooks/use-user-profile";
 
 export function Header() {
+  const { userProfile, isLoading } = useUserProfile();
+
+  const balance = isLoading ? "..." : `${userProfile?.balance ?? 0} Ks`;
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-sm border-b">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
@@ -31,7 +37,7 @@ export function Header() {
         </div>
         <div className="flex items-center gap-2">
           <Wallet className="h-6 w-6 text-white" />
-          <span className="text-sm font-semibold text-white">0 Ks</span>
+          <span className="text-sm font-semibold text-white">{balance}</span>
         </div>
       </div>
     </header>
