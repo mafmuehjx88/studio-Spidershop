@@ -73,6 +73,7 @@ export function UserTopUpList() {
    useEffect(() => {
     // This effect is now the single source of truth for redirection.
     // It only runs when the loading states or admin status change.
+    // Crucially, it waits for ALL loading to be complete before making a decision.
     if (!isUserLoading && !isAdminLoading && !isAdmin) {
       router.push('/');
     }
@@ -125,13 +126,13 @@ export function UserTopUpList() {
     setAmounts(prev => ({...prev, [userId]: ''}));
   };
 
-  // Wait for auth and admin status to be fully resolved.
+  // 1. Centralized Loading Check: Wait for auth and admin status to be fully resolved.
   if (isUserLoading || isAdminLoading) {
     return <LoadingSkeleton />;
   }
 
-  // After loading, if the user is not an admin, show a clear message.
-  // The useEffect hook will handle the redirect.
+  // 2. Definitive Access Check: After loading, if the user is not an admin, show a clear message.
+  // The useEffect hook above will handle the actual redirection.
   if (!isAdmin) {
     return (
         <div className="text-center py-10">
@@ -141,7 +142,7 @@ export function UserTopUpList() {
     );
   }
   
-  // If the user is an admin, then we can check the state of the users collection query.
+  // 3. Data Loading Check: If the user is an admin, then we can check the state of the users collection query.
   if (areUsersLoading) {
     return <LoadingSkeleton />;
   }
@@ -154,6 +155,7 @@ export function UserTopUpList() {
     return <p className="py-10 text-center text-muted-foreground">No users found.</p>;
   }
 
+  // 4. Render Content: Finally, if all checks pass, render the actual content.
   return (
     <div className="bg-card p-4 rounded-lg border border-border shadow-sm">
       <div className="overflow-x-auto">
