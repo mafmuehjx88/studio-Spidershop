@@ -1,4 +1,4 @@
-import { Bell, Menu } from "lucide-react";
+import { Menu, Wallet } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -29,17 +29,10 @@ export function Header() {
         <div className="absolute left-1/2 -translate-x-1/2">
             <h1 className="text-lg font-bold text-primary-foreground">Zenith Harrai</h1>
         </div>
-        <Link href="/" className="flex items-center">
-           <div className="bg-white p-1 rounded-md">
-             <Image
-                src="/logo.png"
-                alt="Zenith Harrai Logo"
-                width={32}
-                height={32}
-                className="h-8 w-auto"
-              />
-           </div>
-        </Link>
+        <div className="flex items-center gap-2">
+          <Wallet className="h-6 w-6 text-white" />
+          <span className="text-sm font-semibold text-white">0 Ks</span>
+        </div>
       </div>
     </header>
   );
