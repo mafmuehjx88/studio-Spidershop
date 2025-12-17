@@ -2,33 +2,57 @@
   "placeholderImages": [
     {
       "id": "hero-banner",
-      "description": "Promotional banner for Zenith Harrai Shop featuring a futuristic cityscape",
-      "imageUrl": "https://images.unsplash.com/photo-1707308534034-923adb4fce2b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhYnN0cmFjdCUyMGdhbWluZ3xlbnwwfHx8fDE3NjU4MzYyNDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "abstract gaming"
+      "description": "Mobile legends character Ling in a dynamic pose with blue lightning effects.",
+      "imageUrl": "https://images.unsplash.com/photo-1533497374533-d860dceecf74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxibHVlJTIwbGlnaHRuaW5nJTIwY2hhcmFjdGVyfGVufDB8fHx8MTc2NTk0NTc0MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "blue lightning character"
     },
     {
-      "id": "diamond-pack-1",
-      "description": "A pile of shining diamonds",
-      "imageUrl": "https://images.unsplash.com/photo-1741704138665-57f72cf743f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnbG93aW5nJTIwY3J5c3RhbHxlbnwwfHx8fDE3NjU4NjIwNTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "glowing crystal"
+      "id": "mlbb-generic",
+      "description": "A female warrior with white hair and sunglasses making a cool pose.",
+      "imageUrl": "https://images.unsplash.com/photo-1518077738226-1607ea7f1846?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxnYW1lJTIwY2hhcmFjdGVyJTIwc3VuZ2xhc3Nlc3xlbnwwfHx8fDE3NjU5NDU3NDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "game character sunglasses"
     },
     {
-      "id": "diamond-pack-2",
-      "description": "A larger pile of shining blue diamonds",
-      "imageUrl": "https://images.unsplash.com/photo-1605821771565-35e0d046a2fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxibHVlJTIwamV3ZWx8ZW58MHx8fHwxNzY1OTQ1NTc5fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "blue jewel"
+      "id": "pubg-mobile",
+      "description": "A soldier in a helmet from PUBG mobile.",
+      "imageUrl": "https://images.unsplash.com/photo-1759167625074-4c61493a8c40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzb2xkaWVyJTIwaGVsbWV0fGVufDB8fHx8MTc2NTg2Mjc0MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "soldier helmet"
     },
     {
-      "id": "uc-pack-1",
-      "description": "A stack of golden UC coins",
-      "imageUrl": "https://images.unsplash.com/photo-1624365168898-1f7189831f41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxnb2xkJTIwY29pbnN8ZW58MHx8fHwxNzY1ODg1ODk5fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "gold coins"
+      "id": "mlbb-singapore",
+      "description": "A female archer character with the Singapore flag.",
+      "imageUrl": "https://images.unsplash.com/photo-1636075204447-ed932101c622?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxmZW1hbGUlMjBhcmNoZXJ8ZW58MHx8fHwxNzY1OTQ1NzQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "female archer"
     },
     {
-      "id": "uc-pack-2",
-      "description": "A treasure chest full of UC coins",
-      "imageUrl": "https://images.unsplash.com/photo-1586974710160-55f48f417990?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzaGlueSUyMGN1cnJlbmN5fGVufDB8fHx8MTc2NTk0NTU3OXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "shiny currency"
+      "id": "mlbb-philippines",
+      "description": "A female archer character with the Philippines flag.",
+      "imageUrl": "https://images.unsplash.com/photo-1686747467799-21721b8b66e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmZW1hbGUlMjBhcmNoZXJ8ZW58MHx8fHwxNzY1OTQ1NzQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "female archer"
+    },
+    {
+      "id": "mlbb-indonesia",
+      "description": "A female archer character with the Indonesia flag.",
+      "imageUrl": "https://images.unsplash.com/photo-1620169429023-08b7be5ab956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxmZW1hbGUlMjBhcmNoZXJ8ZW58MHx8fHwxNzY1OTQ1NzQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "female archer"
+    },
+    {
+      "id": "mlbb-malaysia",
+      "description": "A female archer character with the Malaysia flag.",
+      "imageUrl": "https://images.unsplash.com/photo-1654714685970-06386068b3f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmZW1hbGUlMjBhcmNoZXJ8ZW58MHx8fHwxNzY1OTQ1NzQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "female archer"
+    },
+    {
+      "id": "logo",
+      "description": "Zenith Harrai Shop Logo",
+      "imageUrl": "/logo.png",
+      "imageHint": "company logo"
+    },
+    {
+      "id": "logo-small",
+      "description": "Small Zenith Harrai Shop Logo",
+      "imageUrl": "/logo-small.png",
+      "imageHint": "company logo"
     }
   ]
 }

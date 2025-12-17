@@ -3,7 +3,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: "Zenith Harrai Shop",
+  title: "Zenith Harrai",
   description: "Top up your in-game currency and diamonds.",
 };
 

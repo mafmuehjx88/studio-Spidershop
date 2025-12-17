@@ -6,6 +6,8 @@ export type Product = {
   description: string;
   price: string;
   image: ImagePlaceholder;
+  tag?: string;
+  tagColor?: string;
 };
 
 const findImage = (id: string): ImagePlaceholder => {
@@ -25,30 +27,52 @@ const findImage = (id: string): ImagePlaceholder => {
 export const products: Product[] = [
   {
     id: 'prod_1',
-    name: '500 Diamonds',
-    description: 'A starter pack of 500 shimmering diamonds.',
-    price: '$4.99',
-    image: findImage('diamond-pack-1'),
+    name: 'လက်နှစ်ချောင်းဂိမ်း',
+    description: 'Mobile Legends Bang Bang',
+    price: '',
+    image: findImage('mlbb-generic'),
   },
   {
     id: 'prod_2',
-    name: '1200 Diamonds',
-    description: 'A valuable bundle of 1200 diamonds for the dedicated player.',
-    price: '$9.99',
-    image: findImage('diamond-pack-2'),
+    name: 'အမှိုက်ကောက်ဂိမ်း',
+    description: 'PUBG Mobile',
+    price: '',
+    image: findImage('pubg-mobile'),
   },
   {
     id: 'prod_3',
-    name: '3850 UC',
-    description: 'Get 3850 Unknown Cash to spend in-game.',
-    price: '$49.99',
-    image: findImage('uc-pack-1'),
+    name: 'MLBB Singapore',
+    description: 'Mobile Legends Singapore Server',
+    price: '',
+    image: findImage('mlbb-singapore'),
+    tag: 'Singapore',
+    tagColor: 'bg-red-600'
   },
   {
     id: 'prod_4',
-    name: '8100 UC',
-    description: 'The ultimate 8100 UC pack for the ultimate gamer.',
-    price: '$99.99',
-    image: findImage('uc-pack-2'),
+    name: 'MLBB Philippines',
+    description: 'Mobile Legends Philippines Server',
+    price: '',
+    image: findImage('mlbb-philippines'),
+    tag: 'Philipine',
+    tagColor: 'bg-blue-800'
+  },
+  {
+    id: 'prod_5',
+    name: 'MLBB Indonesia',
+    description: 'Mobile Legends Indonesia Server',
+    price: '',
+    image: findImage('mlbb-indonesia'),
+    tag: 'Indonesia',
+    tagColor: 'bg-red-700'
+  },
+  {
+    id: 'prod_6',
+    name: 'MLBB Malaysia',
+    description: 'Mobile Legends Malaysia Server',
+    price: '',
+    image: findImage('mlbb-malaysia'),
+    tag: 'Malaysia',
+    tagColor: 'bg-yellow-500'
   },
 ];

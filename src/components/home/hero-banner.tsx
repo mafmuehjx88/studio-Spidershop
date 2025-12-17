@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 export function HeroBanner() {
@@ -8,27 +7,40 @@ export function HeroBanner() {
   return (
     <section className="relative flex h-[50vh] w-full items-center justify-center">
       <Image
-        src={heroImage?.imageUrl || "https://picsum.photos/seed/hero/1920/1080"}
+        src={heroImage?.imageUrl || "https://picsum.photos/seed/hero/1280/720"}
         alt={heroImage?.description || "Promotional banner"}
         fill
         className="object-cover"
-        data-ai-hint={heroImage?.imageHint || "abstract gaming"}
+        data-ai-hint={heroImage?.imageHint || "blue lightning character"}
         priority
       />
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-black/50" />
       <div className="relative z-10 flex flex-col items-center justify-center px-4 text-center text-primary-foreground">
-        <h1 className="font-headline text-4xl font-bold uppercase tracking-tighter drop-shadow-lg md:text-6xl">
-          Summer Sale Splash
+        <div className="absolute top-4 left-4 rounded-md bg-black/30 p-2 text-xs">
+          zenith harrai shop
+        </div>
+        <div className="absolute top-14 left-4 rounded-lg bg-black/30 p-2 text-sm backdrop-blur-sm">
+          Application
+        </div>
+        <div className="absolute top-28 left-4 rounded-lg bg-black/30 p-2 text-sm backdrop-blur-sm">
+          ငွေဖြည့်ထားရုံဖြင့်
+        </div>
+        <div className="absolute top-16 right-4 rounded-lg bg-black/30 p-2 text-sm backdrop-blur-sm">
+          24 Hour
+        </div>
+        <div className="absolute bottom-16 right-4 rounded-lg bg-black/30 p-2 text-sm backdrop-blur-sm">
+          Diamond & UC
+        </div>
+        <h1 className="font-headline text-5xl font-bold uppercase tracking-tighter text-cyan-300 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] md:text-7xl">
+          ခယ်မိုင်ဒိုင်း
         </h1>
-        <p className="mt-4 max-w-2xl text-lg text-neutral-300 drop-shadow-md">
-          Get up to 50% off on Diamond packs and UC bundles. Limited time offer!
-        </p>
-        <Button
-          className="mt-6 bg-accent text-accent-foreground shadow-lg hover:bg-accent/90"
-          size="lg"
-        >
-          Shop Now
-        </Button>
+        <Image
+          src="/logo-small.png"
+          alt="Zenith Logo"
+          width={60}
+          height={60}
+          className="absolute bottom-4 right-4"
+        />
       </div>
     </section>
   );
