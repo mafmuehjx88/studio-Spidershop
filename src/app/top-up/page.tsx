@@ -144,15 +144,15 @@ export default function TopUpPage() {
             ),
             description: "Your top-up request has been submitted.",
             variant: "success",
-            duration: 3000, // 3 seconds
-            onClose: () => router.push('/'),
+            duration: 3000,
         });
         
-        // Reset state after a short delay to allow toast to show
+        // Reset state after a short delay and redirect
         setTimeout(() => {
             setSelectedFile(null);
             setImagePreview(null);
-        }, 500);
+            router.push('/');
+        }, 3000);
     }
 
   return (
