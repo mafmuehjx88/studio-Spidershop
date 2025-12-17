@@ -128,7 +128,7 @@ export const topUpOptions: Record<string, TopUpCategory[]> = {
           id: 'uc-660',
           name: '660UC',
           price: '38600Ks',
-          image: findImage('pubg-uc-3'),
+          image: findImage('pubg-uc-4'),
         },
         {
           id: 'uc-1800',
