@@ -91,6 +91,24 @@
       "imageHint": "anime sword character"
     },
     {
+      "id": "mlbb-2x-50",
+      "description": "2x50 Diamonds pack for Mobile Legends",
+      "imageUrl": "https://i.ibb.co/M3ZstbD/01-JSEPEK616-XR3-P8-SWTFH4-TQTD-1.png",
+      "imageHint": "game item card"
+    },
+    {
+      "id": "mlbb-2x-150",
+      "description": "2x150 or 2x250 Diamonds pack for Mobile Legends",
+      "imageUrl": "https://i.ibb.co/sdzm8Jcr/01-JSEPF5-ZMCYP7-GAK8-S80-GXPQF-1.png",
+      "imageHint": "game item card"
+    },
+    {
+      "id": "mlbb-2x-500",
+      "description": "2x500 Diamonds pack for Mobile Legends",
+      "imageUrl": "https://i.ibb.co/KxNq3tBr/01-JSEPG6-R0-J4-AMCXEQWHY0-V9-PW-1.png",
+      "imageHint": "game item card"
+    },
+    {
       "id": "mlbb-diamonds",
       "description": "A pile of blue diamonds for Mobile Legends.",
       "imageUrl": "https://images.unsplash.com/photo-1588621437434-902967f67a73?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxibHVlJTIwZGlhbW9uZHN8ZW58MHx8fHwxNzY2MDM2MjM2fDA&ixlib=rb-4.1.0&q=80&w=1080",
