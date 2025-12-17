@@ -179,7 +179,8 @@ service cloud.firestore {
        * @principle Enforces document ownership for reads and admin-only for writes.
        */
       match /topUpTransactions/{transactionId} {
-        allow get, list: if request.auth.uid == userId;
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
         allow write: if isAdmin();
       }
     }
