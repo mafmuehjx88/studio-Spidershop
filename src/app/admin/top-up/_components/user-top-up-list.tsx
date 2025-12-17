@@ -1,10 +1,10 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCollection, useFirestore, useUser } from '@/firebase';
 import { useAdminStatus } from '@/hooks/use-admin-status';
-import { collection, doc, updateDoc } from 'firebase/firestore';
+import { collection, doc } from 'firebase/firestore';
 import {
   Table,
   TableBody,
@@ -62,11 +62,17 @@ export function UserTopUpList() {
   const [amounts, setAmounts] = useState<Record<string, string>>({});
 
   const usersQuery = useMemo(() => {
-    if (!isAdmin) return null;
+    if (!firestore || !isAdmin) return null;
     return collection(firestore, 'users');
   }, [isAdmin, firestore]);
 
   const { data: users, isLoading: areUsersLoading, error } = useCollection<UserProfile>(usersQuery as any);
+
+  useEffect(() => {
+    if (!isAdminLoading && !isAdmin) {
+      router.push('/');
+    }
+  }, [isAdmin, isAdminLoading, router]);
 
   const handleAmountChange = (userId: string, value: string) => {
     // only allow numbers
@@ -117,9 +123,8 @@ export function UserTopUpList() {
     return <LoadingSkeleton />;
   }
 
-  // Redirect if not an admin
+  // If not an admin, show an access denied message while redirecting.
   if (!isAdmin) {
-    router.push('/');
     return (
         <div className="text-center py-10">
             <p className="text-destructive">Access Denied. You are not an admin.</p>
