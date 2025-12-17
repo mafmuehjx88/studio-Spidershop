@@ -1,7 +1,7 @@
-
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import type { Product } from "@/lib/products";
+import Link from "next/link";
 
 interface ProductCardProps {
   product: Product;
@@ -9,8 +9,8 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <div className="flex flex-col gap-2">
-      <div className="relative overflow-hidden rounded-lg shadow-md">
+    <Link href={`/products/${product.id}`} className="flex flex-col gap-2 group">
+      <div className="relative overflow-hidden rounded-lg shadow-md transition-transform group-hover:scale-105">
         <Image
           src={product.image.imageUrl}
           alt={product.image.description}
@@ -37,6 +37,6 @@ export function ProductCard({ product }: ProductCardProps) {
           Buy Now
         </Button>
       </div>
-    </div>
+    </Link>
   );
 }
