@@ -12,7 +12,7 @@ export function ProductGrid() {
               အသုံးပြုကြတဲ့ Users အားလုံး စိတ်ကျေနပ်မှုအပြည့်အဝရရှိစေရန်
            </Marquee>
         </div>
-        <h2 className="mb-8 text-center font-headline text-3xl font-bold uppercase tracking-wider text-primary">
+        <h2 className="mb-8 text-center font-headline text-2xl font-bold uppercase tracking-normal text-primary">
           ဝယ်ယူနိုင်သော Products
         </h2>
         <div className="grid grid-cols-3 gap-x-4 gap-y-8 md:gap-x-6 md:gap-y-10">
