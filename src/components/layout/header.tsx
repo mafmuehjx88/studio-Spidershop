@@ -11,7 +11,7 @@ import { useUser } from "@/firebase";
 
 export function Header() {
   const { userProfile, isLoading: isProfileLoading } = useUserProfile();
-  const { isAdmin, isAdminLoading } = useAdminStatus();
+  const { isAdmin } = useAdminStatus();
   const { user } = useUser();
 
   const balance = isProfileLoading ? "..." : `${userProfile?.balance ?? 0} Ks`;
@@ -35,7 +35,7 @@ export function Header() {
                 <Sidebar />
             </SheetContent>
           </Sheet>
-          {user && isAdmin && !isAdminLoading && (
+          {user && isAdmin && (
             <Button asChild size="sm" className="h-10 bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
               <Link href="#">
                 <Shield className="h-4 w-4 mr-2" />
