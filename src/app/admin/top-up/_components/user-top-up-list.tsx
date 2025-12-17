@@ -1,10 +1,8 @@
 'use client';
 
-import { useMemo, useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useCollection, useFirestore, useUser } from '@/firebase';
-import { useAdminStatus } from '@/hooks/use-admin-status';
-import { collection, doc } from 'firebase/firestore';
+import { useMemo, useState } from 'react';
+import { useCollection, useFirestore } from '@/firebase';
+import { collection } from 'firebase/firestore';
 import {
   Table,
   TableBody,
@@ -19,9 +17,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
 import type { UserProfile } from '@/hooks/use-user-profile';
 import { updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { doc } from 'firebase/firestore';
 
-
-const LoadingSkeleton = () => (
+export const LoadingSkeleton = () => (
   <div className="space-y-4">
     <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
       <Table>
@@ -52,33 +50,19 @@ const LoadingSkeleton = () => (
 
 
 export function UserTopUpList() {
-  const router = useRouter();
   const firestore = useFirestore();
   const { toast } = useToast();
-  const { isUserLoading } = useUser();
-  const { isAdmin, isAdminLoading } = useAdminStatus();
-
+  
   // state to hold the amount for each user
   const [amounts, setAmounts] = useState<Record<string, string>>({});
 
   const usersQuery = useMemo(() => {
-    // Only create the query if the user is confirmed to be an admin.
-    if (!firestore || !isAdmin) return null;
+    if (!firestore) return null;
     return collection(firestore, 'users');
-  }, [isAdmin, firestore]);
+  }, [firestore]);
 
-  // This hook will only run the query when `usersQuery` is not null.
+  // This hook will now always run as the guard is in the parent component.
   const { data: users, isLoading: areUsersLoading, error } = useCollection<UserProfile>(usersQuery);
-
-   useEffect(() => {
-    // This effect is now the single source of truth for redirection.
-    // It only runs when the loading states or admin status change.
-    // Crucially, it waits for ALL loading to be complete before making a decision.
-    if (!isUserLoading && !isAdminLoading && !isAdmin) {
-      router.push('/');
-    }
-  }, [isUserLoading, isAdmin, isAdminLoading, router]);
-
 
   const handleAmountChange = (userId: string, value: string) => {
     // only allow numbers
@@ -125,24 +109,7 @@ export function UserTopUpList() {
     // Clear the input field for that user
     setAmounts(prev => ({...prev, [userId]: ''}));
   };
-
-  // 1. Centralized Loading Check: Wait for auth and admin status to be fully resolved.
-  if (isUserLoading || isAdminLoading) {
-    return <LoadingSkeleton />;
-  }
-
-  // 2. Definitive Access Check: After loading, if the user is not an admin, show a clear message.
-  // The useEffect hook above will handle the actual redirection.
-  if (!isAdmin) {
-    return (
-        <div className="text-center py-10">
-            <p className="text-destructive">Access Denied. You are not an admin.</p>
-            <p className="text-muted-foreground">Redirecting...</p>
-        </div>
-    );
-  }
   
-  // 3. Data Loading Check: If the user is an admin, then we can check the state of the users collection query.
   if (areUsersLoading) {
     return <LoadingSkeleton />;
   }
@@ -155,7 +122,6 @@ export function UserTopUpList() {
     return <p className="py-10 text-center text-muted-foreground">No users found.</p>;
   }
 
-  // 4. Render Content: Finally, if all checks pass, render the actual content.
   return (
     <div className="bg-card p-4 rounded-lg border border-border shadow-sm">
       <div className="overflow-x-auto">
