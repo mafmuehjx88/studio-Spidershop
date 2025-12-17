@@ -223,57 +223,6 @@
         }
       },
       "required": ["uid"]
-    },
-    "TopUpTransaction": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "TopUpTransaction",
-      "type": "object",
-      "description": "Represents a user's wallet top-up transaction request.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the transaction."
-        },
-        "userId": {
-          "type": "string",
-          "description": "The ID of the user requesting the top-up."
-        },
-        "amount": {
-          "type": "number",
-          "description": "The amount of money to top-up."
-        },
-        "screenshotUrl": {
-          "type": "string",
-          "description": "URL of the uploaded payment screenshot.",
-          "format": "uri"
-        },
-        "status": {
-          "type": "string",
-          "description": "The current status of the transaction.",
-          "enum": [
-            "Pending",
-            "Completed",
-            "Rejected"
-          ]
-        },
-        "timestamp": {
-          "type": "string",
-          "description": "Timestamp of when the transaction was created.",
-          "format": "date-time"
-        },
-        "adminNotes": {
-          "type": "string",
-          "description": "Optional notes from the admin regarding the transaction status (e.g., reason for rejection)."
-        }
-      },
-      "required": [
-        "id",
-        "userId",
-        "amount",
-        "screenshotUrl",
-        "status",
-        "timestamp"
-      ]
     }
   },
   "auth": {
@@ -372,26 +321,6 @@
             {
               "name": "userId",
               "description": "The UID of the user."
-            }
-          ]
-        }
-      },
-      {
-        "path": "users/{userId}/topUpTransactions/{transactionId}",
-        "definition": {
-          "entityName": "TopUpTransaction",
-          "schema": {
-            "$ref": "#/backend/entities/TopUpTransaction"
-          },
-          "description": "Stores user-specific top-up transaction history. Path-based ownership for reads, admin-only for writes.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The ID of the user who owns the transaction."
-            },
-            {
-              "name": "transactionId",
-              "description": "The ID of the transaction."
             }
           ]
         }

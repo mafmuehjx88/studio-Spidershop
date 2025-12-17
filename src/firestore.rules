@@ -11,7 +11,6 @@
  * - `/users`: A collection where each user's private data is stored under a document matching their UID (`/users/{userId}`).
  *   - `/users/{userId}/notifications`: A subcollection containing notifications private to that specific user.
  *   - `/users/{userId}/orders`: A subcollection containing order history private to that specific user.
- *   - `/users/{userId}/topUpTransactions`: A subcollection for wallet top-up history. Readable by owner, writable by admins.
  * - `/admins`: A collection storing the UIDs of admin users. This is used for role-based access control.
  *
  * ## Key Security Decisions
@@ -169,19 +168,6 @@ service cloud.firestore {
         allow create: if isOwner(userId) && request.resource.data.userId == userId;
         allow update: if (isExistingOwner(userId) && request.resource.data.userId == resource.data.userId) || isAdmin();
         allow delete: if isExistingOwner(userId);
-      }
-      
-      /**
-       * @description Manages user-specific top-up transaction history.
-       * @path /users/{userId}/topUpTransactions/{transactionId}
-       * @allow (read) A user can read their own top-up history.
-       * @allow (write) Only admins can create, update, or delete top-up transactions.
-       * @principle Enforces document ownership for reads and admin-only for writes.
-       */
-      match /topUpTransactions/{transactionId} {
-        allow get: if isOwner(userId);
-        allow list: if isOwner(userId);
-        allow write: if isAdmin();
       }
     }
   }

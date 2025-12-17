@@ -122,17 +122,12 @@ export default function TopUpPage() {
       <Header />
       <main className="flex-grow pt-16 bg-background text-foreground sparkle-bg">
         <div className="container mx-auto px-4 py-8 md:px-6">
-          <div className="mb-6 flex justify-between items-center">
+          <div className="mb-6">
             <Button asChild variant="ghost" className="bg-gray-700/50 hover:bg-gray-600/50">
               <Link href="/">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back
               </Link>
-            </Button>
-             <Button asChild variant="outline" className="bg-blue-600/80 hover:bg-blue-700/80 border-blue-400 text-white">
-                <Link href="/top-up-history">
-                    မှတ်တမ်း
-                </Link>
             </Button>
           </div>
           
