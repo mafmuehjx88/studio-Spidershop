@@ -41,17 +41,17 @@ export const topUpOptions: Record<string, TopUpCategory[]> = {
       gridCols: 'grid-cols-2',
       options: [
         {
-          id: 'twilight-pass',
-          name: 'Twilight Pass',
-          price: '33500 Ks',
-          image: findImage('mlbb-twilight-pass'),
+          id: 'weekly-pass',
+          name: 'Weekly Pass',
+          price: '5850ks',
+          image: findImage('mlbb-weekly-pass'),
           inStockTag: 'မစောင့်ရပါ',
         },
         {
-          id: 'weekly-pass',
-          name: 'Weekly Pass',
-          price: '5850 Ks',
-          image: findImage('mlbb-weekly-pass'),
+          id: 'twilight-pass',
+          name: 'Twilight Pass',
+          price: '33500ks',
+          image: findImage('mlbb-twilight-pass'),
           inStockTag: 'မစောင့်ရပါ',
         },
       ],
@@ -59,7 +59,7 @@ export const topUpOptions: Record<string, TopUpCategory[]> = {
     {
       id: '2x-diamonds',
       title: '2x Diamonds',
-      gridCols: 'grid-cols-2',
+      gridCols: 'grid-cols-4',
       options: [
         {
           id: '2x-50',
@@ -94,7 +94,7 @@ export const topUpOptions: Record<string, TopUpCategory[]> = {
     {
         id: 'other-diamonds',
         title: 'Other Diamonds',
-        gridCols: 'grid-cols-3',
+        gridCols: 'grid-cols-3 md:grid-cols-4',
         options: [
             { id: 'd-11', name: '11 Diamond', price: '850 Ks', image: findImage('mlbb-diamond-small'), inStockTag: 'မစောင့်ရပါ' },
             { id: 'd-22', name: '22 Diamond', price: '1800 Ks', image: findImage('mlbb-diamond-small'), inStockTag: 'မစောင့်ရပါ' },
