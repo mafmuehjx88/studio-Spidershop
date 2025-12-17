@@ -29,7 +29,7 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
       </div>
       <div className="flex flex-col items-center text-center gap-2">
-        <p className="w-full text-sm font-medium text-muted-foreground h-10 flex items-center justify-center">
+        <p className="w-full text-[10px] font-medium text-muted-foreground h-10 flex items-center justify-center whitespace-nowrap">
           {product.name}
         </p>
         <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
