@@ -10,7 +10,7 @@ interface TopUpCardProps {
 export function TopUpCard({ option }: TopUpCardProps) {
   return (
     <div className="relative flex cursor-pointer flex-col justify-start gap-2 overflow-hidden rounded-lg border bg-card p-3 text-center text-card-foreground shadow-md transition-transform hover:scale-105">
-      <div className="flex-grow">
+      <div>
         <Image
           src={option.image.imageUrl}
           alt={option.image.description}
