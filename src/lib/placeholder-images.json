@@ -39,7 +39,7 @@
     {
       "id": "mlbb-malaysia",
       "description": "A female archer character with the Malaysia flag.",
-      "imageUrl": "https://images.unsplash.com/photo-1654714685970-06386068b3f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmZW1hbGUlMjBhcmNoZXJ8ZW58MHx8fHwxNzY1OTQ1NzQxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1654714685970-06386068b3f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmZW1hbGUlMjBhcmNoZXJ8ZW58MHx8fHwxNzY1OTQ1NzQxfDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "female archer"
     },
     {
@@ -57,62 +57,44 @@
     {
       "id": "prod_2-banner",
       "description": "PUBG Mobile character in golden armor with 'PUBG UC PRICES' text.",
-      "imageUrl": "https://images.unsplash.com/photo-1614999097984-d98356d64987?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwdWJnJTIwY2hhcmFjdGVyfGVufDB8fHx8MTc2NTk0NjEwN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1614999097984-d98356d64987?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwdWJnJTIwY2hhcmFjdGVyfGVufDB8fHx8MTc2NTk0NjEwN3ww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "pubg character"
     },
     {
       "id": "pubg-uc-1",
-      "description": "First purchase pack for PUBG UC",
-      "imageUrl": "https://images.unsplash.com/photo-1649341566042-8b3f5103c3f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxnYW1lJTIwaXRlbXN8ZW58MHx8fHwxNzY1OTQ2Njg0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "game items"
+      "description": "60 UC pack for PUBG",
+      "imageUrl": "https://images.unsplash.com/photo-1643703700113-88d641d998c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnYW1lJTIwY3VycmVuY3l8ZW58MHx8fHwxNzY1ODkxMzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "game currency"
     },
     {
       "id": "pubg-uc-2",
-      "description": "Materials pack for PUBG UC",
-      "imageUrl": "https://images.unsplash.com/photo-1752441518617-d0cca68150b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxnYW1lJTIwaXRlbXN8ZW58MHx8fHwxNzY1OTQ2Njg0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "game items"
+      "description": "325 UC pack for PUBG",
+      "imageUrl": "https://images.unsplash.com/photo-1585483391381-b96dda4fae8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnYW1lJTIwY3VycmVuY3l8ZW58MHx8fHwxNzY1ODkxMzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "game currency"
     },
     {
       "id": "pubg-uc-3",
-      "description": "Mythic emblem pack for PUBG UC",
-      "imageUrl": "https://images.unsplash.com/photo-1733652399003-e921ae82737a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnYW1lJTIwaXRlbXN8ZW58MHx8fHwxNzY1OTQ2Njg0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "game items"
+      "description": "660 UC pack for PUBG",
+      "imageUrl": "https://images.unsplash.com/photo-1634108941345-3a6a66685563?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxnYW1lJTIwY3VycmVuY3l8ZW58MHx8fHwxNzY1ODkxMzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "game currency"
     },
     {
       "id": "pubg-uc-4",
-      "description": "Weekly deal pack for PUBG UC",
-      "imageUrl": "https://images.unsplash.com/photo-1627116485318-25981c536400?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Z2FtZSUyMGl0ZW1zfGVufDB8fHx8MTc2NTk0NjY4NHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "game items"
+      "description": "1800 UC pack for PUBG",
+      "imageUrl": "https://images.unsplash.com/photo-1643703700113-88d641d998c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnYW1lJTIwY3VycmVuY3l8ZW58MHx8fHwxNzY1ODkxMzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "game currency"
     },
     {
       "id": "pubg-uc-5",
-      "description": "Weekly deal pack 2 for PUBG UC",
-      "imageUrl": "https://images.unsplash.com/photo-1627116485318-25981c536400?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Z2FtZSUyMGl0ZW1zfGVufDB8fHx8MTc2NTk0NjY4NHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "game items"
+      "description": "3850 UC pack for PUBG",
+      "imageUrl": "https://images.unsplash.com/photo-1643703700113-88d641d998c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnYW1lJTIwY3VycmVuY3l8ZW58MHx8fHwxNzY1ODkxMzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "game currency"
     },
     {
       "id": "pubg-uc-6",
-      "description": "Weekly mythic pack for PUBG UC",
-      "imageUrl": "https://images.unsplash.com/photo-1752441518617-d0cca68150b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxnYW1lJTIwaXRlbXN8ZW58MHx8fHwxNzY1OTQ2Njg0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "game items"
-    },
-    {
-      "id": "pubg-uc-7",
-      "description": "Prime (1 Month) for PUBG",
-      "imageUrl": "https://images.unsplash.com/photo-1602748113791-19ffc2be8f46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxnYW1lJTIwaXRlbXN8ZW58MHx8fHwxNzY1OTQ2Njg0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "game items"
-    },
-    {
-      "id": "pubg-uc-8",
-      "description": "Prime (3 Month) for PUBG",
-      "imageUrl": "https://images.unsplash.com/photo-1649341566042-8b3f5103c3f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxnYW1lJTIwaXRlbXN8ZW58MHx8fHwxNzY1OTQ2Njg0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "game items"
-    },
-    {
-      "id": "pubg-uc-9",
-      "description": "Prime (6 Month) for PUBG",
-      "imageUrl": "https://images.unsplash.com/photo-1649341566042-8b3f5103c3f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxnYW1lJTIwaXRlbXN8ZW58MHx8fHwxNzY1OTQ2Njg0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "game items"
+      "description": "8100 UC pack for PUBG",
+      "imageUrl": "https://images.unsplash.com/photo-1585483391381-b96dda4fae8f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnYW1lJTIwY3VycmVuY3l8ZW58MHx8fHwxNzY1ODkxMzQ2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "game currency"
     }
   ]
 }
