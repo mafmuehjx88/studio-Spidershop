@@ -40,7 +40,7 @@ export default function ProductDetailPage({
           </section>
         )}
         <div className="container mx-auto px-4 py-8 md:px-6">
-          <ProductDetailClient categories={categories} />
+          <ProductDetailClient categories={categories} productId={product.id} />
         </div>
       </main>
     </div>

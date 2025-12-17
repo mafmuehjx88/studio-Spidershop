@@ -7,9 +7,10 @@ import { PurchaseDialog } from "./purchase-dialog";
 
 interface ProductDetailClientProps {
   categories: TopUpCategory[];
+  productId: string;
 }
 
-export function ProductDetailClient({ categories }: ProductDetailClientProps) {
+export function ProductDetailClient({ categories, productId }: ProductDetailClientProps) {
   const [selectedOption, setSelectedOption] = useState<TopUpOption | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -47,6 +48,7 @@ export function ProductDetailClient({ categories }: ProductDetailClientProps) {
           isOpen={isDialogOpen}
           onClose={handleDialogClose}
           option={selectedOption}
+          productId={productId}
         />
       )}
     </>

@@ -19,15 +19,20 @@ interface PurchaseDialogProps {
   isOpen: boolean;
   onClose: () => void;
   option: TopUpOption;
+  productId: string;
 }
 
 export function PurchaseDialog({
   isOpen,
   onClose,
   option,
+  productId,
 }: PurchaseDialogProps) {
   const [gameId, setGameId] = useState("");
+  const [serverId, setServerId] = useState("");
   const [isConfirmed, setIsConfirmed] = useState(false);
+
+  const isMlbb = productId === 'prod_1';
 
   const handlePurchase = () => {
     // Handle purchase logic here
@@ -35,9 +40,14 @@ export function PurchaseDialog({
       option: option.name,
       price: option.price,
       gameId,
+      ...(isMlbb && { serverId }),
     });
     onClose();
   };
+
+  const isPurchaseDisabled = isMlbb 
+    ? !gameId || !serverId || !isConfirmed 
+    : !gameId || !isConfirmed;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -73,6 +83,22 @@ export function PurchaseDialog({
               </Button>
             </div>
           </div>
+
+          {isMlbb && (
+            <div className="space-y-2">
+               <Label htmlFor="serverId" className="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                Server Id
+              </Label>
+              <Input
+                id="serverId"
+                value={serverId}
+                onChange={(e) => setServerId(e.target.value)}
+                className="bg-[#2d2d2d] border-none"
+              />
+            </div>
+          )}
+          
           <div className="space-y-2">
             <Label>ပမာဏ</Label>
             <div className="flex justify-between items-center bg-[#2d2d2d] p-3 rounded-md">
@@ -104,7 +130,7 @@ export function PurchaseDialog({
           </Button>
           <Button
             onClick={handlePurchase}
-            disabled={!gameId || !isConfirmed}
+            disabled={isPurchaseDisabled}
             className="bg-green-500 hover:bg-green-600 text-white"
           >
             ဝယ်မည်
