@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import type { TopUpOption } from "@/lib/top-up-options";
-import { Bookmark } from "lucide-react";
+import { Bookmark, CheckCircle2 } from "lucide-react";
 import { useUser } from "@/firebase";
 import { useFirestore } from "@/firebase/provider";
 import { addDocumentNonBlocking, updateDocumentNonBlocking } from "@/firebase/non-blocking-updates";
@@ -111,8 +111,15 @@ export function PurchaseDialog({
 
 
     toast({
-      title: "Purchase Successful",
-      description: `${option.name} has been purchased.`,
+        title: (
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="h-5 w-5 text-green-400" />
+              <span>အောင်မြင်ပါသည်</span>
+            </div>
+        ),
+        description: "စတင် လုပ်ဆောင်နေပါသည်",
+        variant: "success",
+        duration: 3000,
     });
 
     onClose();
