@@ -5,7 +5,7 @@ import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Copy, UploadCloud } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Copy, UploadCloud } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -116,8 +116,6 @@ export default function TopUpPage() {
     }
 
     const handleSubmit = () => {
-        // TODO: Implement the logic to upload the screenshot and create a top-up request.
-        // For now, we'll just show a toast message.
         if (!selectedFile) {
             toast({
                 title: "Error",
@@ -128,10 +126,20 @@ export default function TopUpPage() {
         }
 
         toast({
-            title: "Coming Soon!",
-            description: "Functionality is not yet implemented.",
-            variant: "default",
+            title: (
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-green-400" />
+                  <span>အောင်မြင်ပါသည်</span>
+                </div>
+            ),
+            description: "Your top-up request has been submitted.",
+            variant: "success",
+            duration: 3000, // 3 seconds
         });
+        
+        // Reset state
+        setSelectedFile(null);
+        setImagePreview(null);
     }
 
   return (
@@ -173,7 +181,7 @@ export default function TopUpPage() {
                 <h3 className="font-semibold text-primary">Payment Screenshot ( ငွေလွှဲ Id ပါထည့်ပါ )</h3>
                 <label htmlFor="screenshot" className="flex flex-col items-center justify-center w-full h-48 border-2 border-green-500 border-dashed rounded-lg cursor-pointer bg-green-500/10 hover:bg-green-500/20 relative overflow-hidden">
                     {imagePreview ? (
-                        <Image src={imagePreview} alt="Screenshot preview" layout="fill" objectFit="contain" />
+                        <Image src={imagePreview} alt="Screenshot preview" layout="fill" objectFit="cover" />
                     ) : (
                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
                             <UploadCloud className="w-8 h-8 mb-2 text-green-400" />

@@ -119,4 +119,12 @@
   .save-button {
     @apply bg-green-500 text-white p-2 rounded-md hover:bg-green-600;
   }
+  @keyframes progress-bar {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
 }

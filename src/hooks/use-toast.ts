@@ -8,14 +8,15 @@ import type {
   ToastProps,
 } from "@/components/ui/toast"
 
-const TOAST_LIMIT = 1
-const TOAST_REMOVE_DELAY = 1000000
+const TOAST_LIMIT = 3;
+const TOAST_REMOVE_DELAY = 10000; // 10 seconds
 
 type ToasterToast = ToastProps & {
   id: string
   title?: React.ReactNode
   description?: React.ReactNode
-  action?: ToastActionElement
+  action?: ToastActionElement,
+  duration?: number
 }
 
 const actionTypes = {
@@ -93,8 +94,6 @@ export const reducer = (state: State, action: Action): State => {
     case "DISMISS_TOAST": {
       const { toastId } = action
 
-      // ! Side effects ! - This could be extracted into a dismissToast() action,
-      // but I'll keep it here for simplicity
       if (toastId) {
         addToRemoveQueue(toastId)
       } else {
@@ -163,6 +162,12 @@ function toast({ ...props }: Toast) {
       },
     },
   })
+
+  if (props.duration) {
+    setTimeout(() => {
+      dismiss()
+    }, props.duration);
+  }
 
   return {
     id: id,
