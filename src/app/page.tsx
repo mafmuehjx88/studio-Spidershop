@@ -4,9 +4,9 @@ import { ProductGrid } from "@/components/home/product-grid";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex flex-col">
       <Header />
-      <main className="flex-grow pt-16">
+      <main className="pt-16">
         <HeroBanner />
         <ProductGrid />
       </main>

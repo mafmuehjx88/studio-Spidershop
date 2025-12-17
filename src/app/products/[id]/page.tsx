@@ -13,9 +13,9 @@ export default function ProductDetailPage({
 
   if (!product) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center">
+      <div className="flex flex-col">
         <Header />
-        <main className="flex-grow pt-16 text-center">
+        <main className="pt-16 text-center">
           <h1 className="mt-8 text-2xl">Product not found</h1>
         </main>
       </div>
@@ -23,9 +23,9 @@ export default function ProductDetailPage({
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex flex-col">
       <Header />
-      <main className="flex-grow pt-16">
+      <main className="pt-16">
         <ProductDetailClient product={product} options={options} />
       </main>
     </div>
