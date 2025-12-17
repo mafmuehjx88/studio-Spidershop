@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAdminStatus } from '@/hooks/use-admin-status';
 import { useUser } from '@/firebase';
@@ -25,13 +24,7 @@ export default function AdminUsersPage() {
   const { isAdmin, isAdminLoading } = useAdminStatus();
   const router = useRouter();
 
-  useEffect(() => {
-    // This effect now ONLY handles the redirection when conditions are definitively met.
-    if (!isUserLoading && !isAdminLoading && !isAdmin) {
-      router.push('/');
-    }
-  }, [isUserLoading, isAdmin, isAdminLoading, router]);
-
+  // This is now the single source of truth for rendering logic.
   const isLoading = isUserLoading || isAdminLoading;
 
   return (
@@ -39,17 +32,22 @@ export default function AdminUsersPage() {
       <Header />
       <main className="flex-grow pt-16">
         <div className="container mx-auto px-4 py-8 md:px-6">
-          {isLoading ? (
-             <LoadingSkeleton />
-          ) : isAdmin ? (
+          {/* STATE 1: LOADING */}
+          {isLoading && <LoadingSkeleton />}
+
+          {/* STATE 2: NOT LOADING AND IS ADMIN */}
+          {!isLoading && isAdmin && (
             <>
               <h1 className="text-2xl font-bold mb-6 text-primary">သုံးစွဲသူများ စာရင်း</h1>
               <UserList />
             </>
-          ) : (
+          )}
+
+          {/* STATE 3: NOT LOADING AND NOT ADMIN */}
+          {!isLoading && !isAdmin && (
             <div className="flex flex-col items-center justify-center text-center py-10">
                 <p className="text-2xl font-bold text-destructive">Access Denied</p>
-                <p className="text-muted-foreground mt-2">You do not have permission to view this page. Redirecting...</p>
+                <p className="text-muted-foreground mt-2">You do not have permission to view this page.</p>
             </div>
           )}
         </div>
