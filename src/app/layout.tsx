@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Footer } from "@/components/layout/footer";
+import { FirebaseClientProvider } from "@/firebase/client-provider";
 
 export const metadata: Metadata = {
   title: "Zenith Harrai",
@@ -28,11 +29,13 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased flex flex-col min-h-screen">
-        <div className="flex-grow">
-          {children}
-        </div>
-        <Footer />
-        <Toaster />
+        <FirebaseClientProvider>
+          <div className="flex-grow">
+            {children}
+          </div>
+          <Footer />
+          <Toaster />
+        </FirebaseClientProvider>
       </body>
     </html>
   );
