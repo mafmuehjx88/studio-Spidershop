@@ -1,11 +1,5 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
 import type { Product } from "@/lib/products";
 
 interface ProductCardProps {
@@ -14,32 +8,34 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <Card className="flex flex-col overflow-hidden rounded-xl border-border/20 bg-card shadow-lg transition-transform duration-300 ease-in-out hover:-translate-y-1">
-      <CardHeader className="relative p-0">
+    <div className="flex flex-col gap-3">
+      <div className="relative overflow-hidden rounded-xl border-border/20 shadow-lg">
         <Image
           src={product.image.imageUrl}
           alt={product.image.description}
           width={400}
           height={400}
-          className="aspect-square w-full object-cover"
+          className="aspect-square w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105"
           data-ai-hint={product.image.imageHint}
         />
         {product.tag && (
-          <div className={`absolute top-2 right-2 rounded-md px-2 py-1 text-xs font-bold text-white ${product.tagColor || 'bg-red-600'}`}>
+          <div
+            className={`absolute top-2 right-2 rounded-md px-2 py-1 text-xs font-bold text-white ${
+              product.tagColor || "bg-red-600"
+            }`}
+          >
             {product.tag}
           </div>
         )}
-      </CardHeader>
-      <CardContent className="flex flex-grow flex-col p-4 text-center">
-        <p className="mt-2 flex-grow text-base text-muted-foreground">
+      </div>
+      <div className="flex flex-col items-center text-center">
+        <p className="w-full truncate text-base text-muted-foreground">
           {product.name}
         </p>
-      </CardContent>
-      <CardFooter className="p-4 pt-0">
-        <Button className="w-full bg-accent text-lg font-bold text-accent-foreground hover:bg-accent/90">
+        <Button className="mt-2 w-full max-w-xs bg-accent text-lg font-bold text-accent-foreground hover:bg-accent/90">
           Buy Now
         </Button>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 }
