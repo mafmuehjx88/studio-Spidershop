@@ -16,13 +16,13 @@ interface ProductDetailClientProps {
 }
 
 const GuestPrompt = () => (
-    <Card className="bg-card border border-border p-4 mb-8 text-center space-y-4">
-        <p className="text-destructive font-semibold">အကောင့်ဝင်ပြီးမှသာ ဝယ်ယူနိုင်မှာဖြစ်ပါတယ်</p>
-        <div className="flex gap-4 justify-center">
-            <Button asChild className="bg-gray-600 hover:bg-gray-700 text-white w-full">
+    <Card className="bg-card border border-border p-3 mb-6 text-center space-y-3">
+        <p className="text-destructive font-semibold text-sm">အကောင့်ဝင်ပြီးမှသာ ဝယ်ယူနိုင်မှာဖြစ်ပါတယ်</p>
+        <div className="flex gap-3 justify-center">
+            <Button asChild size="sm" className="bg-gray-600 hover:bg-gray-700 text-white w-full text-xs py-2">
                 <Link href="/login">အကောင့်ဝင်ရန်</Link>
             </Button>
-            <Button asChild className="bg-green-600 hover:bg-green-700 text-white w-full">
+            <Button asChild size="sm" className="bg-green-600 hover:bg-green-700 text-white w-full text-xs py-2">
                 <Link href="/register">အကောင့်သစ်ဖွင့်ရန်</Link>
             </Button>
         </div>
