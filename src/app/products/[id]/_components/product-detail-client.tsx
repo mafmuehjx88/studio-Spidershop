@@ -18,9 +18,9 @@ export function ProductDetailClient({ product, options }: ProductDetailClientPro
 
   return (
     <div>
-      <section className="relative w-full aspect-[16/7] md:aspect-[16/5]">
+      <section className="relative w-full aspect-[16/9]">
         <Image
-          src={detailBanner?.imageUrl || "https://picsum.photos/seed/pubg-banner/1280/400"}
+          src={detailBanner?.imageUrl || "https://picsum.photos/seed/pubg-banner/1280/720"}
           alt={detailBanner?.description || `${product.name} Banner`}
           fill
           className="object-cover"
@@ -36,7 +36,7 @@ export function ProductDetailClient({ product, options }: ProductDetailClientPro
             <ChevronDown className="ml-1 h-4 w-4" />
           </Button>
         </div>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        <div className="grid grid-cols-3 gap-3">
           {options.map((option) => (
             <TopUpCard key={option.id} option={option} />
           ))}
