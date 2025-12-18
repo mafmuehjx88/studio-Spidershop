@@ -13,7 +13,7 @@ export function Footer() {
           <FileText className="h-6 w-6" />
           <span className="text-xs font-medium">ORDER</span>
         </Link>
-        <Link href="#" className="flex flex-col items-center justify-center text-muted-foreground hover:text-primary transition-colors gap-1">
+        <Link href="/account" className="flex flex-col items-center justify-center text-muted-foreground hover:text-primary transition-colors gap-1">
           <User className="h-6 w-6" />
           <span className="text-xs font-medium">ACCOUNT</span>
         </Link>
