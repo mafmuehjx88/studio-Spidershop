@@ -30,7 +30,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased flex flex-col min-h-screen">
         <FirebaseClientProvider>
-            <div className="flex-grow pb-28">
+            <div className="flex-grow pb-20">
               {children}
             </div>
             <Footer />
