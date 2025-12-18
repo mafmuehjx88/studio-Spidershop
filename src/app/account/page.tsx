@@ -62,13 +62,6 @@ export default function AccountPage() {
                 <LogOut className="mr-2 h-5 w-5" />
                 Logout
             </Button>
-
-            <Card className="bg-card border-border mt-8">
-                <CardContent className="p-4 flex items-center justify-center gap-6 text-sm text-muted-foreground">
-                    <Link href="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link>
-                    <Link href="/terms-and-conditions" className="hover:text-primary transition-colors">Terms &amp; Conditions</Link>
-                </CardContent>
-            </Card>
         </div>
       </main>
     </div>
