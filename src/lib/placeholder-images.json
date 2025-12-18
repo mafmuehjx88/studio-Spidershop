@@ -3,13 +3,13 @@
     {
       "id": "hero-banner",
       "description": "Spider Game Shop promotional banner featuring multiple game characters",
-      "imageUrl": "https://i.ibb.co/VvZg3nK/New-Project-108-1-E1865-C.png",
+      "imageUrl": "https://picsum.photos/seed/hero-banner/1280/720",
       "imageHint": "game characters collage"
     },
     {
       "id": "mlbb-generic",
       "description": "Character from the game Freefire",
-      "imageUrl": "https://i.ibb.co/VJCp9ff/01-JZ4-HVCY8-W7-Y2-A1-K8-M86-S2-D1-P-1.png",
+      "imageUrl": "https://picsum.photos/seed/mlbb-generic/400/400",
       "imageHint": "game character action"
     },
     {
@@ -21,7 +21,7 @@
     {
       "id": "freefire",
       "description": "Character from the game Freefire",
-      "imageUrl": "https://i.ibb.co/VJCp9ff/01-JZ4-HVCY8-W7-Y2-A1-K8-M86-S2-D1-P-1.png",
+      "imageUrl": "https://picsum.photos/seed/freefire/400/400",
       "imageHint": "game character action"
     },
     {
