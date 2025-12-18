@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Menu, Wallet, Bell, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +13,8 @@ import {
 import { Sidebar } from "./sidebar";
 import { useUserProfile } from "@/hooks/use-user-profile";
 import Link from 'next/link';
+import { useUser, useFirestore, useCollection } from "@/firebase";
+import { collection, query, where } from "firebase/firestore";
 
 function ClientOnly({ children }: { children: React.ReactNode }) {
   const [hasMounted, setHasMounted] = useState(false);
@@ -30,6 +33,20 @@ function ClientOnly({ children }: { children: React.ReactNode }) {
 
 export function Header() {
   const { userProfile, isLoading: isProfileLoading } = useUserProfile();
+  const { user } = useUser();
+  const firestore = useFirestore();
+
+  const notificationsQuery = useMemo(() => {
+    if (!user) return null;
+    return query(
+      collection(firestore, `users/${user.uid}/notifications`),
+      where('isRead', '==', false)
+    );
+  }, [user, firestore]);
+
+  const { data: unreadNotifications } = useCollection<{ isRead: boolean }>(notificationsQuery as any);
+
+  const notificationCount = unreadNotifications?.length ?? 0;
 
   const balance = isProfileLoading ? "..." : `${userProfile?.balance ?? 0} Ks`;
 
@@ -47,9 +64,14 @@ export function Header() {
           </div>
           
           <div className="flex items-center gap-2">
-            <Button asChild variant="ghost" size="icon" className="h-10 w-10 rounded-full text-foreground bg-card">
+            <Button asChild variant="ghost" size="icon" className="h-10 w-10 rounded-full text-foreground bg-card relative">
               <Link href="/notifications">
                 <Bell className="h-5 w-5" />
+                {notificationCount > 0 && (
+                  <span className="absolute top-0 right-0 block h-5 w-5 rounded-full bg-red-600 text-white text-xs flex items-center justify-center pointer-events-none">
+                    {notificationCount}
+                  </span>
+                )}
               </Link>
             </Button>
           </div>
