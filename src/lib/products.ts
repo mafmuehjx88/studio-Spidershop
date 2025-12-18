@@ -26,6 +26,13 @@ const findImage = (id: string): ImagePlaceholder => {
 
 export const products: Product[] = [
   {
+    id: 'prod_news',
+    name: 'Game News',
+    description: 'Latest news in gaming',
+    price: '',
+    image: findImage('game-news'),
+  },
+  {
     id: 'prod_1',
     name: 'Mobile Legends',
     description: 'Mobile Legends Bang Bang',
@@ -33,10 +40,31 @@ export const products: Product[] = [
     image: findImage('mlbb-generic'),
   },
   {
+    id: 'prod_freefire',
+    name: 'Freefire',
+    description: 'Garena Free Fire',
+    price: '',
+    image: findImage('freefire'),
+  },
+  {
     id: 'prod_2',
     name: 'PUBG Mobile',
     description: 'PUBG Mobile',
     price: '',
     image: findImage('pubg-mobile'),
+  },
+  {
+    id: 'prod_magic_chess',
+    name: 'Magic Chess Go',
+    description: 'Magic Chess Go',
+    price: '',
+    image: findImage('magic-chess'),
+  },
+  {
+    id: 'prod_honor_of_kings',
+    name: 'Honor Of Kings',
+    description: 'Honor of Kings',
+    price: '',
+    image: findImage('honor-of-kings'),
   },
 ];

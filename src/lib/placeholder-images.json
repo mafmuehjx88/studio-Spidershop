@@ -2,15 +2,39 @@
   "placeholderImages": [
     {
       "id": "hero-banner",
-      "description": "Spider Game Shop promotional banner featuring Mobile Legends characters",
-      "imageUrl": "https://i.ibb.co/RpQ1Xp9S/New-Project-104-49-BB0-C3.png",
-      "imageHint": "game characters"
+      "description": "Spider Game Shop promotional banner featuring multiple game characters",
+      "imageUrl": "https://i.ibb.co/VvZg3nK/New-Project-108-1-E1865-C.png",
+      "imageHint": "game characters collage"
     },
     {
       "id": "mlbb-generic",
-      "description": "A female warrior with white hair and sunglasses making a cool pose.",
-      "imageUrl": "https://i.ibb.co/35ZtTP90/01-JZ4-CTYQGAPNMB3-XZXEPF21-RW.jpg",
-      "imageHint": "game character sunglasses"
+      "description": "Naruto character in a fighting pose, overlayed on Mobile Legends branding",
+      "imageUrl": "https://i.ibb.co/b3jQHC7/01-JZ4-HJWK95-B3-C5-TAD07-B7-RPSS-1.png",
+      "imageHint": "anime character game"
+    },
+    {
+      "id": "game-news",
+      "description": "Instant Gaming News logo",
+      "imageUrl": "https://i.ibb.co/L9nZzV9/01-JZ4-E4-V954-A61-J2-V8-WTR8-W0-E4-1.png",
+      "imageHint": "gaming news logo"
+    },
+    {
+      "id": "freefire",
+      "description": "Character from the game Freefire",
+      "imageUrl": "https://i.ibb.co/VJCp9ff/01-JZ4-HVCY8-W7-Y2-A1-K8-M86-S2-D1-P-1.png",
+      "imageHint": "game character action"
+    },
+    {
+      "id": "magic-chess",
+      "description": "Chibi style character for Magic Chess Go",
+      "imageUrl": "https://i.ibb.co/yqg9TJH/01-JZ4-J23-S46-K2-T5-R8-Z0-R7-X4-W70-1.png",
+      "imageHint": "chibi character game"
+    },
+    {
+      "id": "honor-of-kings",
+      "description": "Female character from Honor of Kings",
+      "imageUrl": "https://i.ibb.co/9vGvW2H/01-JZ4-HYJBCWCV0-TFGK8-C6-K8-X57-1.png",
+      "imageHint": "female character game"
     },
     {
       "id": "pubg-mobile",
@@ -153,6 +177,12 @@
     {
       "id": "mlbb-diamonds-1049",
       "description": "Pile of blue diamonds for Mobile Legends 1049/1135 packs.",
+      "imageUrl": "https://i.ibb.co/wFQsZ4qr/01-JD9-GN0-VZH91-D954-Z00-FZD0-GD.png",
+      "imageHint": "blue diamonds"
+    },
+    {
+      "id": "mlbb-diamonds-1135",
+      "description": "Pile of blue diamonds for Mobile Legends 1135 packs.",
       "imageUrl": "https://i.ibb.co/wFQsZ4qr/01-JD9-GN0-VZH91-D954-Z00-FZD0-GD.png",
       "imageHint": "blue diamonds"
     },

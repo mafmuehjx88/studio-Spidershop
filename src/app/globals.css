@@ -4,25 +4,25 @@
 
 @layer base {
   :root {
-    --background: 0 0% 8%;
+    --background: 0 0% 4%;
     --foreground: 0 0% 98%;
     --card: 240 5.9% 10%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
+    --primary: 43 100% 49%;
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
+    --accent: 270 95% 58%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 0 0% 98%;
+    --ring: 43 100% 49%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -31,25 +31,25 @@
   }
 
   .dark {
-    --background: 0 0% 8%;
+    --background: 0 0% 4%;
     --foreground: 0 0% 98%;
     --card: 240 5.9% 10%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
+    --primary: 43 100% 49%;
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
+    --accent: 270 95% 58%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 0 0% 98%;
+    --ring: 43 100% 49%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -87,19 +87,24 @@
   .sparkle-bg {
     position: relative;
     overflow: hidden;
-    background-color: #1a1a1a;
   }
-  .sparkle-bg::before {
+  .sparkle-bg::before, .sparkle-bg::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 200%;
     height: 200%;
-    background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1.5px);
     background-size: 50px 50px;
     animation: sparkle 15s linear infinite;
   }
+  .sparkle-bg::after {
+    background-size: 75px 75px;
+    animation-duration: 20s;
+    animation-delay: -5s;
+  }
+
   .save-button {
     @apply bg-green-500 text-white p-2 rounded-md hover:bg-green-600;
   }
