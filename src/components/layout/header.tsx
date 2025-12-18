@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { Menu, Wallet, Bell, Plus } from "lucide-react";
+import { Menu, Wallet, Bell, Plus, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -15,6 +15,7 @@ import { useUserProfile } from "@/hooks/use-user-profile";
 import Link from 'next/link';
 import { useUser, useFirestore, useCollection } from "@/firebase";
 import { collection, query, where } from "firebase/firestore";
+import { useAdminStatus } from "@/hooks/use-admin-status";
 
 function ClientOnly({ children }: { children: React.ReactNode }) {
   const [hasMounted, setHasMounted] = useState(false);
@@ -35,6 +36,7 @@ export function Header() {
   const { userProfile, isLoading: isProfileLoading } = useUserProfile();
   const { user } = useUser();
   const firestore = useFirestore();
+  const { isAdmin, isAdminLoading } = useAdminStatus();
 
   const notificationsQuery = useMemo(() => {
     if (!user) return null;
@@ -64,6 +66,13 @@ export function Header() {
           </div>
           
           <div className="flex items-center gap-2">
+            {!isAdminLoading && isAdmin && (
+                <Button asChild variant="ghost" size="icon" className="h-10 w-10 rounded-full text-foreground bg-card">
+                    <Link href="/admin/users">
+                        <Shield className="h-5 w-5 text-yellow-400" />
+                    </Link>
+                </Button>
+            )}
             <Button asChild variant="ghost" size="icon" className="h-10 w-10 rounded-full text-foreground bg-card relative">
               <Link href="/notifications">
                 <Bell className="h-5 w-5" />
