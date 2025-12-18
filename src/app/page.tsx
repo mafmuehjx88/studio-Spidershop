@@ -3,10 +3,12 @@ import { HeroBanner } from "@/components/home/hero-banner";
 import { ProductGrid } from "@/components/home/product-grid";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { WelcomeDialog } from "@/components/home/welcome-dialog";
 
 export default function Home() {
   return (
     <div className="flex flex-col pb-20">
+      <WelcomeDialog />
       <Header />
       <main className="pt-16">
         <HeroBanner />
