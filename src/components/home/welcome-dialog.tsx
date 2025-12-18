@@ -6,11 +6,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
-  DialogClose,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
 
 export function WelcomeDialog() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,19 +19,15 @@ export function WelcomeDialog() {
     }
   }, []);
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="bg-card text-foreground border-border max-w-sm p-0">
-        <DialogHeader className="p-6 pb-4">
+      <DialogContent className="bg-card text-foreground border-border max-w-sm p-6">
+        <DialogHeader className="pb-4">
           <DialogTitle className="text-center text-xl font-bold text-primary">
             စာဖတ်ပေးပါဦးဗျ..
           </DialogTitle>
         </DialogHeader>
-        <div className="px-6 pb-6 space-y-4 text-center text-muted-foreground">
+        <div className="space-y-4 text-center text-muted-foreground">
             <p className="font-bold text-lg text-accent">အာဝါးး</p>
             <p>
                 ငွေဖြည့်တဲ့အခါ မနက် 9နာရီ မှ ည 10 နာရီအတွင်းထည့်ပါက Account ထဲသို့ 3min မှ 15minအတွင်းရောက်လာမှာဖြစ်ပါတယ်
@@ -48,17 +40,6 @@ export function WelcomeDialog() {
                 အခုဝယ် အခုရမစောင့်ရပါဘူး
             </p>
         </div>
-         <DialogClose asChild>
-            <Button
-                variant="ghost"
-                size="icon"
-                className="absolute top-4 right-4 h-8 w-8 text-muted-foreground hover:bg-muted"
-                onClick={handleClose}
-            >
-                <X className="h-5 w-5" />
-                <span className="sr-only">Close</span>
-            </Button>
-        </DialogClose>
       </DialogContent>
     </Dialog>
   );
