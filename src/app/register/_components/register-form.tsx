@@ -93,21 +93,6 @@ export function RegisterForm() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      // Check if username already exists
-      const usersRef = collection(firestore, 'users');
-      const q = query(usersRef, where('username', '==', values.username));
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        toast({
-          variant: 'destructive',
-          title: 'Registration Failed',
-          description: 'Username already exists. Please choose another one.',
-        });
-        setIsSubmitting(false);
-        return;
-      }
-
       initiateEmailSignUp(auth, values.email, values.password);
       toast({
         title: 'Registration Initiated',
