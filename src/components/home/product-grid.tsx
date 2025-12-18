@@ -10,7 +10,7 @@ export function ProductGrid() {
         <h2 className="mb-8 text-center font-headline text-2xl font-bold uppercase tracking-normal text-primary">
           OUR PRODUCTS
         </h2>
-        <div className="grid grid-cols-3 gap-x-4 gap-y-8 md:gap-x-6 md:gap-y-10">
+        <div className="grid grid-cols-3 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-x-6 md:gap-y-10">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
