@@ -10,7 +10,7 @@ export default function Home() {
       <Header />
       <main className="pt-16">
         <HeroBanner />
-        <div className="container mx-auto px-4 -mt-8 relative z-10">
+        <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-2 gap-4">
             <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-6 text-base">
               <Link href="/top-up">ငွေဖြည့်မည်</Link>
