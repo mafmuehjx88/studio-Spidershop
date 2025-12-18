@@ -7,7 +7,7 @@ import { WelcomeDialog } from "@/components/home/welcome-dialog";
 
 export default function Home() {
   return (
-    <div className="flex flex-col pb-20">
+    <div className="flex flex-col">
       <WelcomeDialog />
       <Header />
       <main className="pt-16">
