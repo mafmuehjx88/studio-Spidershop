@@ -1,8 +1,8 @@
 'use client';
 
-import { useMemo } from 'react';
-import { useCollection, useUser } from '@/firebase';
-import { collection, query, orderBy } from 'firebase/firestore';
+import { useMemo, useEffect } from 'react';
+import { useCollection, useUser, updateDocumentNonBlocking } from '@/firebase';
+import { collection, query, orderBy, doc } from 'firebase/firestore';
 import { useFirestore } from '@/firebase/provider';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent } from '@/components/ui/card';
@@ -49,6 +49,18 @@ export function NotificationList() {
     notificationsQuery as any
   );
 
+  useEffect(() => {
+    if (notifications && user && firestore) {
+      notifications.forEach(notification => {
+        if (!notification.isRead) {
+          const notifDocRef = doc(firestore, `users/${user.uid}/notifications`, notification.id);
+          updateDocumentNonBlocking(notifDocRef, { isRead: true });
+        }
+      });
+    }
+  }, [notifications, user, firestore]);
+
+
   if (isUserLoading || (isLoading && !notifications)) {
     return <LoadingSkeleton />;
   }
@@ -90,12 +102,6 @@ export function NotificationList() {
                 {formatDistanceToNow(new Date(notification.timestamp), { addSuffix: true })}
               </p>
             </div>
-             {/* Optional: Add a button to mark as read */}
-             {!notification.isRead && (
-                 <button className="flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center bg-transparent hover:bg-muted transition-colors">
-                    <Check className="h-5 w-5 text-green-500" />
-                 </button>
-             )}
           </CardContent>
         </Card>
       ))}
