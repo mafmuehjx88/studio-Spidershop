@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 
 const socialLinks = [
     { name: 'Viber', href: 'https://invite.viber.com', icon: FaViber },
-    { name: 'Channel', href: 'https://t.me', icon: FaTelegramPlane },
+    { name: 'Channel', href: 'https://t.me/SpiderGameShop11', icon: FaTelegramPlane },
     { name: 'Account', href: 'https://t.me/Spider_N112', icon: UserCircle },
     { name: 'Group', href: 'https://t.me', icon: FaTelegramPlane }
 ]
