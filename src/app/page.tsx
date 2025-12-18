@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="flex flex-col pb-20">
       <Header />
-      <main className="pt-16 sparkle-bg">
+      <main className="pt-16">
         <HeroBanner />
         <div className="container mx-auto px-4 -mt-8 relative z-10">
           <div className="grid grid-cols-2 gap-4">

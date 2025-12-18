@@ -80,31 +80,6 @@
   .badge-instock {
     @apply bg-green-600 text-white;
   }
-   @keyframes sparkle {
-    0%, 100% { opacity: 0; transform: scale(0.5); }
-    50% { opacity: 1; transform: scale(1); }
-  }
-  .sparkle-bg {
-    position: relative;
-    overflow: hidden;
-  }
-  .sparkle-bg::before, .sparkle-bg::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 200%;
-    background-image: radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1.5px);
-    background-size: 50px 50px;
-    animation: sparkle 15s linear infinite;
-  }
-  .sparkle-bg::after {
-    background-size: 75px 75px;
-    animation-duration: 20s;
-    animation-delay: -5s;
-  }
-
   .save-button {
     @apply bg-green-500 text-white p-2 rounded-md hover:bg-green-600;
   }
