@@ -74,7 +74,7 @@ export const topUpOptions: Record<string, TopUpCategory[]> = {
           id: '2x-250',
           name: '250 (2x250)',
           price: '15,500 Ks',
-          image: findImage('mlbb-2x-150'),
+          image: findImage('mlbb-2x-500'),
         },
         {
             id: '2x-500',
