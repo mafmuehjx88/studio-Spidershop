@@ -10,6 +10,7 @@ import { LogOut, UserCircle } from "lucide-react";
 import { useAuth } from "@/firebase";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import { TotalOrdersCard } from "./_components/total-orders-card";
 
 
 const socialLinks = [
@@ -38,6 +39,8 @@ export default function AccountPage() {
       <main className="flex-grow pt-16 bg-background text-foreground">
         <div className="container mx-auto px-4 py-8 md:px-6 space-y-6">
             <UserProfileCard />
+
+            <TotalOrdersCard />
             
             <Card className="bg-card border-border">
                 <CardContent className="p-4">
