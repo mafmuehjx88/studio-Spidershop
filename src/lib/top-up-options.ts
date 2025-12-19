@@ -102,7 +102,7 @@ export const topUpOptions: Record<string, TopUpCategory[]> = {
             { id: 'd-706', name: '706 Diamond', price: '39600ks', image: findImage('mlbb-diamonds-706') },
             { id: 'd-963', name: '963 Diamond', price: '54200ks', image: findImage('mlbb-diamonds-706') },
             { id: 'd-1049', name: '1049 Diamond', price: '59300ks', image: findImage('mlbb-diamonds-1049') },
-            { id: 'd-1135', name: '1135 Diamond', price: '64200ks', image: findImage('mlbb-diamonds-1049') },
+            { id: 'd-1135', name: '1135 Diamond', price: '64200ks', image: findImage('mlbb-diamonds-1049') }
         ]
     }
   ],
