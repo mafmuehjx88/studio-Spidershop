@@ -7,6 +7,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useUser } from '@/firebase';
 
 const UserProfileSkeleton = () => (
     <div className="flex items-center gap-4">
@@ -34,8 +35,11 @@ const GuestPrompt = () => (
 
 
 export function UserProfileCard() {
-  const { userProfile, isLoading } = useUserProfile();
+  const { isUserLoading } = useUser();
+  const { userProfile, isLoading: isProfileLoading } = useUserProfile();
   const logo = PlaceHolderImages.find((p) => p.id === 'logo');
+
+  const isLoading = isUserLoading || isProfileLoading;
 
   if (isLoading) {
     return <UserProfileSkeleton />;
