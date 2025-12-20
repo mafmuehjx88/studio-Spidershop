@@ -43,6 +43,12 @@
       "imageHint": "soldier helmet"
     },
     {
+      "id": "telegram",
+      "description": "Telegram logo",
+      "imageUrl": "https://i.ibb.co/r7tDCgB/telegram.png",
+      "imageHint": "telegram logo"
+    },
+    {
       "id": "logo",
       "description": "Zenith Harrai Shop Logo",
       "imageUrl": "https://i.ibb.co/ZprTptXT/New-Project-114-4-D5-D5-E7.png",

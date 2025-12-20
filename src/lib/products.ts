@@ -46,4 +46,11 @@ export const products: Product[] = [
     price: '',
     image: findImage('honor-of-kings'),
   },
+  {
+    id: 'prod_4',
+    name: 'Telegram',
+    description: 'Telegram Services',
+    price: '',
+    image: findImage('telegram'),
+  },
 ];
