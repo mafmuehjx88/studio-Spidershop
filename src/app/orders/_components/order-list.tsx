@@ -24,6 +24,7 @@ import {
 } from '@/components/ui/pagination';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
+import { OrderDetailDialog } from './order-detail-dialog';
 
 type Order = {
   id: string;
@@ -67,6 +68,7 @@ const LoadingSkeleton = () => (
                     <TableHead><Skeleton className="h-5 w-16" /></TableHead>
                     <TableHead><Skeleton className="h-5 w-24" /></TableHead>
                     <TableHead><Skeleton className="h-5 w-20" /></TableHead>
+                    <TableHead><Skeleton className="h-5 w-20" /></TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -74,6 +76,7 @@ const LoadingSkeleton = () => (
                     <TableRow key={i}>
                         <TableCell><Skeleton className="h-4 w-full" /></TableCell>
                         <TableCell><Skeleton className="h-4 w-full" /></TableCell>
+                         <TableCell><Skeleton className="h-4 w-full" /></TableCell>
                         <TableCell><Skeleton className="h-6 w-24 rounded-full" /></TableCell>
                     </TableRow>
                 ))}
@@ -89,6 +92,8 @@ export function OrderList() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const ordersQuery = useMemo(() => {
     if (!user) return null;
@@ -101,6 +106,16 @@ export function OrderList() {
   const { data: orders, isLoading, error } = useCollection<Order>(
     ordersQuery as any
   );
+  
+  const handleRowClick = (order: Order) => {
+    setSelectedOrder(order);
+    setIsDialogOpen(true);
+  };
+  
+  const handleDialogClose = () => {
+      setIsDialogOpen(false);
+      setSelectedOrder(null);
+  }
 
   useEffect(() => {
     const checkPendingOrders = () => {
@@ -160,7 +175,6 @@ export function OrderList() {
   const renderPagination = () => {
     if (pageCount <= 1) return null;
     
-    // For this pagination, we will show first, prev, next, last and some pages in between
     const pages = [];
     const maxPagesToShow = 5;
     let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
@@ -213,22 +227,27 @@ export function OrderList() {
 
 
   return (
+    <>
     <div className="bg-card p-4 rounded-lg border border-border shadow-sm">
        <h2 className="text-center text-lg font-bold mb-4 text-primary">ဝယ်ယူမှုမှတ်တမ်းများ</h2>
       <div className="overflow-x-auto">
         <Table>
-          <TableHeader className="bg-red-900/20">
+          <TableHeader className="bg-muted/50">
             <TableRow>
-              <TableHead className="text-red-400 font-semibold">ID</TableHead>
-              <TableHead className="text-red-400 font-semibold">ပမာဏ</TableHead>
-              <TableHead className="text-red-400 font-semibold">Status</TableHead>
+              <TableHead className="text-foreground font-semibold">Time</TableHead>
+              <TableHead className="text-foreground font-semibold">Game</TableHead>
+              <TableHead className="text-foreground font-semibold">Item</TableHead>
+              <TableHead className="text-foreground font-semibold">Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {paginatedOrders.map((order) => (
-              <TableRow key={order.id}>
-                <TableCell className="font-medium text-blue-400">{order.id.slice(0, 6)}</TableCell>
-                <TableCell>{order.optionName}</TableCell>
+              <TableRow key={order.id} onClick={() => handleRowClick(order)} className="cursor-pointer">
+                <TableCell className="text-xs text-muted-foreground">
+                    {new Date(order.timestamp).toLocaleDateString()}
+                </TableCell>
+                <TableCell>{order.productName}</TableCell>
+                 <TableCell>{order.optionName}</TableCell>
                 <TableCell>
                   <StatusBadge status={order.status} />
                 </TableCell>
@@ -239,5 +258,13 @@ export function OrderList() {
       </div>
       {renderPagination()}
     </div>
+    {selectedOrder && (
+        <OrderDetailDialog 
+            order={selectedOrder} 
+            isOpen={isDialogOpen} 
+            onClose={handleDialogClose} 
+        />
+    )}
+    </>
   );
 }
