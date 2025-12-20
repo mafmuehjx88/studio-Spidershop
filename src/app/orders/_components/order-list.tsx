@@ -56,7 +56,7 @@ const StatusBadge = ({ status }: { status: Order['status'] }) => {
 
   const { text, className } = statusConfig[status] || statusConfig.Pending;
 
-  return <Badge className={`rounded-full px-3 py-1 text-xs ${className}`}>{text}</Badge>;
+  return <Badge className={`rounded-full px-3 py-1 text-xs font-semibold ${className}`}>{text}</Badge>;
 };
 
 const LoadingSkeleton = () => (
@@ -68,7 +68,6 @@ const LoadingSkeleton = () => (
                     <TableHead><Skeleton className="h-5 w-16" /></TableHead>
                     <TableHead><Skeleton className="h-5 w-24" /></TableHead>
                     <TableHead><Skeleton className="h-5 w-20" /></TableHead>
-                    <TableHead><Skeleton className="h-5 w-20" /></TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -76,7 +75,6 @@ const LoadingSkeleton = () => (
                     <TableRow key={i}>
                         <TableCell><Skeleton className="h-4 w-full" /></TableCell>
                         <TableCell><Skeleton className="h-4 w-full" /></TableCell>
-                         <TableCell><Skeleton className="h-4 w-full" /></TableCell>
                         <TableCell><Skeleton className="h-6 w-24 rounded-full" /></TableCell>
                     </TableRow>
                 ))}
@@ -87,6 +85,16 @@ const LoadingSkeleton = () => (
 );
 
 const ORDERS_PER_PAGE = 10;
+
+// Helper to shorten long game names
+const getShortenedGameName = (name: string) => {
+    const nameMap: Record<string, string> = {
+        'Mobile Legends': 'MLBB',
+        'PUBG Mobile': 'PUBG',
+        'Honor Of Kings': 'HOK',
+    };
+    return nameMap[name] || name;
+}
 
 export function OrderList() {
   const { user, isUserLoading } = useUser();
@@ -234,21 +242,22 @@ export function OrderList() {
         <Table>
           <TableHeader className="bg-muted/50">
             <TableRow>
-              <TableHead className="text-foreground font-semibold">Time</TableHead>
-              <TableHead className="text-foreground font-semibold">Game</TableHead>
+              <TableHead className="text-foreground font-semibold">Date</TableHead>
               <TableHead className="text-foreground font-semibold">Item</TableHead>
-              <TableHead className="text-foreground font-semibold">Status</TableHead>
+              <TableHead className="text-foreground font-semibold text-right">Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {paginatedOrders.map((order) => (
               <TableRow key={order.id} onClick={() => handleRowClick(order)} className="cursor-pointer">
                 <TableCell className="text-xs text-muted-foreground">
-                    {new Date(order.timestamp).toLocaleDateString()}
+                    {new Date(order.timestamp).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                 </TableCell>
-                <TableCell>{order.productName}</TableCell>
-                 <TableCell>{order.optionName}</TableCell>
-                <TableCell>
+                <TableCell className="font-medium">
+                    {getShortenedGameName(order.productName)} - {order.optionName}
+                    <div className="text-xs text-muted-foreground">{order.productName}</div>
+                </TableCell>
+                <TableCell className="text-right">
                   <StatusBadge status={order.status} />
                 </TableCell>
               </TableRow>
