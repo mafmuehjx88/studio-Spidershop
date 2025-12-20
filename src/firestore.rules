@@ -63,11 +63,12 @@ service cloud.firestore {
     
     /**
      * Returns true if a user's update to their own document is valid.
-     * - They cannot change their own balance.
+     * - They cannot change their own username or email, but balance can be changed by the system.
      */
     function isValidUserUpdate() {
-      // Regular users cannot change their own balance.
-      return request.resource.data.balance == resource.data.balance;
+      // Regular users cannot change their own username or email.
+      return request.resource.data.username == resource.data.username &&
+             request.resource.data.email == resource.data.email;
     }
 
     /**
@@ -124,10 +125,10 @@ service cloud.firestore {
     /**
      * @description Collection group query rule for 'orders'.
      * @path /{path=**}/orders/{orderId}
-     * @allow (list) Admins can list all pending orders across all users for management.
+     * @allow (list) Signed-in users can list orders to get a total count.
      */
     match /{path=**}/orders/{orderId} {
-      allow list: if isAdmin() && request.query.where.status == 'Pending';
+      allow list: if isSignedIn();
     }
 
     /**
@@ -172,10 +173,10 @@ service cloud.firestore {
        * @principle Enforces document ownership for all operations within a user-specific subcollection.
        */
       match /orders/{orderId} {
-        allow get: if isOwner(userId) || isAdmin();
+        allow get: if isOwner(userId);
         allow list: if isOwner(userId);
         allow create: if isOwner(userId) && request.resource.data.userId == userId;
-        allow update: if isExistingOwner(userId) || isAdmin();
+        allow update: if isExistingOwner(userId);
         allow delete: if isExistingOwner(userId);
       }
     }

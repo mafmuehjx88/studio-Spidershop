@@ -34,6 +34,7 @@ import {
 import { useFirestore, useUser } from '@/firebase';
 import { useEffect, useState } from 'react';
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const formSchema = z.object({
   username: z
@@ -59,7 +60,6 @@ export function RegisterForm() {
   const router = useRouter();
   const auth = useAuth();
   const firestore = useFirestore();
-  const { user } = useUser();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -72,40 +72,64 @@ export function RegisterForm() {
     },
   });
 
-  useEffect(() => {
-    if (user) {
-      const userDocRef = doc(firestore, 'users', user.uid);
-      const { username, email } = form.getValues();
-      setDocumentNonBlocking(
-        userDocRef,
-        {
-          id: user.uid,
-          username,
-          email,
-          balance: 0,
-        },
-        { merge: true }
-      );
-      router.push('/');
-    }
-  }, [user, firestore, form, router]);
-
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      initiateEmailSignUp(auth, values.email, values.password);
+      // 1. Check if username already exists
+      const usersRef = collection(firestore, 'users');
+      const q = query(usersRef, where('username', '==', values.username));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        toast({
+          variant: 'destructive',
+          title: 'Registration Failed',
+          description: 'This username is already taken. Please choose another one.',
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      // 2. If username is available, create the user
+      const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+      const user = userCredential.user;
+
+      // 3. Create user profile in Firestore
+      const userDocRef = doc(firestore, 'users', user.uid);
+      await setDocumentNonBlocking(
+        userDocRef,
+        {
+          id: user.uid,
+          username: values.username,
+          email: values.email,
+          balance: 0,
+        },
+        { merge: false } // Use merge:false to ensure it's a new doc
+      );
+      
       toast({
-        title: 'Registration Initiated',
-        description: 'Please wait while we create your account.',
+        title: 'Registration Successful',
+        description: 'Your account has been created.',
       });
-      // The useEffect will handle user creation in firestore and redirection
+
+      router.push('/');
+
     } catch (error: any) {
+      // Handle Firebase Auth errors (e.g., email-already-in-use)
+      let description = "An unexpected error occurred.";
+      if (error.code === 'auth/email-already-in-use') {
+        description = 'This email is already registered. Please log in or use a different email.';
+      } else if (error.message) {
+        description = error.message;
+      }
+
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
-        description: error.message,
+        description: description,
       });
-      setIsSubmitting(false);
+    } finally {
+        setIsSubmitting(false);
     }
   };
 
