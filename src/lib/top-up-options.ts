@@ -159,19 +159,19 @@ export const topUpOptions: Record<string, TopUpCategory[]> = {
       options: [
         {
           id: 'tg-3m',
-          name: 'Telegram premium 3Months',
+          name: 'Premium 3Months',
           price: '45000ks',
           image: findImage('telegram'),
         },
         {
           id: 'tg-6m',
-          name: 'Telegram premium 6Months',
+          name: 'Premium 6Months',
           price: '66000 ks',
           image: findImage('telegram'),
         },
         {
           id: 'tg-1y',
-          name: 'Telegram premium 1Years',
+          name: 'Premium 1Years',
           price: '120000ks',
           image: findImage('telegram'),
         },
