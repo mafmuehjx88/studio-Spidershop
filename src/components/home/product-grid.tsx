@@ -8,9 +8,11 @@ export function ProductGrid() {
     <div className="bg-background">
       <section className="container mx-auto px-4 py-8 md:px-6 md:py-12">
         <div className="mb-8 space-y-4">
-            <div className="bg-card p-2 rounded-md">
+            <div className="mb-4">
                 <Marquee>
-                    Spider Game Shop မှကြိုဆိုပါသည်
+                    <span className="text-green-400 font-bold drop-shadow-[0_0_5px_theme('colors.green.400')]">
+                        Spider Game Shop မှကြိုဆိုပါသည်
+                    </span>
                 </Marquee>
             </div>
           <h2 className="text-center font-headline text-2xl font-bold uppercase tracking-normal text-primary">
