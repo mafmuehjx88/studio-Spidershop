@@ -5,10 +5,8 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogClose
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
-import { X } from 'lucide-react';
 
 type Order = {
   id: string;
@@ -52,7 +50,7 @@ const StatusBadge = ({ status }: { status: Order['status'] }) => {
 const DetailRow = ({ label, value }: { label: string; value: React.ReactNode }) => (
     <div className="flex justify-between items-center py-3 border-b border-border/50">
         <p className="text-muted-foreground">{label}</p>
-        <p className="font-semibold text-right">{value}</p>
+        <div className="font-semibold text-right">{value}</div>
     </div>
 )
 
@@ -63,13 +61,8 @@ export function OrderDetailDialog({ order, isOpen, onClose }: OrderDetailDialogP
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="bg-card text-foreground border-border max-w-sm p-0">
-        <DialogHeader className="p-4 border-b border-border/50 flex flex-row items-center justify-between">
+        <DialogHeader className="p-4 border-b border-border/50">
           <DialogTitle className="text-lg">Order Detail – #{order.id.slice(0, 7).toUpperCase()}</DialogTitle>
-           <DialogClose asChild>
-            <button className="p-1 rounded-full hover:bg-muted">
-                <X className="h-5 w-5" />
-            </button>
-          </DialogClose>
         </DialogHeader>
         <div className="p-4 text-sm">
             <DetailRow 
