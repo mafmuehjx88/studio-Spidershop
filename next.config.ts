@@ -34,12 +34,19 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
       {
-        protocol: 'https',
+        protocol: 'https://',
         hostname: 'i.ibb.co',
         port: '',
         pathname: '/**',
       }
     ],
+  },
+  webpack: (config, { isServer }) => {
+    // Disable code minification during the build
+    if (!isServer) {
+      config.optimization.minimize = false;
+    }
+    return config;
   },
 };
 
