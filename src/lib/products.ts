@@ -39,4 +39,11 @@ export const products: Product[] = [
     price: '',
     image: findImage('pubg-mobile'),
   },
+  {
+    id: 'prod_3',
+    name: 'Honor Of Kings',
+    description: 'Honor Of Kings',
+    price: '',
+    image: findImage('honor-of-kings'),
+  },
 ];
