@@ -22,17 +22,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/firebase/provider';
-import { initiateEmailSignUp } from '@/firebase/non-blocking-login';
 import { useToast } from '@/hooks/use-toast';
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  where,
-} from 'firebase/firestore';
-import { useFirestore, useUser } from '@/firebase';
-import { useEffect, useState } from 'react';
+import { doc } from 'firebase/firestore';
+import { useFirestore } from '@/firebase';
+import { useState } from 'react';
 import { setDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
