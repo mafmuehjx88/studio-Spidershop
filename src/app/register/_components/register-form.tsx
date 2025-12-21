@@ -39,15 +39,15 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 const formSchema = z.object({
   username: z
     .string()
-    .min(2, { message: 'Username must be at least 2 characters.' })
+    .min(8, { message: 'Username must be at least 8 characters long.' })
     .refine(
       (value) => {
         const letterCount = (value.match(/[a-zA-Z]/g) || []).length;
         const numberCount = (value.match(/[0-9]/g) || []).length;
-        return letterCount === 4 && numberCount === 4 && value.length === 8;
+        return letterCount >= 4 && numberCount >= 4;
       },
       {
-        message: 'Username must contain exactly 4 letters and 4 numbers.',
+        message: 'Username must contain at least 4 letters and 4 numbers.',
       }
     ),
   email: z.string().email({ message: 'Invalid email address.' }),
