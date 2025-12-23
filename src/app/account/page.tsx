@@ -11,6 +11,8 @@ import { useAuth } from "@/firebase";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { TotalOrdersCard } from "./_components/total-orders-card";
+import { TopBuyersCard } from "./_components/top-buyers-card";
+import { TotalUsersCard } from "./_components/total-users-card";
 
 
 const socialLinks = [
@@ -40,7 +42,12 @@ export default function AccountPage() {
         <div className="container mx-auto px-4 py-8 md:px-6 space-y-6">
             <UserProfileCard />
 
-            <TotalOrdersCard />
+            <div className="grid grid-cols-2 gap-4">
+              <TotalOrdersCard />
+              <TotalUsersCard />
+            </div>
+
+            <TopBuyersCard />
             
             <Card className="bg-card border-border">
                 <CardContent className="p-4">
