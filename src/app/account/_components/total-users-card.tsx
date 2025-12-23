@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { useCollection, useFirestore } from '@/firebase';
+import { useCollection, useFirestore, useUser } from '@/firebase';
 import { collection, query } from 'firebase/firestore';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -19,14 +19,18 @@ const LoadingSkeleton = () => (
 
 export function TotalUsersCard() {
     const firestore = useFirestore();
+    const { user, isUserLoading } = useUser();
     const BASE_USER_COUNT = 34; // Starting count
 
     const usersQuery = useMemo(() => {
-        if (!firestore) return null;
+        // Only run the query if the user is logged in
+        if (!firestore || !user) return null;
         return query(collection(firestore, 'users'));
-    }, [firestore]);
+    }, [firestore, user]);
 
-    const { data: users, isLoading, error } = useCollection<UserProfile>(usersQuery);
+    const { data: users, isLoading: isUsersLoading, error } = useCollection<UserProfile>(usersQuery);
+
+    const isLoading = isUserLoading || (user && isUsersLoading);
 
     if (isLoading) {
         return <LoadingSkeleton />;
@@ -43,7 +47,8 @@ export function TotalUsersCard() {
         );
     }
     
-    const totalUserCount = (users?.length ?? 0) + BASE_USER_COUNT;
+    // If logged in, show the live count. Otherwise, show the base count.
+    const totalUserCount = user ? (users?.length ?? 0) + BASE_USER_COUNT : BASE_USER_COUNT;
 
     return (
         <Card className="bg-card border-border h-full">
