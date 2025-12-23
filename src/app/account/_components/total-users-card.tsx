@@ -20,7 +20,7 @@ const LoadingSkeleton = () => (
 export function TotalUsersCard() {
     const firestore = useFirestore();
     const { user, isUserLoading } = useUser();
-    const BASE_USER_COUNT = 34; // Starting count
+    const BASE_USER_COUNT = 0; // Starting count
 
     const usersQuery = useMemo(() => {
         // Only run the query if the user is logged in
@@ -32,23 +32,26 @@ export function TotalUsersCard() {
 
     const isLoading = isUserLoading || (user && isUsersLoading);
 
-    if (isLoading) {
+    if (isLoading && user) { // Only show skeleton if a user is logged in and loading
         return <LoadingSkeleton />;
     }
 
     if (error) {
         console.error("Error loading total users:", error);
-        return (
-             <Card className="bg-card border-destructive/50 h-full">
-                <CardContent className="p-4 flex flex-col items-center justify-center text-center h-full">
-                    <p className="text-xs text-destructive">Could not load users.</p>
-                </CardContent>
-            </Card>
-        );
+         // Don't show an error card for guests, just show 0
+        if (user) {
+            return (
+                 <Card className="bg-card border-destructive/50 h-full">
+                    <CardContent className="p-4 flex flex-col items-center justify-center text-center h-full">
+                        <p className="text-xs text-destructive">Could not load users.</p>
+                    </CardContent>
+                </Card>
+            );
+        }
     }
     
-    // If logged in, show the live count. Otherwise, show the base count.
-    const totalUserCount = user ? (users?.length ?? 0) + BASE_USER_COUNT : BASE_USER_COUNT;
+    // If logged in, show the live count. Otherwise, show 0.
+    const totalUserCount = user ? (users?.length ?? 0) + BASE_USER_COUNT : 0;
 
     return (
         <Card className="bg-card border-border h-full">
