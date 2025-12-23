@@ -11,7 +11,6 @@ import { useAuth } from "@/firebase";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { TotalOrdersCard } from "./_components/total-orders-card";
-import { TopBuyersCard } from "./_components/top-buyers-card";
 import { TotalUsersCard } from "./_components/total-users-card";
 
 
@@ -46,8 +45,6 @@ export default function AccountPage() {
               <TotalOrdersCard />
               <TotalUsersCard />
             </div>
-
-            <TopBuyersCard />
             
             <Card className="bg-card border-border">
                 <CardContent className="p-4">
