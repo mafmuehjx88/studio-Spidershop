@@ -20,7 +20,7 @@ const LoadingSkeleton = () => (
 export function TotalUsersCard() {
     const firestore = useFirestore();
     const { user, isUserLoading } = useUser();
-    const BASE_USER_COUNT = 0; // Starting count
+    const BASE_USER_COUNT = 35; // Starting count
 
     const usersQuery = useMemo(() => {
         // Only run the query if the user is logged in
