@@ -1,6 +1,7 @@
 'use client';
 
-import { useCollection, useFirestore, useUser, useMemoFirebase } from '@/firebase';
+import { useMemo } from 'react';
+import { useCollection, useFirestore, useUser } from '@/firebase';
 import { collection, query } from 'firebase/firestore';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -21,7 +22,7 @@ export function TotalUsersCard() {
     const { user, isUserLoading } = useUser();
     const BASE_USER_COUNT = 34; // Starting count
 
-    const usersQuery = useMemoFirebase(() => {
+    const usersQuery = useMemo(() => {
         // Only run the query if the user is logged in
         if (!firestore || !user) return null;
         return query(collection(firestore, 'users'));
