@@ -14,10 +14,10 @@ export default function Home() {
         <HeroBanner />
         <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-2 gap-4">
-            <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-6 text-base">
+            <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 text-sm">
               <Link href="/top-up">ငွေဖြည့်မည်</Link>
             </Button>
-            <Button asChild className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-6 text-base">
+            <Button asChild className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 text-sm">
               <Link href="/orders">အော်ဒါများ</Link>
             </Button>
           </div>
