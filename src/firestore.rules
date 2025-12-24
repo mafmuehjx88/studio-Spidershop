@@ -85,15 +85,14 @@ service cloud.firestore {
     // ----------------------------------------------------------------------
     
     /**
-     * @description Manages admin user records. Publicly readable, admin-only writable.
+     * @description Manages admin user records. Signed-in users can check for existence, admins can write.
      * @path /admins/{userId}
-     * @allow (get, list) Anyone can check if a UID is in the admin list. This is safe because UIDs are not sensitive.
-     * @allow (write) Only existing admins can manage the list of other admins.
-     * @deny (any) Non-admins cannot modify this collection.
+     * @allow (get) Signed-in users can check if a UID is in the admin list.
+     * @allow (list, write) Only existing admins can manage the list of other admins.
      */
     match /admins/{userId} {
-      allow get, list: if true;
-      allow write: if isAdmin();
+      allow get: if isSignedIn();
+      allow list, write: if isAdmin();
     }
 
     /**
@@ -135,14 +134,14 @@ service cloud.firestore {
      * @description Manages user profile documents.
      * @path /users/{userId}
      * @allow (get) Owner can read their own profile. Admins can read any profile.
-     * @allow (list) Admins can list all users. Users can query for username existence.
+     * @allow (list) All signed-in users can list users.
      * @allow (create) A new user can create their own profile.
      * @allow (update) Owner can update their profile (but not balance). Admins can update any user's profile.
      * @allow (delete) Owner can delete their own profile.
      */
     match /users/{userId} {
       allow get: if isOwner(userId) || isAdmin();
-      allow list: if isAdmin() || (request.query.keys().hasOnly(['username']));
+      allow list: if isSignedIn();
       allow create: if isOwner(userId) && request.resource.data.id == userId && isValidUserCreate();
       allow update: if (isOwner(userId) && isValidUserUpdate()) || isAdmin();
       allow delete: if isExistingOwner(userId);
@@ -151,14 +150,14 @@ service cloud.firestore {
        * @description Manages user-specific notifications.
        * @path /users/{userId}/notifications/{notificationId}
        * @allow (get, list) A user can read their own notifications.
-       * @allow (create, update, delete) A user can create, update (e.g., mark as read), and delete their own notifications.
+       * @allow (create) A user can create their own notifications. Admins can also create notifications for users.
+       * @allow (update, delete) A user can update (e.g., mark as read) and delete their own notifications.
        * @deny (any) A user cannot access notifications belonging to another user.
-       * @principle Enforces document ownership for all operations within a user-specific subcollection.
        */
       match /notifications/{notificationId} {
         allow get: if isOwner(userId);
         allow list: if isOwner(userId);
-        allow create: if isOwner(userId) && request.resource.data.userId == userId;
+        allow create: if (isOwner(userId) && request.resource.data.userId == userId) || isAdmin();
         allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
         allow delete: if isExistingOwner(userId);
       }
