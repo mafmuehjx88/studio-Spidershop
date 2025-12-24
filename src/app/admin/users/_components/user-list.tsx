@@ -85,13 +85,13 @@ export function UserList() {
             newBalance = currentBalance + amount;
             
             // Create notification for top-up
-            const notificationData = {
-              userId: user.id,
-              message: `မင်္ဂလာပါ ${user.username} သင်ဝယ်ယူထားသော ငွေဖြည့်ပမာဏ ${amount} အား ဖြည့်သွင်းပေးပြီးပါပြီ...`,
-              timestamp: new Date().toISOString(),
-              isRead: false,
-            };
-            addDocumentNonBlocking(collection(firestore, `users/${user.id}/notifications`), notificationData);
+            // const notificationData = {
+            //   userId: user.id,
+            //   message: `မင်္ဂလာပါ ${user.username} သင်ဝယ်ယူထားသော ငွေဖြည့်ပမာဏ ${amount} အား ဖြည့်သွင်းပေးပြီးပါပြီ...`,
+            //   timestamp: new Date().toISOString(),
+            //   isRead: false,
+            // };
+            // addDocumentNonBlocking(collection(firestore, `users/${user.id}/notifications`), notificationData);
 
         } else {
             if (currentBalance < amount) {
